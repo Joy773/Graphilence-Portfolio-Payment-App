@@ -26,17 +26,39 @@ const WorkList = () => {
       tags: "Category 1 • Category 2 • Category 3",
       gradient: "from-blue-500 to-cyan-500"
     },
+    {
+      id: 4,
+      image: "/work-list/fourth.avif",
+      title: "Project Title",
+      tags: "Category 1 • Category 2 • Category 3",
+      gradient: "from-green-500 to-emerald-500"
+    },
+    {
+      id: 5,
+      image: "/work-list/fifth.avif",
+      title: "Project Title",
+      tags: "Category 1 • Category 2 • Category 3",
+      gradient: "from-orange-500 to-red-500"
+    },
+    {
+      id: 6,
+      image: "/work-list/sixth.avif",
+      title: "Project Title",
+      tags: "Category 1 • Category 2 • Category 3",
+      gradient: "from-indigo-500 to-purple-500"
+    },
   ];
 
   return (
     <div className="mt-20 lg:mt-32 mb-16">
       {/* Heading */}
+      <div className='w-1/2'>
       <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-12 lg:mb-16 leading-tight">
-        Turn your ideas into{" "}
+        <span className="text-midnight-monarch">Turn your ideas into</span>{" "}
         <span className="text-gray-600">impactful</span>{" "}
         <span className="text-midnight-monarch">solutions like them!</span>
       </h2>
-
+      </div>
       {/* Work Grid - 3 cards per row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         {workItems.map((item) => (
