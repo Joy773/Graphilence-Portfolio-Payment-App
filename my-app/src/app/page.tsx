@@ -3,6 +3,9 @@ import Navbar from "@/Components/Navbar";
 import LandingPage from "@/Components/LandingPage";
 import Campany from "@/Components/campany";
 import WorkList from "@/Components/WorkList";
+import Founders from "@/Components/Founders";
+import FAQ from "@/Components/FAQ";
+import Footer from "@/Components/Footer";
 
 export default function Home() {
   return (
@@ -11,6 +14,9 @@ export default function Home() {
       <LandingPage />
       <Campany /> 
       <WorkList />
+      <Founders />
+      <FAQ />
+      <Footer />
     </div>
   );
 }

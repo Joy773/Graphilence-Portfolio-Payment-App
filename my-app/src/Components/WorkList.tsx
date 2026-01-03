@@ -52,7 +52,7 @@ const WorkList = () => {
   return (
     <div className="mt-20 lg:mt-32 mb-16">
       {/* Heading */}
-      <div className='w-1/2'>
+      <div className='lg:w-1/2'>
       <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-12 lg:mb-16 leading-tight">
         <span className="text-midnight-monarch">Turn your ideas into</span>{" "}
         <span className="text-gray-600">impactful</span>{" "}
