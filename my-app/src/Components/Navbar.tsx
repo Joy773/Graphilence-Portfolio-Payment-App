@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 
 const Navbar = () => {
@@ -42,8 +42,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="pt-8 hidden md:block">
-      <div className="flex justify-between items-center w-full">
+    <div className="pt-8 md:pt-8 pl-0 pr-4 md:px-0">
+      <div className="flex justify-between items-center w-full gap-6 md:gap-0">
         <div>
           {/* Mobile Heading */}
           <h1 className="text-3xl font-bold tracking-wide cursor-pointer text-midnight-monarch md:hidden">
@@ -164,8 +164,7 @@ const Navbar = () => {
         {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button
-            className="text-white cursor-pointer rounded-full px-4 py-2 flex items-center gap-2 font-semibold whitespace-nowrap"
-            style={{ backgroundColor: '#6940F2' }}
+            className="text-white cursor-pointer rounded-lg px-4 py-2 flex items-center gap-2 font-semibold whitespace-nowrap bg-purplish-blue"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -200,14 +199,15 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <motion.div
-          className="md:hidden mt-6 pb-4"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.2 }}
-        >
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="md:hidden mt-6 pb-4"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+          >
           <ul className="flex flex-col gap-4 font-semibold">
             {["Home", "Services", "Work", "Pricing", "About", "Blog"].map((item, index) => (
               <li key={index} className="relative">
@@ -298,8 +298,9 @@ const Navbar = () => {
               }}
             />
           </motion.button>
-        </motion.div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

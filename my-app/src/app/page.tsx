@@ -6,6 +6,7 @@ import WorkList from "@/Components/WorkList";
 import Founders from "@/Components/Founders";
 import FAQ from "@/Components/FAQ";
 import Footer from "@/Components/Footer";
+import SendQuery from "@/Components/SendQuery";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <WorkList />
       <Founders />
       <FAQ />
+      <SendQuery />
       <Footer />
     </div>
   );
