@@ -9,6 +9,16 @@ const Navbar = () => {
   const text = "Graphilence";
   const letters = text.split("");
 
+  // Map item names to their routes
+  const routes: { [key: string]: string } = {
+    "Home": "/",
+    "Services": "/services",
+    "Work": "/work",
+    "Pricing": "/pricing",
+    "About": "/about",
+    "Blog": "/blog",
+  };
+
   const container = {
     rest: {
       transition: {
@@ -71,7 +81,7 @@ const Navbar = () => {
           <ul className="flex gap-8 font-semibold relative text-[18px]">
             {["Home", "Services", "Work", "Pricing", "About", "Blog"].map((item, index) => (
               <li key={index} className="relative">
-                <Link href="/">
+                <Link href={routes[item] || "/"}>
                   <motion.div
                     className="text-midnight-monarch cursor-pointer relative inline-block"
                     initial="rest"
@@ -211,7 +221,7 @@ const Navbar = () => {
           <ul className="flex flex-col gap-4 font-semibold">
             {["Home", "Services", "Work", "Pricing", "About", "Blog"].map((item, index) => (
               <li key={index} className="relative">
-                <Link href="/" onClick={() => setIsMenuOpen(false)}>
+                <Link href={routes[item] || "/"} onClick={() => setIsMenuOpen(false)}>
                   <motion.div
                     className="text-midnight-monarch cursor-pointer relative inline-block text-lg"
                     initial="rest"
