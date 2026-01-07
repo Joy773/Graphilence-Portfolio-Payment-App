@@ -4,7 +4,11 @@ import React from 'react';
 import { motion } from 'motion/react';
 import Image from 'next/image';
 
-const campany = () => {
+interface CampanyProps {
+  singleRow?: boolean;
+}
+
+const campany = ({ singleRow = false }: CampanyProps) => {
   // Company logos organized by rows - matching the design image
   const companies = [
     // Row 1: On Deck, Peel, Microsoft, The Motley Fool., daXtra, ARRIVE, river, grame/prameenphone
@@ -35,6 +39,59 @@ const campany = () => {
       { name: "CYBER AUTOMOTIVE SOLUTIONS", logo: "/company-logos/cas.avif" },
     ],
   ];
+
+  // If singleRow is true, combine all companies into one array
+  if (singleRow) {
+    // Flatten all companies from all rows and filter out those without logos
+    const allCompanies = companies.flat().filter(company => company.logo);
+    const duplicatedRow = [...allCompanies, ...allCompanies, ...allCompanies];
+
+    return (
+      <div className="mt-20 lg:mt-32 mb-16">
+        {/* Header */}
+        <h2 className="text-center text-sm lg:text-base font-semibold text-midnight-monarch uppercase tracking-wide mb-8 lg:mb-12">
+          TRUSTED BY 300+ GLOBAL BRANDS
+        </h2>
+
+        {/* Single Row - Continuous Scrolling from Left to Right */}
+        <div className="overflow-hidden w-full" style={{ position: 'relative', height: '48px' }}>
+          <motion.div
+            className="flex items-center gap-4 lg:gap-6 xl:gap-8"
+            style={{ 
+              width: 'max-content',
+              willChange: 'transform'
+            }}
+            animate={{
+              x: ['0%', '-33.333%'],
+            }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 30,
+                ease: "linear",
+              },
+            }}
+          >
+            {duplicatedRow.map((company, companyIndex) => (
+              <div
+                key={companyIndex}
+                className="flex items-center justify-center min-w-[80px] lg:min-w-[100px] h-10 lg:h-12 shrink-0"
+              >
+                <Image
+                  src={company.logo!}
+                  alt={company.name}
+                  width={100}
+                  height={40}
+                  className="object-contain w-auto h-full max-w-[120px]"
+                />
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-20 lg:mt-32 mb-16">
