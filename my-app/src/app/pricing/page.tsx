@@ -53,7 +53,7 @@ export default function Pricing() {
             <div className="block">Your on-demand design team,</div>
             <div className="block">for a flat monthly</div>
             <div className="block">fee</div>
-          </h1>
+        </h1>
 
           {/* Descriptive Paragraph */}
           <p className="text-gray-600 text-base md:text-lg max-w-2xl mb-2 md:mb-0 md:hidden">
