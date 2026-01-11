@@ -16,6 +16,7 @@ const aboutUsImages = {
     "/about-us/office_7.avif",
     "/about-us/office_8.avif",
     "/about-us/office_9.avif",
+    "/about-us/team.avif",
   ],
 };
 
@@ -70,19 +71,59 @@ const Page = () => {
             },
           }}
         >
-          {[...aboutUsImages.offices, ...aboutUsImages.offices].map((src, idx) => (
-            <div key={idx} className="shrink-0 w-[300px] md:w-[400px] h-[200px] md:h-[250px] overflow-hidden rounded-lg mx-2">
-              <Image
-                src={src}
-                alt={`Office ${(idx % aboutUsImages.offices.length) + 1}`}
-                width={400}
-                height={300}
-                className="w-full h-full object-cover"
-                sizes="300px"
-              />
-            </div>
-          ))}
+          {[...aboutUsImages.offices, ...aboutUsImages.offices].map(
+            (src, idx) => (
+              <div
+                key={idx}
+                className="shrink-0 w-[300px] md:w-[400px] h-[200px] md:h-[250px] overflow-hidden rounded-lg mx-2"
+              >
+                <Image
+                  src={src}
+                  alt={`Office ${(idx % aboutUsImages.offices.length) + 1}`}
+                  width={400}
+                  height={300}
+                  className="w-full h-full object-cover"
+                  sizes="300px"
+                />
+              </div>
+            )
+          )}
         </motion.div>
+      </div>
+      <div className="pt-20">
+        <div className="lg:w-[1400px]">
+          <p className="text-midnight-monarch lg:text-6xl text-3xl font-bold">
+            We unite brand, culture and experience to drive impact inside and
+            outside an organisation.
+          </p>
+        </div>
+        <hr className="border-midnight-monarch my-15" />
+      </div>
+      <div className="lg:grid lg:grid-cols-2 grid grid-cols-1 gap-8">
+        <div className="w-full lg:max-w-[637px] h-[300px] sm:h-[400px] lg:h-[560px] overflow-hidden">
+          <Image
+            src="/about-us/team.avif"
+            alt="Team"
+            width={637}
+            height={560}
+            className="w-full h-full object-cover"
+            sizes="(max-width: 768px) 100vw, 637px"
+            quality={95}
+          />
+        </div>
+        <div className="lg:mt-0 mt-8">
+          <p className="text-zinc-600 text-xl font-semibold">
+            Over the years, we&apos;ve propelled numerous businesses to thrive,
+            maintaining robust partnerships through our collaborative approach.
+          </p>
+          <p className="text-zinc-600 text-xl mt-5 font-semibold"> We are proud to help businesses grow and succeed in different
+            industries. From startups to established enterprises, our tailored
+            solutions have helped them conquer challenges, reach milestones, and
+            actualize their visions.</p>
+        </div>
+        <div>
+ 
+        </div>
       </div>
     </div>
   );
