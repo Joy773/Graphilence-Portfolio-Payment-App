@@ -1,8 +1,25 @@
+"use client";
+
 import React from "react";
 import Navbar from "@/Components/Navbar";
 import Image from "next/image";
+import { motion } from "motion/react";
 
-const page = () => {
+const aboutUsImages = {
+  offices: [
+    "/about-us/office_1.avif",
+    "/about-us/office_2.avif",
+    "/about-us/office_3.avif",
+    "/about-us/office_4.avif",
+    "/about-us/office_5.avif",
+    "/about-us/office_6.avif",
+    "/about-us/office_7.avif",
+    "/about-us/office_8.avif",
+    "/about-us/office_9.avif",
+  ],
+};
+
+const Page = () => {
   return (
     <div className="px-10 lg:px-20">
       <Navbar />
@@ -33,13 +50,42 @@ const page = () => {
             With years of experience in the field, we have honed our skills to
             become At our agency
           </p>
-          <button className="bg-purplish-blue text-white px-4 py-2 rounded-md cursor-pointer mt-10 mx-auto lg:mx-0 inline-block">
+          <button className="bg-purplish-blue text-white px-4 py-2 cursor-pointer mt-10 mx-auto lg:mx-0 inline-block rounded-full">
             Discover Our Work
           </button>
         </div>
+      </div>
+      <div className="bg-black -mx-10 lg:-mx-20 py-16 overflow-hidden">
+        <motion.div
+          className="flex w-fit"
+          animate={{
+            x: ["0%", "-50%"],
+          }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 30,
+              ease: "linear",
+            },
+          }}
+        >
+          {[...aboutUsImages.offices, ...aboutUsImages.offices].map((src, idx) => (
+            <div key={idx} className="shrink-0 w-[300px] md:w-[400px] h-[200px] md:h-[250px] overflow-hidden rounded-lg mx-2">
+              <Image
+                src={src}
+                alt={`Office ${(idx % aboutUsImages.offices.length) + 1}`}
+                width={400}
+                height={300}
+                className="w-full h-full object-cover"
+                sizes="300px"
+              />
+            </div>
+          ))}
+        </motion.div>
       </div>
     </div>
   );
 };
 
-export default page;
+export default Page;
