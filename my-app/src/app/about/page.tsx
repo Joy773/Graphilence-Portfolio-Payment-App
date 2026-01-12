@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import Navbar from "@/Components/Navbar";
 import Image from "next/image";
@@ -13,15 +12,6 @@ import { IoManSharp } from "react-icons/io5";
 import { MdManageAccounts } from "react-icons/md";
 import { FaLightbulb } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
-
-
-
-
-
-
-
-
-
 const aboutUsImages = {
   offices: [
     "/about-us/office_1.avif",
@@ -68,7 +58,7 @@ const Page = () => {
             With years of experience in the field, we have honed our skills to
             become At our agency
           </p>
-          <button className="bg-purplish-blue text-white px-4 py-2 cursor-pointer mt-10 mx-auto lg:mx-0 inline-block rounded-full">
+          <button className="bg-purplish-blue text-white px-4 py-2  mt-10 mx-auto lg:mx-0 inline-block rounded-full">
             Discover Our Work
           </button>
         </div>
@@ -120,17 +110,17 @@ const Page = () => {
       <div className="bg-gray-50 -mx-10 lg:-mx-20 px-10 lg:px-20 py-16">
         <div className="lg:grid lg:grid-cols-2 grid grid-cols-1 gap-8 lg:gap-12">
           {/* Left: Team Image */}
-          <div className="w-full lg:max-w-[637px] h-[300px] sm:h-[400px] lg:h-[560px] overflow-hidden">
-            <Image
-              src="/about-us/team.avif"
-              alt="Team"
-              width={637}
-              height={560}
-              className="w-full h-full object-cover"
-              sizes="(max-width: 768px) 100vw, 637px"
-              quality={95}
-            />
-          </div>
+        <div className="w-full lg:max-w-[637px] h-[300px] sm:h-[400px] lg:h-[560px] overflow-hidden">
+          <Image
+            src="/about-us/team.avif"
+            alt="Team"
+            width={637}
+            height={560}
+            className="w-full h-full object-cover"
+            sizes="(max-width: 768px) 100vw, 637px"
+            quality={95}
+          />
+        </div>
 
           {/* Right: Text and Statistics */}
           <div className="lg:mt-0 mt-8 flex flex-col">
@@ -206,7 +196,7 @@ const Page = () => {
       </div>
       </div>
       <div className="bg-black -mx-10 lg:-mx-20 px-10 lg:px-20 py-16 mt-25">
-        <h1 className="text-white text-4xl sm:text-4xl lg:text-6xl font-bold text-center">what makes us different from others</h1>
+        <h1 className="text-white text-4xl sm:text-4xl lg:text-6xl font-bold text-center py-10">what makes us different from others</h1>
         <div className="grid lg:grid-cols-2 grid-cols-1 mt-10 gap-10">
           <div className="bg-gray-900 border border-gray-800 p-8 rounded-lg">
             <GrServices className="text-purplish-blue text-4xl mb-5" />
@@ -238,6 +228,129 @@ const Page = () => {
             <h1 className="text-white text-4xl font-bold">Data-Driven Insights</h1>
             <p className="text-zinc-300 text-base mt-5">We use data to inform our decisions and drive results. We analyze market trends, user behavior, and performance metrics to make informed choices and optimize outcomes.</p>
           </div>
+        </div>
+      </div>
+
+      {/* Achieved/Awards Section with Animated Background */}
+      <div className="relative -mx-10 lg:-mx-20 px-10 lg:px-20 py-20 lg:py-32 overflow-hidden bg-gray-100">
+        {/* Animated Gradient Background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* First animated blob */}
+          <motion.div
+            className="absolute -top-1/4 -left-1/4 w-[800px] h-[800px] rounded-full blur-[120px] opacity-60"
+            style={{
+              background: 'radial-gradient(circle, rgba(147, 51, 234, 0.4), rgba(59, 130, 246, 0.4), rgba(236, 72, 153, 0.3), transparent)',
+            }}
+            animate={{
+              x: [0, 100, -50, 0],
+              y: [0, 80, 120, 0],
+              scale: [1, 1.2, 0.9, 1],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          
+          {/* Second animated blob */}
+          <motion.div
+            className="absolute -bottom-1/4 -right-1/4 w-[900px] h-[900px] rounded-full blur-[140px] opacity-50"
+            style={{
+              background: 'radial-gradient(circle, rgba(99, 102, 241, 0.4), rgba(14, 165, 233, 0.4), rgba(168, 85, 247, 0.3), transparent)',
+            }}
+            animate={{
+              x: [0, -120, 0],
+              y: [0, -80, 0],
+              scale: [1, 1.3, 1],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          
+          {/* Third animated blob */}
+          <motion.div
+            className="absolute w-[600px] h-[600px] rounded-full blur-[100px] opacity-40"
+            style={{
+              background: 'radial-gradient(ellipse, rgba(251, 191, 36, 0.3), rgba(251, 146, 60, 0.2), transparent)',
+              top: '50%',
+              left: '50%',
+            }}
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.2, 1],
+              x: ['-50%', '-40%', '-50%'],
+              y: ['-50%', '-40%', '-50%'],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </div>
+        
+        {/* Large "Achieved" title - Desktop only */}
+        <div className="relative z-10 mb-16 hidden lg:block">
+          <h1 className="text-7xl lg:text-[12rem] font-bold text-white">
+            Achieved
+          </h1>
+        </div>
+
+        {/* Combined "Achieved Awards" title - Mobile/Tablet only */}
+        <div className="relative z-10 mb-16 lg:hidden text-center">
+          <h1 className="text-6xl md:text-7xl font-bold text-white">
+            Achieved Awards
+          </h1>
+        </div>
+
+        {/* Awards Cards */}
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          {/* Behance Card */}
+          <div className="group bg-white hover:bg-black rounded-lg p-6 lg:p-8 shadow-lg transition-colors duration-300">
+            <div className="text-4xl lg:text-5xl font-bold text-midnight-monarch group-hover:text-white mb-4 transition-colors duration-300">Bē</div>
+            <h3 className="text-xl lg:text-2xl font-bold text-midnight-monarch group-hover:text-white mb-2 transition-colors duration-300">Behance</h3>
+            <p className="text-gray-600 group-hover:text-gray-300 text-sm lg:text-base transition-colors duration-300">2x Interaction Design awards</p>
+          </div>
+
+          {/* Clutch Card */}
+          <div className="group bg-white hover:bg-black rounded-lg p-6 lg:p-8 shadow-lg transition-colors duration-300 ">
+            <div className="text-4xl lg:text-5xl font-bold text-midnight-monarch group-hover:text-white mb-4 transition-colors duration-300">
+              <span className="inline-block w-16 h-16 rounded-full border-4 border-midnight-monarch group-hover:border-white flex items-center justify-center transition-colors duration-300">C</span>
+            </div>
+            <h3 className="text-xl lg:text-2xl font-bold text-midnight-monarch group-hover:text-white mb-2 transition-colors duration-300">Clutch</h3>
+            <p className="text-gray-600 group-hover:text-gray-300 text-sm lg:text-base transition-colors duration-300">Top B2B Service Provider and UX Design Agency</p>
+          </div>
+
+          {/* Dribbble Card */}
+          <div className="group bg-white hover:bg-black rounded-lg p-6 lg:p-8 shadow-lg transition-colors duration-300 ">
+            <div className="text-4xl lg:text-5xl font-bold text-midnight-monarch group-hover:text-white mb-4 transition-colors duration-300">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:text-white">
+                <circle cx="32" cy="32" r="28" stroke="currentColor" strokeWidth="3" fill="none"/>
+                <path d="M32 10 L42 32 L32 54 L22 32 Z" stroke="currentColor" strokeWidth="3" fill="none"/>
+                <circle cx="32" cy="32" r="8" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 className="text-xl lg:text-2xl font-bold text-midnight-monarch group-hover:text-white mb-2 transition-colors duration-300">Dribbble</h3>
+            <p className="text-gray-600 group-hover:text-gray-300 text-sm lg:text-base transition-colors duration-300">One of the best Design Agency</p>
+          </div>
+
+          {/* Upwork Card */}
+          <div className="group bg-white hover:bg-black rounded-lg p-6 lg:p-8 shadow-lg transition-colors duration-300 ">
+            <div className="text-4xl lg:text-5xl font-bold text-midnight-monarch group-hover:text-white mb-4 transition-colors duration-300" style={{ fontFamily: 'sans-serif', letterSpacing: '-2px' }}>up</div>
+            <h3 className="text-xl lg:text-2xl font-bold text-midnight-monarch group-hover:text-white mb-2 transition-colors duration-300">Upwork</h3>
+            <p className="text-gray-600 group-hover:text-gray-300 text-sm lg:text-base transition-colors duration-300">Top Rated Design Agency</p>
+          </div>
+        </div>
+ 
+        {/* Large "Awards" title at bottom - Desktop only */}
+        <div className="relative z-10 mt-16 text-right hidden lg:block">
+          <h1 className="text-7xl lg:text-[12rem] font-bold text-white">
+            Awards
+          </h1>
         </div>
       </div>
     </div>
