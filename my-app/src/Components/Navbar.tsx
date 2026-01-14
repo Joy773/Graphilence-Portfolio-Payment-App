@@ -52,8 +52,13 @@ const Navbar = () => {
   };
 
   return (
-    <div className="pt-8 md:pt-8 pl-0 pr-4 md:px-0">
-      <div className="flex justify-between items-center w-full gap-6 md:gap-0">
+    <div className="-mx-10 lg:-mx-20">
+      {/* Top Green Bar */}
+     
+      
+      {/* Main Navbar */}
+      <div className="bg-white pt-8 md:pt-8 pl-0 pr-4 md:px-0 pb-4 shadow-md px-10 lg:px-20 pb-7">
+        <div className="flex justify-between items-center w-full gap-6 md:gap-0">
         <div>
           {/* Mobile Heading */}
           <h1 className="text-3xl font-bold tracking-wide cursor-pointer text-midnight-monarch md:hidden">
@@ -311,6 +316,7 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
     </div>
   );
 };

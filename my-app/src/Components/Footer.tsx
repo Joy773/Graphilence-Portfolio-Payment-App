@@ -41,7 +41,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white text-midnight-monarch mt-20 lg:mt-32 border-t border-gray-300">
+    <footer className="bg-black text-white mt-20 lg:mt-32 border-t border-gray-800 -mx-10 lg:-mx-20">
       <div className="px-10 lg:px-20 py-12 lg:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left Side - Company Info and CTA */}
@@ -63,12 +63,12 @@ const Footer = () => {
             </div>
             
             {/* Company Description */}
-            <p className="text-gray-600 mb-6 text-sm lg:text-base leading-relaxed">
+            <p className="text-gray-400 mb-6 text-sm lg:text-base leading-relaxed">
               An Experience Design Agency focusing on building functional, simple, human-centered digital products for future.
             </p>
 
             {/* Contact Button */}
-            <button className="bg-purplish-blue hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-lg transition-colors w-full lg:w-auto">
+            <button className="bg-purplish-blue cursor-pointer text-white font-bold py-3 px-6 rounded-lg transition-colors w-full lg:w-auto">
               Contact us now
             </button>
           </div>
@@ -77,13 +77,13 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {/* SERVICES Section */}
             <div className="flex flex-col">
-              <h3 className="text-midnight-monarch font-bold text-sm uppercase mb-4 tracking-wide">
+              <h3 className="text-white font-bold text-sm uppercase mb-4 tracking-wide">
                 SERVICES
               </h3>
               <ul className="flex flex-col gap-2">
                 {services.map((service, index) => (
                   <li key={index}>
-                    <Link href="#" className="text-gray-600 hover:text-midnight-monarch text-sm transition-colors">
+                    <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
                       {service}
                     </Link>
                   </li>
@@ -93,13 +93,13 @@ const Footer = () => {
 
             {/* QUICK LINK Section */}
             <div className="flex flex-col">
-              <h3 className="text-midnight-monarch font-bold text-sm uppercase mb-4 tracking-wide">
+              <h3 className="text-white font-bold text-sm uppercase mb-4 tracking-wide">
                 QUICK LINK
               </h3>
               <ul className="flex flex-col gap-2">
                 {quickLinks.map((link, index) => (
                   <li key={index}>
-                    <Link href="#" className="text-gray-600 hover:text-midnight-monarch text-sm transition-colors">
+                    <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
                       {link}
                     </Link>
                   </li>
@@ -109,13 +109,13 @@ const Footer = () => {
 
             {/* REVIEW Section */}
             <div className="flex flex-col">
-              <h3 className="text-midnight-monarch font-bold text-sm uppercase mb-4 tracking-wide">
+              <h3 className="text-white font-bold text-sm uppercase mb-4 tracking-wide">
                 REVIEW
               </h3>
               <ul className="flex flex-col gap-2">
                 {reviews.map((review, index) => (
                   <li key={index}>
-                    <Link href="#" className="text-gray-600 hover:text-midnight-monarch text-sm transition-colors">
+                    <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
                       {review}
                     </Link>
                   </li>
@@ -127,7 +127,7 @@ const Footer = () => {
       </div>
 
       {/* Office Locations Section */}
-      <div className="bg-white text-midnight-monarch px-10 lg:px-20 py-12 lg:py-16">
+      <div className="bg-black text-white px-10 lg:px-20 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8 lg:gap-6">
           {[
             {
@@ -168,17 +168,17 @@ const Footer = () => {
               </div>
               
               {/* City Name */}
-              <h3 className="text-xl lg:text-2xl font-bold mb-2 text-midnight-monarch">
+              <h3 className="text-xl lg:text-2xl font-bold mb-2 text-white">
                 {office.city}
               </h3>
               
               {/* Address */}
-              <p className="text-gray-600 text-sm mb-2 leading-relaxed">
+              <p className="text-gray-400 text-sm mb-2 leading-relaxed">
                 {office.address}
               </p>
               
               {/* Phone */}
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-400 text-sm">
                 {office.phone}
               </p>
             </div>
@@ -187,23 +187,23 @@ const Footer = () => {
       </div>
 
       {/* Footer Bar */}
-      <div className="bg-white text-midnight-monarch px-10 lg:px-20 py-6 border-t border-gray-200">
+      <div className="bg-black text-white px-10 lg:px-20 py-6 border-t border-gray-800">
         <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
           {/* Company Deck */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-purplish-blue rounded-full flex items-center justify-center cursor-pointer">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8 4V12M4 8L8 12L12 8" stroke="#1A1436" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
             <div>
-              <p className="text-midnight-monarch font-medium">Company Deck</p>
-              <p className="text-gray-600 text-xs">PDF, 3 MB</p>
+              <p className="text-white font-medium">Company Deck</p>
+              <p className="text-gray-400 text-xs">PDF, 3 MB</p>
             </div>
           </div>
 
           {/* Copyright */}
-          <div className="text-gray-600 text-sm text-center">
+          <div className="text-gray-400 text-sm text-center">
             © 2021-2025, Musemind Agency | All Rights Reserved.
           </div>
 
@@ -219,10 +219,10 @@ const Footer = () => {
               <Link
                 key={index}
                 href="#"
-                className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors"
                 aria-label={social.name}
               >
-                <span className="text-midnight-monarch text-sm font-semibold">{social.icon}</span>
+                <span className="text-white text-sm font-semibold">{social.icon}</span>
               </Link>
             ))}
           </div>

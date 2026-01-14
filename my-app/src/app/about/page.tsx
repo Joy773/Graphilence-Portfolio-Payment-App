@@ -12,6 +12,7 @@ import { IoManSharp } from "react-icons/io5";
 import { MdManageAccounts } from "react-icons/md";
 import { FaLightbulb } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
+import Footer from "@/Components/Footer";
 const aboutUsImages = {
   offices: [
     "/about-us/office_1.avif",
@@ -26,6 +27,41 @@ const aboutUsImages = {
     "/about-us/team.avif",
   ],
 };
+
+const teamMembers = {
+  team: [
+    {
+      image: "/founder & employee/emp-1.webp",
+      name: "Alexandra Chen",
+      designation: "Founder & CEO"
+    },
+    {
+      image: "/founder & employee/emp-2.webp",
+      name: "Marcus Rodriguez",
+      designation: "Co-Founder & CTO"
+    },
+    {
+      image: "/founder & employee/emp-3.webp",
+      name: "Sarah Johnson",
+      designation: "VP of Design"
+    },
+    {
+      image: "/founder & employee/emp-4.webp",
+      name: "David Kim",
+      designation: "Head of Product"
+    },
+    {
+      image: "/founder & employee/emp-5.webp",
+      name: "Emma Williams",
+      designation: "Lead UX Designer"
+    },
+    {
+      image: "/founder & employee/emp-6.webp",
+      name: "James Anderson",
+      designation: "Creative Director"
+    },
+  ]
+}
 
 const Page = () => {
   return (
@@ -58,7 +94,7 @@ const Page = () => {
             With years of experience in the field, we have honed our skills to
             become At our agency
           </p>
-          <button className="bg-purplish-blue text-white px-4 py-2  mt-10 mx-auto lg:mx-0 inline-block rounded-full">
+          <button className="bg-purplish-blue text-white px-4 py-2 cursor-pointer  mt-10 mx-auto lg:mx-0 inline-block rounded-full">
             Discover Our Work
           </button>
         </div>
@@ -98,8 +134,8 @@ const Page = () => {
         </motion.div>
       </div>
       <div className="pt-20">
-        <div className="lg:w-[1400px]">
-          <p className="text-midnight-monarch lg:text-6xl text-3xl font-bold">
+        <div className="max-w-[1400px] mx-auto px-4">
+          <p className="text-midnight-monarch lg:text-6xl text-3xl font-bold text-center">
             We unite brand, culture and experience to drive impact inside and
             outside an organisation.
           </p>
@@ -110,17 +146,17 @@ const Page = () => {
       <div className="bg-gray-50 -mx-10 lg:-mx-20 px-10 lg:px-20 py-16">
         <div className="lg:grid lg:grid-cols-2 grid grid-cols-1 gap-8 lg:gap-12">
           {/* Left: Team Image */}
-        <div className="w-full lg:max-w-[637px] h-[300px] sm:h-[400px] lg:h-[560px] overflow-hidden">
-          <Image
-            src="/about-us/team.avif"
-            alt="Team"
-            width={637}
-            height={560}
-            className="w-full h-full object-cover"
-            sizes="(max-width: 768px) 100vw, 637px"
-            quality={95}
-          />
-        </div>
+          <div className="w-full lg:max-w-[637px] h-[300px] sm:h-[400px] lg:h-[560px] overflow-hidden">
+            <Image
+              src="/about-us/team.avif"
+              alt="Team"
+              width={637}
+              height={560}
+              className="w-full h-full object-cover"
+              sizes="(max-width: 768px) 100vw, 637px"
+              quality={95}
+            />
+          </div>
 
           {/* Right: Text and Statistics */}
           <div className="lg:mt-0 mt-8 flex flex-col">
@@ -129,7 +165,7 @@ const Page = () => {
               We Are Proud To Help Businesses Grow And Succeed In Different Industries. From Startups To Established Enterprises, Our Tailored Solutions Have Helped Them Conquer Challenges, Reach Milestones, And Actualize Their Visions.
             </p>
 
-           
+
 
             {/* Statistics Section */}
             <div className="space-y-8">
@@ -174,26 +210,26 @@ const Page = () => {
         <h1 className="text-4xl sm:text-4xl lg:text-6xl font-bold text-midnight-monarch text-center">Value that sets us apart</h1>
       </div>
       <div className="grid lg:grid-cols-2 grid-cols-1 mt-10 gap-10">
-      <div className="bg-gray-50 p-10 rounded-lg">
-        <IoManSharp className="text-purplish-blue text-4xl mb-5" />
-        <h1 className="text-4xl font-bold text-midnight-monarch">Transparent Communication</h1>
-        <p className="mt-5">We prioritize open dialogue, ensuring clients are informed at every turn. Our clear communication fosters trust and alignment, enriching collaboration.</p>
-      </div>
-      <div className="bg-gray-50 p-10 rounded-lg">
-        <MdManageAccounts className="text-purplish-blue text-4xl mb-5" />
-        <h1 className="text-4xl font-bold text-midnight-monarch">Precision Management</h1>
-        <p className="mt-5">Our meticulous approach ensures every detail is accounted for, from strategy to execution. We optimize processes and deliver results that exceed expectations.</p>
-      </div>
-      <div className="bg-gray-50 p-10 rounded-lg">
-        <FaLightbulb className="text-purplish-blue text-4xl mb-5" />
-        <h1 className="text-4xl font-bold text-midnight-monarch">Meticulous Approach</h1>
-        <p className="mt-5">We take a meticulous approach, ensuring every detail is accounted for. From strategy to execution, we optimize processes and deliver results that exceed expectations.</p>
-      </div>
-      <div className="bg-gray-50 p-10 rounded-lg">
-        <FaStar className="text-purplish-blue text-4xl mb-5" />
-        <h1 className="text-4xl font-bold text-midnight-monarch">Innovative Solutions</h1>
-        <p className="mt-5">We are always looking for new and innovative solutions to help our clients achieve their goals. We are not afraid to think outside the box and come up with new ideas.</p>
-      </div>
+        <div className="bg-gray-50 p-10 rounded-lg">
+          <IoManSharp className="text-purplish-blue text-4xl mb-5" />
+          <h1 className="text-4xl font-bold text-midnight-monarch">Transparent Communication</h1>
+          <p className="mt-5">We prioritize open dialogue, ensuring clients are informed at every turn. Our clear communication fosters trust and alignment, enriching collaboration.</p>
+        </div>
+        <div className="bg-gray-50 p-10 rounded-lg">
+          <MdManageAccounts className="text-purplish-blue text-4xl mb-5" />
+          <h1 className="text-4xl font-bold text-midnight-monarch">Precision Management</h1>
+          <p className="mt-5">Our meticulous approach ensures every detail is accounted for, from strategy to execution. We optimize processes and deliver results that exceed expectations.</p>
+        </div>
+        <div className="bg-gray-50 p-10 rounded-lg">
+          <FaLightbulb className="text-purplish-blue text-4xl mb-5" />
+          <h1 className="text-4xl font-bold text-midnight-monarch">Meticulous Approach</h1>
+          <p className="mt-5">We take a meticulous approach, ensuring every detail is accounted for. From strategy to execution, we optimize processes and deliver results that exceed expectations.</p>
+        </div>
+        <div className="bg-gray-50 p-10 rounded-lg">
+          <FaStar className="text-purplish-blue text-4xl mb-5" />
+          <h1 className="text-4xl font-bold text-midnight-monarch">Innovative Solutions</h1>
+          <p className="mt-5">We are always looking for new and innovative solutions to help our clients achieve their goals. We are not afraid to think outside the box and come up with new ideas.</p>
+        </div>
       </div>
       <div className="bg-black -mx-10 lg:-mx-20 px-10 lg:px-20 py-16 mt-25">
         <h1 className="text-white text-4xl sm:text-4xl lg:text-6xl font-bold text-center py-10">what makes us different from others</h1>
@@ -252,7 +288,7 @@ const Page = () => {
               ease: "easeInOut",
             }}
           />
-          
+
           {/* Second animated blob */}
           <motion.div
             className="absolute -bottom-1/4 -right-1/4 w-[900px] h-[900px] rounded-full blur-[140px] opacity-50"
@@ -270,7 +306,7 @@ const Page = () => {
               ease: "easeInOut",
             }}
           />
-          
+
           {/* Third animated blob */}
           <motion.div
             className="absolute w-[600px] h-[600px] rounded-full blur-[100px] opacity-40"
@@ -292,7 +328,7 @@ const Page = () => {
             }}
           />
         </div>
-        
+
         {/* Large "Achieved" title - Desktop only */}
         <div className="relative z-10 mb-16 hidden lg:block">
           <h1 className="text-7xl lg:text-[12rem] font-bold text-white">
@@ -329,9 +365,9 @@ const Page = () => {
           <div className="group bg-white hover:bg-black rounded-lg p-6 lg:p-8 shadow-lg transition-colors duration-300 ">
             <div className="text-4xl lg:text-5xl font-bold text-midnight-monarch group-hover:text-white mb-4 transition-colors duration-300">
               <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:text-white">
-                <circle cx="32" cy="32" r="28" stroke="currentColor" strokeWidth="3" fill="none"/>
-                <path d="M32 10 L42 32 L32 54 L22 32 Z" stroke="currentColor" strokeWidth="3" fill="none"/>
-                <circle cx="32" cy="32" r="8" fill="currentColor"/>
+                <circle cx="32" cy="32" r="28" stroke="currentColor" strokeWidth="3" fill="none" />
+                <path d="M32 10 L42 32 L32 54 L22 32 Z" stroke="currentColor" strokeWidth="3" fill="none" />
+                <circle cx="32" cy="32" r="8" fill="currentColor" />
               </svg>
             </div>
             <h3 className="text-xl lg:text-2xl font-bold text-midnight-monarch group-hover:text-white mb-2 transition-colors duration-300">Dribbble</h3>
@@ -345,7 +381,7 @@ const Page = () => {
             <p className="text-gray-600 group-hover:text-gray-300 text-sm lg:text-base transition-colors duration-300">Top Rated Design Agency</p>
           </div>
         </div>
- 
+
         {/* Large "Awards" title at bottom - Desktop only */}
         <div className="relative z-10 mt-16 text-right hidden lg:block">
           <h1 className="text-7xl lg:text-[12rem] font-bold text-white">
@@ -353,6 +389,38 @@ const Page = () => {
           </h1>
         </div>
       </div>
+      <div className="mt-20">
+        <h1 className="text-2xl font-bold text-midnight-monarch mb-8">Founder & Executive</h1>
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 lg:gap-8">
+          {teamMembers.team.map((member, index) => (
+            <div key={index} className="flex flex-col">
+              <div className="relative w-full aspect-square overflow-hidden rounded-lg mb-4">
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+              <h3 className="text-lg lg:text-xl font-bold text-midnight-monarch mb-1">
+                {member.name}
+              </h3>
+              <p className="text-sm lg:text-base text-gray-600">
+                {member.designation}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* <div className="mt-20 bg-gray-50 -mx-10 lg:-mx-20 px-10 lg:px-20 py-16">
+        <h1 className="text-4xl font-bold text-midnight-monarch text-center">Grow, create, and lead with Musemind</h1>
+        <p className="text-gray-600 text-center mt-5 font-semibold">Choose Musemind to embrace your skills and passion. We are your growth partner, encouraging creativity and individual development while creating excellent user experiences in a fast-paced, collaborative atmosphere.</p>
+        <div className="flex justify-center mt-5">
+          <button className="bg-midnight-monarch hover:bg-purplish-blue text-white px-4 py-2 rounded-full">Join us</button>
+        </div>
+      </div> */}
+      <Footer />
     </div>
   );
 };
