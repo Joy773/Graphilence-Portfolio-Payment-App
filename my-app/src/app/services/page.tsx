@@ -11,7 +11,7 @@ export default function Services() {
     <div className="px-10 lg:px-20">
       <Navbar />
       {/* Hero Banner Section */}
-      <div className="mb-20 -mt-4">
+      <div className="mb-20 mt-4">
         <div className="bg-white rounded-2xl p-6 md:p-8 lg:p-12 overflow-hidden">
           <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8 lg:gap-12">
             {/* Left Side - Text Content */}

@@ -279,11 +279,114 @@ export default function WorkDetail() {
             </div>
 
             {/* About The Project Section */}
-            <div className="max-w-4xl">
-              <p className="text-lg text-gray-600 leading-relaxed">
-                <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch block mb-4">About The Project</span>
+            <div className="max-w-4xl mb-12">
+                <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch block mb-4">About The Project</p>
                 This project represents a comprehensive design solution that combines innovative user experience design with modern web technologies. Our team worked closely with the client to understand their vision and translate it into a functional, beautiful, and user-friendly digital experience. 
+            </div>
+
+            {/* Objectives Section */}
+            <div className="max-w-4xl">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch mb-4">Objectives</h1>
+              <p className="text-lg text-gray-600 leading-relaxed">The client wanted a website for Recharge IV that makes booking door-to-door drip therapies effortless. They emphasized the importance of keeping the design consistent even when adding new drip and wellness products.</p>
+            </div>
+{/* Requirements Section */}
+            <div className="max-w-4xl mt-12">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch mb-4">Requirements</h2>
+              <p className="text-lg text-gray-600 leading-relaxed">The drip booking should be straightforward and swift, avoiding unnecessary steps for users. Additionally, they want the ability to update the site with new content easily, minimizing the need for frequent designer involvement.</p>
+            </div>
+
+            {/* Styled Guide Section */}
+            <div className="max-w-4xl mt-12">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch mb-4">Styled Guide</h2>
+              <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                The style guide establishes a cohesive visual identity for the project, ensuring consistency across all design elements. It defines typography scales, color palettes, spacing systems, and component specifications that guide the overall aesthetic and user experience.
               </p>
+              
+              {/* Style Guide Images */}
+              <div className="grid grid-cols-1 md:grid-cols-2 mt-6 gap-6">
+                <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full aspect-[450/430]">
+                  <Image
+                    src="/work-list/first.avif"
+                    alt="Style Guide Example 1"
+                    fill
+                    className="object-cover rounded-2xl"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full aspect-[450/430]">
+                  <Image
+                    src="/work-list/second.avif"
+                    alt="Style Guide Example 2"
+                    fill
+                    className="object-cover rounded-2xl"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Icons and Illustrations Section */}
+            <div className="max-w-4xl mt-12">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch mb-4">Icons and illustrations</h2>
+              <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                The icons and illustrations used throughout the project are carefully crafted to maintain visual consistency and enhance user understanding. Each icon follows a unified design language, while illustrations serve to communicate complex concepts in an accessible and engaging manner.
+              </p>
+              
+              {/* Icons and Illustrations Images */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full aspect-square">
+                  <Image
+                    src="/work-list/third.avif"
+                    alt="Icons and Illustrations Example 1"
+                    fill
+                    className="object-cover rounded-2xl"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full aspect-square">
+                  <Image
+                    src="/work-list/fourth.avif"
+                    alt="Icons and Illustrations Example 2"
+                    fill
+                    className="object-cover rounded-2xl"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full aspect-square">
+                  <Image
+                    src="/work-list/fifth.avif"
+                    alt="Icons and Illustrations Example 3"
+                    fill
+                    className="object-cover rounded-2xl"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Responsiveness Section */}
+            <div className="max-w-4xl mt-12">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch mb-4">Responsiveness</h2>
+              <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                The design has been carefully optimized for all device sizes, ensuring a seamless user experience across desktop, tablet, and mobile devices. The responsive layout adapts fluidly to different screen dimensions, maintaining visual hierarchy and functionality across all breakpoints.
+              </p>
+              
+              {/* Responsiveness Image */}
+              <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full aspect-video mt-6">
+                <Image
+                  src="/work-list/sixth.avif"
+                  alt="Responsiveness Example"
+                  fill
+                  className="object-cover rounded-2xl"
+                  sizes="(max-width: 768px) 100vw, 100vw"
+                  loading="lazy"
+                />
+              </div>
             </div>
           </div>
         </div>
