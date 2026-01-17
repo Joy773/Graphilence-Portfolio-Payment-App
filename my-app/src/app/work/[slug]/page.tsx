@@ -260,7 +260,7 @@ export default function WorkDetail() {
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-monarch mb-4">
                 {project.title}
               </h1>
-              <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+              <p className="text-lg md:text-xl text-gray-600 leading-relaxed md:hidden">
                 {project.description}
               </p>
             </div>
@@ -304,7 +304,7 @@ export default function WorkDetail() {
               
               {/* Style Guide Images */}
               <div className="grid grid-cols-1 md:grid-cols-2 mt-6 gap-6">
-                <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full aspect-[450/430]">
+                <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full h-[500px] md:aspect-[450/430]">
                   <Image
                     src="/work-list/first.avif"
                     alt="Style Guide Example 1"
@@ -314,7 +314,7 @@ export default function WorkDetail() {
                     loading="lazy"
                   />
                 </div>
-                <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full aspect-[450/430]">
+                <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full h-[500px] md:aspect-[450/430]">
                   <Image
                     src="/work-list/second.avif"
                     alt="Style Guide Example 2"

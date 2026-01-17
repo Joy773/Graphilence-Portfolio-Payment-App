@@ -5,6 +5,72 @@ import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import Campany from "@/Components/campany";
 import Image from "next/image";
+import { FaStar } from "react-icons/fa";
+import { motion } from "motion/react";
+
+// Testimonials data
+const testimonials = [
+  {
+    company: "TechCorp",
+    comment: "Outstanding design work that completely transformed our digital presence and user engagement. The team's attention to detail and innovative approach resulted in a significant increase in user satisfaction. Highly recommend their services!",
+    name: "John Smith",
+    position: "CEO"
+  },
+  {
+    company: "InnovateLabs",
+    comment: "The team delivered exceptional UX/UI designs that far exceeded our expectations. Their user-centered approach helped us create products that our customers truly love. The collaboration was smooth and the results speak for themselves.",
+    name: "Sarah Johnson",
+    position: "Product Manager"
+  },
+  {
+    company: "StartupHub",
+    comment: "Professional service and innovative solutions that helped us scale quickly and effectively. Their expertise in design systems and user experience made a tremendous difference in our product development journey. Truly exceptional work!",
+    name: "Michael Chen",
+    position: "Founder"
+  },
+  {
+    company: "DesignCo",
+    comment: "Their attention to detail and user-centered approach made all the difference in our project. The designs are not only beautiful but also highly functional, resulting in improved user engagement and business metrics. Exceptional work from start to finish.",
+    name: "Emily Davis",
+    position: "Design Director"
+  },
+  {
+    company: "Digital Solutions",
+    comment: "Fast, efficient, and incredibly creative. They understood our vision perfectly and brought it to life in ways we hadn't even imagined. The design quality and user experience improvements have been remarkable, and our users have taken notice.",
+    name: "David Wilson",
+    position: "CTO"
+  },
+  {
+    company: "Creative Agency",
+    comment: "Best investment we made this year. The design quality is top-notch, and the team's professionalism is unmatched. They helped us create a digital experience that truly represents our brand and connects with our audience on a deeper level.",
+    name: "Lisa Anderson",
+    position: "Marketing Head"
+  },
+  {
+    company: "TechVentures",
+    comment: "Excellent collaboration and outstanding results. Our users absolutely love the new interface, and we've seen a significant improvement in key metrics. The team's expertise in UX design and their ability to understand our business needs is truly impressive.",
+    name: "Robert Taylor",
+    position: "VP of Product"
+  },
+  {
+    company: "Innovation Labs",
+    comment: "They transformed our complex product into an intuitive and user-friendly experience. The design process was smooth, and the final result exceeded all our expectations. Our user feedback has been overwhelmingly positive, and engagement has increased substantially.",
+    name: "Jennifer Martinez",
+    position: "Product Lead"
+  },
+  {
+    company: "FutureTech",
+    comment: "Outstanding work from start to finish. The team is highly professional, responsive, and truly understands how to create designs that drive business results. The attention to detail and commitment to excellence is evident in every aspect of their work.",
+    name: "James Brown",
+    position: "Operations Manager"
+  },
+  {
+    company: "NextGen Solutions",
+    comment: "The designs are beautiful, functional, and exactly what we needed to elevate our brand. The team's creative approach combined with their technical expertise resulted in an excellent digital experience.",
+    name: "Amanda White",
+    position: "Founder & CEO"
+  }
+];
 
 export default function Services() {
   return (
@@ -256,7 +322,7 @@ export default function Services() {
               viewBox="0 0 20 20"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-            > 
+            >
               <path
                 d="M5 15L15 5M15 5H5M15 5V15"
                 stroke="currentColor"
@@ -271,45 +337,45 @@ export default function Services() {
         {/* Six Images Grid - 3 per row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-12">
           {[
-            { 
-              src: "/work-list/first.avif", 
+            {
+              src: "/work-list/first.avif",
               alt: "Work 1",
               title: "E-Commerce & DTC",
               description: "Our approach of making things simpler and more effective helps users go from browsing to checkout in a few simple steps"
             },
-            { 
-              src: "/work-list/second.avif", 
+            {
+              src: "/work-list/second.avif",
               alt: "Work 2",
               title: "Finance & Fintech",
               description: "Building secure and user-friendly financial solutions that empower users to manage their finances effortlessly"
             },
-            { 
-              src: "/work-list/third.avif", 
+            {
+              src: "/work-list/third.avif",
               alt: "Work 3",
               title: "SaaS & B2B Platforms",
               description: "Creating powerful business solutions that streamline operations and enhance productivity for teams worldwide"
             },
-            { 
-              src: "/work-list/fourth.avif", 
+            {
+              src: "/work-list/fourth.avif",
               alt: "Work 4",
               title: "Healthcare & Wellness",
               description: "Designing intuitive health platforms that connect patients with care providers seamlessly"
             },
-            { 
-              src: "/work-list/fifth.avif", 
+            {
+              src: "/work-list/fifth.avif",
               alt: "Work 5",
               title: "Education & E-Learning",
               description: "Transforming learning experiences with engaging and accessible educational platforms"
             },
-            { 
-              src: "/work-list/sixth.avif", 
+            {
+              src: "/work-list/sixth.avif",
               alt: "Work 6",
               title: "Travel & Hospitality",
               description: "Crafting memorable travel experiences through beautiful and functional booking platforms"
             },
           ].map((image, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="relative w-full aspect-square rounded-lg overflow-hidden group cursor-pointer"
             >
               <div className="relative w-full h-full">
@@ -377,17 +443,17 @@ export default function Services() {
             <div className="mb-20">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Rocket body - red */}
-                <path d="M24 32L20 20L24 8L28 20L24 32Z" fill="#FF6B6B"/>
+                <path d="M24 32L20 20L24 8L28 20L24 32Z" fill="#FF6B6B" />
                 {/* Rocket tip - blue */}
-                <path d="M24 8L22 14L24 16L26 14L24 8Z" fill="#3B82F6"/>
+                <path d="M24 8L22 14L24 16L26 14L24 8Z" fill="#3B82F6" />
                 {/* Rocket window - blue */}
-                <circle cx="24" cy="20" r="3" fill="#3B82F6"/>
+                <circle cx="24" cy="20" r="3" fill="#3B82F6" />
                 {/* Rocket fins - yellow */}
-                <path d="M20 20L16 24L20 28L20 20Z" fill="#FFB800"/>
-                <path d="M28 20L32 24L28 28L28 20Z" fill="#FFB800"/>
+                <path d="M20 20L16 24L20 28L20 20Z" fill="#FFB800" />
+                <path d="M28 20L32 24L28 28L28 20Z" fill="#FFB800" />
                 {/* Flame - yellow/orange */}
-                <path d="M24 32L22 36L24 38L26 36L24 32Z" fill="#FFB800"/>
-                <path d="M24 32L21 35L24 37L27 35L24 32Z" fill="#FF6B6B"/>
+                <path d="M24 32L22 36L24 38L26 36L24 32Z" fill="#FFB800" />
+                <path d="M24 32L21 35L24 37L27 35L24 32Z" fill="#FF6B6B" />
               </svg>
             </div>
             <h3 className="text-xl md:text-2xl font-bold text-midnight-monarch mb-3">
@@ -416,7 +482,7 @@ export default function Services() {
           <div className="bg-white rounded-xl p-6 shadow-sm">
             <div className="mb-20">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="10" y="8" width="28" height="32" rx="2" fill="#3B82F6"/>
+                <rect x="10" y="8" width="28" height="32" rx="2" fill="#3B82F6" />
                 <text x="24" y="28" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold" fontFamily="monospace">&lt;/&gt;</text>
               </svg>
             </div>
@@ -447,14 +513,14 @@ export default function Services() {
             <div className="mb-20">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Monitor screen - blue */}
-                <rect x="8" y="10" width="32" height="24" rx="2" fill="#3B82F6"/>
+                <rect x="8" y="10" width="32" height="24" rx="2" fill="#3B82F6" />
                 {/* Screen content - darker blue */}
-                <rect x="12" y="14" width="24" height="16" rx="1" fill="#1E40AF"/>
+                <rect x="12" y="14" width="24" height="16" rx="1" fill="#1E40AF" />
                 {/* UX text - white */}
                 <text x="24" y="26" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">UX</text>
                 {/* Monitor stand */}
-                <rect x="20" y="34" width="8" height="2" rx="1" fill="#3B82F6"/>
-                <rect x="18" y="36" width="12" height="2" rx="1" fill="#3B82F6"/>
+                <rect x="20" y="34" width="8" height="2" rx="1" fill="#3B82F6" />
+                <rect x="18" y="36" width="12" height="2" rx="1" fill="#3B82F6" />
               </svg>
             </div>
             <h3 className="text-xl md:text-2xl font-bold text-midnight-monarch mb-3">
@@ -492,6 +558,97 @@ export default function Services() {
             guarantee next success is yours!
           </p>
         </div>
+      </div>
+
+      <div className="overflow-hidden w-full">
+        <motion.div
+          className="flex gap-6"
+          style={{
+            width: 'max-content',
+            willChange: 'transform'
+          }}
+          animate={{
+            x: ['0%', '-50%'],
+          }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 50,
+              ease: "linear",
+            },
+          }}
+        >
+          {/* First set: Rating Card + Testimonials */}
+          <>
+            {/* Rating Card */}
+            <div className="border border-gray-200 rounded-lg p-6 h-[460px] w-[400px] flex flex-col items-center justify-center text-center shrink-0">
+              <h1 className="text-8xl font-bold text-midnight-monarch">4.8</h1>
+              <div className="flex gap-1 mt-2 justify-center">
+                <FaStar className="text-yellow-500" />
+                <FaStar className="text-yellow-500" />
+                <FaStar className="text-yellow-500" />
+                <FaStar className="text-yellow-500" />
+              </div>
+              <p className="text-gray-500 font-bold">200+ Reviews</p>
+            </div>
+            
+            {/* Testimonials */}
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="border border-gray-200 rounded-lg p-6 h-[460px] w-[400px] flex flex-col shrink-0">
+                <p className="text-gray-400 text-md font-semibold mb-4">
+                  {testimonial.company}
+                </p>
+                <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6 flex-1">
+                  "{testimonial.comment}"
+                </p>
+                <div className="mt-auto">
+                  <p className="text-midnight-monarch font-bold text-lg mb-1">
+                    {testimonial.name}
+                  </p>
+                  <p className="text-gray-500 text-sm">
+                    {testimonial.position}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </>
+
+          {/* Second set: Duplicate for seamless loop */}
+          <>
+            {/* Rating Card */}
+            <div className="border border-gray-200 rounded-lg p-6 h-[460px] w-[400px] flex flex-col items-center justify-center text-center shrink-0">
+              <h1 className="text-8xl font-bold text-midnight-monarch">4.8</h1>
+              <div className="flex gap-1 mt-2 justify-center">
+                <FaStar className="text-yellow-500" />
+                <FaStar className="text-yellow-500" />
+                <FaStar className="text-yellow-500" />
+                <FaStar className="text-yellow-500" />
+              </div>
+              <p className="text-gray-500 font-bold">200+ Reviews</p>
+            </div>
+            
+            {/* Testimonials */}
+            {testimonials.map((testimonial, index) => (
+              <div key={`duplicate-${index}`} className="border border-gray-200 rounded-lg p-6 h-[460px] w-[400px] flex flex-col shrink-0">
+                <p className="text-gray-400 text-md font-semibold mb-4">
+                  {testimonial.company}
+                </p>
+                <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6 flex-1">
+                  "{testimonial.comment}"
+                </p>
+                <div className="mt-auto">
+                  <p className="text-midnight-monarch font-bold text-lg mb-1">
+                    {testimonial.name}
+                  </p>
+                  <p className="text-gray-500 text-sm">
+                    {testimonial.position}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </>
+        </motion.div>
       </div>
 
       <Footer />
