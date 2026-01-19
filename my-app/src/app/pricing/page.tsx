@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import Image from "next/image";
+import RevealOnScroll from "@/Components/RevealOnScroll";
 
 export default function Pricing() {
   const [billingPeriod, setBillingPeriod] = useState<
@@ -24,7 +25,8 @@ export default function Pricing() {
       <Navbar />
 
       {/* Hero Banner Section */}
-      <div className="mt-20 mb-4">
+      <RevealOnScroll>
+        <div className="mt-20 mb-4">
         <div className="bg-white rounded-2xl p-4 md:p-6 lg:p-8 text-center">
           {/* Clutch Rating Badge */}
           <div className="flex items-center justify-center gap-2 mb-3 md:mb-4">
@@ -62,9 +64,11 @@ export default function Pricing() {
           </p>
         </div>
       </div>
+      </RevealOnScroll>
 
       {/* Trusted by Brands & Pricing Toggle Section */}
-      <div className="mb-20 -mt-2 md:mt-0">
+      <RevealOnScroll delay={0.1}>
+        <div className="mb-20 -mt-2 md:mt-0">
         <div className="bg-white rounded-2xl p-4 md:p-6 lg:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center">
             {/* Trusted by Brands Section - Left Side */}
@@ -142,10 +146,12 @@ export default function Pricing() {
           </div>
         </div>
       </div>
+      </RevealOnScroll>
 
       {/* Pricing Cards Section */}
-      <div className="mb-20 bg-white py-12 px-4 md:px-8 lg:px-12 rounded-2xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      <RevealOnScroll delay={0.1}>
+        <div className="mb-20 bg-white py-12 px-4 md:px-8 lg:px-12 rounded-2xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Starter Plan */}
           <div className="bg-white border border-gray-200 rounded-2xl p-6 lg:p-8 flex flex-col">
             <h3 className="text-3xl font-bold text-midnight-monarch mb-3">Starter</h3>
@@ -349,9 +355,11 @@ export default function Pricing() {
           </div>
         </div>
       </div>
+      </RevealOnScroll>
 
       {/* Comparison Table Section */}
-      <div className="mb-20">
+      <RevealOnScroll delay={0.1}>
+        <div className="mb-20">
         {/* Header Section */}
         <div className="bg-white rounded-2xl p-6 md:p-8 mb-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -515,6 +523,7 @@ export default function Pricing() {
           </div>
         </div>
       </div>
+      </RevealOnScroll>
 
       <Footer />
     </div>

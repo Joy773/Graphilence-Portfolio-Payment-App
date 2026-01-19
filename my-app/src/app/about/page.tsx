@@ -13,6 +13,7 @@ import { MdManageAccounts } from "react-icons/md";
 import { FaLightbulb } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import Footer from "@/Components/Footer";
+import RevealOnScroll from "@/Components/RevealOnScroll";
 const aboutUsImages = {
   offices: [
     "/about-us/office_1.avif",
@@ -67,10 +68,13 @@ const Page = () => {
   return (
     <div className="px-10 lg:px-20">
       <Navbar />
-      <h1 className="mt-20 text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-monarch">
-        Fueling Minds Inspiring Designs..
-      </h1>
-      <div className="w-full mt-10">
+      <RevealOnScroll>
+        <h1 className="mt-20 text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-monarch">
+          Fueling Minds Inspiring Designs..
+        </h1>
+      </RevealOnScroll>
+      <RevealOnScroll delay={0.1}>
+        <div className="w-full mt-10">
         <Image
           src="/about-us/Everyone.avif"
           alt="Everyone"
@@ -79,8 +83,10 @@ const Page = () => {
           className="w-full h-auto"
           sizes="(max-width: 1024px) 100vw, 80vw"
         />
-      </div>
-      <div className="bg-black lg:grid lg:grid-cols-2 sm:grid-cols-1 pt-20 -mx-10 lg:-mx-20 px-10 lg:px-20 lg:items-center">
+        </div>
+      </RevealOnScroll>
+      <RevealOnScroll delay={0.1}>
+        <div className="bg-black lg:grid lg:grid-cols-2 sm:grid-cols-1 pt-20 -mx-10 lg:-mx-20 px-10 lg:px-20 lg:items-center">
         <div className="lg:w-[800px] text-center lg:text-left">
           <h1 className="text-white lg:text-6xl text-4xl font-bold">
             Musemind Excellence Through Innovation.
@@ -99,7 +105,9 @@ const Page = () => {
           </button>
         </div>
       </div>
-      <div className="bg-black -mx-10 lg:-mx-20 py-16 overflow-hidden">
+      </RevealOnScroll>
+      <RevealOnScroll delay={0.2}>
+        <div className="bg-black -mx-10 lg:-mx-20 py-16 overflow-hidden">
         <motion.div
           className="flex w-fit"
           animate={{
@@ -133,7 +141,9 @@ const Page = () => {
           )}
         </motion.div>
       </div>
-      <div className="pt-20">
+      </RevealOnScroll>
+      <RevealOnScroll delay={0.1}>
+        <div className="pt-20">
         <div className="max-w-[1400px] mx-auto px-4">
           <p className="text-midnight-monarch lg:text-6xl text-3xl font-bold text-center">
             We unite brand, culture and experience to drive impact inside and
@@ -142,8 +152,9 @@ const Page = () => {
         </div>
         <hr className="border-midnight-monarch my-15" />
       </div>
-
-      <div className="bg-gray-50 -mx-10 lg:-mx-20 px-10 lg:px-20 py-16">
+      </RevealOnScroll>
+      <RevealOnScroll delay={0.1}>
+        <div className="bg-gray-50 -mx-10 lg:-mx-20 px-10 lg:px-20 py-16">
         <div className="lg:grid lg:grid-cols-2 grid grid-cols-1 gap-8 lg:gap-12">
           {/* Left: Team Image */}
           <div className="w-full lg:max-w-[637px] h-[300px] sm:h-[400px] lg:h-[560px] overflow-hidden">
@@ -206,69 +217,61 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="w-full mt-20">
-        <h1 className="text-4xl sm:text-4xl lg:text-6xl font-bold text-midnight-monarch text-center">Value that sets us apart</h1>
-      </div>
+      </RevealOnScroll>
+      <RevealOnScroll delay={0.1}>
+        <div className="w-full mt-20">
+          <h1 className="text-4xl sm:text-4xl lg:text-6xl font-bold text-midnight-monarch text-center">Value that sets us apart</h1>
+        </div>
+      </RevealOnScroll>
       <div className="grid lg:grid-cols-2 grid-cols-1 mt-10 gap-10">
-        <div className="bg-gray-50 p-10 rounded-lg">
-          <IoManSharp className="text-purplish-blue text-4xl mb-5" />
-          <h1 className="text-4xl font-bold text-midnight-monarch">Transparent Communication</h1>
-          <p className="mt-5">We prioritize open dialogue, ensuring clients are informed at every turn. Our clear communication fosters trust and alignment, enriching collaboration.</p>
-        </div>
-        <div className="bg-gray-50 p-10 rounded-lg">
-          <MdManageAccounts className="text-purplish-blue text-4xl mb-5" />
-          <h1 className="text-4xl font-bold text-midnight-monarch">Precision Management</h1>
-          <p className="mt-5">Our meticulous approach ensures every detail is accounted for, from strategy to execution. We optimize processes and deliver results that exceed expectations.</p>
-        </div>
-        <div className="bg-gray-50 p-10 rounded-lg">
-          <FaLightbulb className="text-purplish-blue text-4xl mb-5" />
-          <h1 className="text-4xl font-bold text-midnight-monarch">Meticulous Approach</h1>
-          <p className="mt-5">We take a meticulous approach, ensuring every detail is accounted for. From strategy to execution, we optimize processes and deliver results that exceed expectations.</p>
-        </div>
-        <div className="bg-gray-50 p-10 rounded-lg">
-          <FaStar className="text-purplish-blue text-4xl mb-5" />
-          <h1 className="text-4xl font-bold text-midnight-monarch">Innovative Solutions</h1>
-          <p className="mt-5">We are always looking for new and innovative solutions to help our clients achieve their goals. We are not afraid to think outside the box and come up with new ideas.</p>
-        </div>
+        {[
+          { icon: IoManSharp, title: "Transparent Communication", description: "We prioritize open dialogue, ensuring clients are informed at every turn. Our clear communication fosters trust and alignment, enriching collaboration." },
+          { icon: MdManageAccounts, title: "Precision Management", description: "Our meticulous approach ensures every detail is accounted for, from strategy to execution. We optimize processes and deliver results that exceed expectations." },
+          { icon: FaLightbulb, title: "Meticulous Approach", description: "We take a meticulous approach, ensuring every detail is accounted for. From strategy to execution, we optimize processes and deliver results that exceed expectations." },
+          { icon: FaStar, title: "Innovative Solutions", description: "We are always looking for new and innovative solutions to help our clients achieve their goals. We are not afraid to think outside the box and come up with new ideas." },
+        ].map((item, index) => {
+          const IconComponent = item.icon;
+          return (
+            <RevealOnScroll key={index} delay={index * 0.1}>
+              <div className="bg-gray-50 p-10 rounded-lg">
+                <IconComponent className="text-purplish-blue text-4xl mb-5" />
+                <h1 className="text-4xl font-bold text-midnight-monarch">{item.title}</h1>
+                <p className="mt-5">{item.description}</p>
+              </div>
+            </RevealOnScroll>
+          );
+        })}
       </div>
-      <div className="bg-black -mx-10 lg:-mx-20 px-10 lg:px-20 py-16 mt-25">
-        <h1 className="text-white text-4xl sm:text-4xl lg:text-6xl font-bold text-center py-10">what makes us different from others</h1>
-        <div className="grid lg:grid-cols-2 grid-cols-1 mt-10 gap-10">
-          <div className="bg-gray-900 border border-gray-800 p-8 rounded-lg">
-            <GrServices className="text-purplish-blue text-4xl mb-5" />
-            <h1 className="text-white text-4xl font-bold">User-centric Core</h1>
-            <p className="text-zinc-300 text-base mt-5">Our approach starts with understanding your users. We uncover their needs, pain points, and behaviors to create meaningful solutions that resonate.</p>
-          </div>
-          <div className="bg-gray-900 border border-gray-800 p-8 rounded-lg">
-            <GrUserExpert className="text-purplish-blue text-4xl mb-5" />
-            <h1 className="text-white text-4xl font-bold">Expert Team</h1>
-            <p className="text-zinc-300 text-base mt-5">Our team is made up of experts in their fields. We have a team of experts who are experts in their fields.</p>
-          </div>
-          <div className="bg-gray-900 border border-gray-800 p-8 rounded-lg">
-            <GrUserExpert className="text-purplish-blue text-4xl mb-5" />
-            <h1 className="text-white text-4xl font-bold">Transparent Process</h1>
-            <p className="text-zinc-300 text-base mt-5">We keep you updated every step of the way. From the initial strategy to the final delivery, you'll always know what's happening and how we're progressing.</p>
-          </div>
-          <div className="bg-gray-900 border border-gray-800 p-8 rounded-lg">
-            <FaLaptopCode className="text-purplish-blue text-4xl mb-5" />
-            <h1 className="text-white text-4xl font-bold">Responsive Agility</h1>
-            <p className="text-zinc-300 text-base mt-5">We adapt quickly to changing needs and market dynamics. Our flexible approach ensures we're always ready to pivot and deliver the best results.</p>
-          </div>
-          <div className="bg-gray-900 border border-gray-800 p-8 rounded-lg">
-            <SiMicrostrategy className="text-purplish-blue text-4xl mb-5" />
-            <h1 className="text-white text-4xl font-bold">Strategic Innovation</h1>
-            <p className="text-zinc-300 text-base mt-5">We combine creativity with strategy to deliver impactful solutions. Our innovative ideas drive results and keep us ahead of the competition.</p>
-          </div>
-          <div className="bg-gray-900 border border-gray-800 p-8 rounded-lg">
-            <AiFillDatabase className="text-purplish-blue text-4xl mb-5" />
-            <h1 className="text-white text-4xl font-bold">Data-Driven Insights</h1>
-            <p className="text-zinc-300 text-base mt-5">We use data to inform our decisions and drive results. We analyze market trends, user behavior, and performance metrics to make informed choices and optimize outcomes.</p>
+      <RevealOnScroll delay={0.1}>
+        <div className="bg-black -mx-10 lg:-mx-20 px-10 lg:px-20 py-16 mt-25">
+          <h1 className="text-white text-4xl sm:text-4xl lg:text-6xl font-bold text-center py-10">what makes us different from others</h1>
+          <div className="grid lg:grid-cols-2 grid-cols-1 mt-10 gap-10">
+            {[
+              { icon: GrServices, title: "User-centric Core", description: "Our approach starts with understanding your users. We uncover their needs, pain points, and behaviors to create meaningful solutions that resonate." },
+              { icon: GrUserExpert, title: "Expert Team", description: "Our team is made up of experts in their fields. We have a team of experts who are experts in their fields." },
+              { icon: GrUserExpert, title: "Transparent Process", description: "We keep you updated every step of the way. From the initial strategy to the final delivery, you'll always know what's happening and how we're progressing." },
+              { icon: FaLaptopCode, title: "Responsive Agility", description: "We adapt quickly to changing needs and market dynamics. Our flexible approach ensures we're always ready to pivot and deliver the best results." },
+              { icon: SiMicrostrategy, title: "Strategic Innovation", description: "We combine creativity with strategy to deliver impactful solutions. Our innovative ideas drive results and keep us ahead of the competition." },
+              { icon: AiFillDatabase, title: "Data-Driven Insights", description: "We use data to inform our decisions and drive results. We analyze market trends, user behavior, and performance metrics to make informed choices and optimize outcomes." },
+            ].map((item, index) => {
+              const IconComponent = item.icon;
+              return (
+                <RevealOnScroll key={index} delay={index * 0.1}>
+                  <div className="bg-gray-900 border border-gray-800 p-8 rounded-lg">
+                    <IconComponent className="text-purplish-blue text-4xl mb-5" />
+                    <h1 className="text-white text-4xl font-bold">{item.title}</h1>
+                    <p className="text-zinc-300 text-base mt-5">{item.description}</p>
+                  </div>
+                </RevealOnScroll>
+              );
+            })}
           </div>
         </div>
-      </div>
+      </RevealOnScroll>
 
       {/* Achieved/Awards Section with Animated Background */}
-      <div className="relative -mx-10 lg:-mx-20 px-10 lg:px-20 py-20 lg:py-32 overflow-hidden bg-gray-100">
+      <RevealOnScroll delay={0.1}>
+        <div className="relative -mx-10 lg:-mx-20 px-10 lg:px-20 py-20 lg:py-32 overflow-hidden bg-gray-100">
         {/* Animated Gradient Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {/* First animated blob */}
@@ -389,11 +392,14 @@ const Page = () => {
           </h1>
         </div>
       </div>
-      <div className="mt-20">
-        <h1 className="text-2xl font-bold text-midnight-monarch mb-8">Founder & Executive</h1>
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 lg:gap-8">
-          {teamMembers.team.map((member, index) => (
-            <div key={index} className="flex flex-col">
+      </RevealOnScroll>
+      <RevealOnScroll delay={0.1}>
+        <div className="mt-20">
+          <h1 className="text-2xl font-bold text-midnight-monarch mb-8">Founder & Executive</h1>
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 lg:gap-8">
+            {teamMembers.team.map((member, index) => (
+              <RevealOnScroll key={index} delay={index * 0.1}>
+                <div className="flex flex-col">
               <div className="relative w-full aspect-square overflow-hidden rounded-lg mb-4">
                 <Image
                   src={member.image}
@@ -410,9 +416,11 @@ const Page = () => {
                 {member.designation}
               </p>
             </div>
-          ))}
+              </RevealOnScroll>
+            ))}
+          </div>
         </div>
-      </div>
+      </RevealOnScroll>
       {/* <div className="mt-20 bg-gray-50 -mx-10 lg:-mx-20 px-10 lg:px-20 py-16">
         <h1 className="text-4xl font-bold text-midnight-monarch text-center">Grow, create, and lead with Musemind</h1>
         <p className="text-gray-600 text-center mt-5 font-semibold">Choose Musemind to embrace your skills and passion. We are your growth partner, encouraging creativity and individual development while creating excellent user experiences in a fast-paced, collaborative atmosphere.</p>

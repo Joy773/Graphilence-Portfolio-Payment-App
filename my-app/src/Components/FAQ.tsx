@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import RevealOnScroll from './RevealOnScroll';
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -34,7 +35,8 @@ const FAQ = () => {
     <div className="mt-20 lg:mt-32 mb-16">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
         {/* Left Side - Heading and CTA */}
-        <div className="flex flex-col">
+        <RevealOnScroll delay={0.1} direction="left">
+          <div className="flex flex-col">
           {/* Heading */}
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch mb-8 lg:mb-12">
             Have questions?
@@ -59,14 +61,16 @@ const FAQ = () => {
             </div>
 
             {/* Button */}
-            <button className="bg-purplish-blue hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-lg transition-colors relative z-10 w-full lg:w-auto">
+            <button className="bg-purplish-blue cursor-pointer text-white font-bold py-3 px-6 rounded-lg transition-colors relative z-10 w-full lg:w-auto">
               Book a Quick Call
             </button>
           </div>
-        </div>
+          </div>
+        </RevealOnScroll>
 
         {/* Right Side - FAQ List */}
-        <div className="flex flex-col">
+        <RevealOnScroll delay={0.1} direction="right">
+          <div className="flex flex-col">
           {faqs.map((faq, index) => (
             <div
               key={index}
@@ -112,7 +116,8 @@ const FAQ = () => {
               </div>
             </div>
           ))}
-        </div>
+          </div>
+        </RevealOnScroll>
       </div>
     </div>
   );

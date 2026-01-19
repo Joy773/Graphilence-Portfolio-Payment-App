@@ -6,6 +6,7 @@ import Footer from "@/Components/Footer";
 import Image from "next/image";
 import Link from "next/link";
 import SendQuery from "@/Components/SendQuery";
+import RevealOnScroll from "@/Components/RevealOnScroll";
 
 export default function Work() {
   const workItems = [
@@ -66,17 +67,20 @@ export default function Work() {
       {/* Work Grid Section */}
       <div className="mt-20 lg:mt-18 mb-20">
         {/* Heading */}
-        <div className="lg:w-1/2 mb-12 lg:mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
-            <span className="text-midnight-monarch">Our Case Study</span>{" "}
-          </h2>
-          <p className="text-gray-600 mt-4">An Experience design agency building high-end products and experiences that grow your business exponentially.</p>
-        </div>
+        <RevealOnScroll>
+          <div className="lg:w-1/2 mb-12 lg:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+              <span className="text-midnight-monarch">Our Case Study</span>{" "}
+            </h2>
+            <p className="text-gray-600 mt-4">An Experience design agency building high-end products and experiences that grow your business exponentially.</p>
+          </div>
+        </RevealOnScroll>
 
         {/* Work Grid - 3 cards per row */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {workItems.map((item) => (
-            <div key={item.id} className="flex flex-col group">
+          {workItems.map((item, index) => (
+            <RevealOnScroll key={item.id} delay={index * 0.1}>
+              <div className="flex flex-col group">
               {/* Image Container - Wrapped in Link */}
               <Link href={`/work/${item.slug}`}>
                 <div className="relative w-full aspect-4/3 rounded-2xl overflow-hidden mb-4 cursor-pointer">
@@ -110,6 +114,7 @@ export default function Work() {
                 </div>
               </div>
             </div>
+            </RevealOnScroll>
           ))}
         </div>
         <div className="mt-20">

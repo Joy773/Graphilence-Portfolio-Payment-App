@@ -29,7 +29,7 @@ export default function LandingPage() {
             <p className="text-xs text-gray-500">Available for New Projects</p>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-none mb-8 lg:mb-0">
-            Global UX design agency digital partner for{" "}
+            Global Graphics Design Agency digital partner for{" "}
             <AnimatePresence mode="wait">
               <motion.span
                 key={currentIndex}
@@ -48,19 +48,13 @@ export default function LandingPage() {
           {/* Buttons Section */}
           <div className="flex flex-row gap-4 mt-8">
             {/* Book a call button */}
-            <button className="bg-purplish-blue text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-600 transition-colors">
+            <button className="bg-midnight-monarch text-white px-6 py-3 rounded-full font-semibold transition-colors cursor-pointer">
               Book a call
             </button>
             
             {/* View work button - Hidden on mobile */}
-            <button className="hidden lg:flex bg-white text-midnight-monarch border border-gray-300 px-6 py-3 rounded-full font-semibold hover:border-purplish-blue transition-colors items-center gap-2">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="8" y="4" width="8" height="8" rx="1" fill="#FF7262"/>
-                <rect x="8" y="12" width="8" height="8" rx="1" fill="#F24E1E"/>
-                <circle cx="6" cy="6" r="2" fill="#A259FF"/>
-                <circle cx="6" cy="18" r="2" fill="#1ABCFE"/>
-              </svg>
-              <span>View work</span>
+            <button className="hidden lg:flex bg-white text-midnight-monarch border border-gray-300 px-6 py-3 rounded-full font-semibold cursor-pointer transition-colors items-center gap-2">
+              View Work
             </button>
           </div>
         </div>
@@ -68,7 +62,7 @@ export default function LandingPage() {
         {/* Right Section */}
         <div className="w-full lg:w-[400px] lg:ml-auto flex flex-col items-start">
           <p className="text-midnight-monarch mb-6 lg:mb-8 text-base lg:text-lg leading-relaxed w-full">
-            Wavespace is a global UX agency that helps brands scale with fast, high performance digital experiences.
+            Graphilence is a global design agency that helps brands scale with fast, high performance digital experiences.
           </p>
           
           {/* Social Proof Section */}

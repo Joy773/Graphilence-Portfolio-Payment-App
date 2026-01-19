@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import RevealOnScroll from "./RevealOnScroll";
 
 const SendQuery = () => {
   const [formData, setFormData] = useState({
@@ -26,11 +27,12 @@ const SendQuery = () => {
   };
 
   return (
-    <div className="bg-gray-50 py-16 px-4 md:px-8 lg:px-16">
-      <div className="max-w-7xl mx-auto">
+    <div className="mt-20 bg-gray-50 -mx-10 lg:-mx-20 px-10 py-16">
+      <div className="max-w-7xl mx-auto pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left Section */}
-          <div className="flex flex-col">
+          <RevealOnScroll delay={0.1} direction="left">
+            <div className="flex flex-col">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight">
               Have a project idea in mind? Let&apos;s get started
             </h1>
@@ -50,9 +52,11 @@ const SendQuery = () => {
               <p className="text-gray-600 mb-6">Founder & CEO of Graphilence</p>
             </div>
           </div>
+          </RevealOnScroll>
 
           {/* Right Section - Form */}
-          <div className="bg-white rounded-lg p-6 md:p-8 shadow-sm">
+          <RevealOnScroll delay={0.1} direction="right">
+            <div className="bg-white rounded-lg p-6 md:p-8 shadow-sm">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Full Name */}
               <div>
@@ -167,7 +171,7 @@ const SendQuery = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-midnight-monarch text-white font-semibold py-4 px-6 rounded-lg hover:bg-gray-800 transition-colors"
+                className="w-full bg-midnight-monarch cursor-pointer text-white font-semibold py-4 px-6 rounded-lg transition-colors"
               >
                 Send inquiry
               </button>
@@ -188,6 +192,7 @@ const SendQuery = () => {
               </div>
             </form>
           </div>
+          </RevealOnScroll>
         </div>
       </div>
     </div>

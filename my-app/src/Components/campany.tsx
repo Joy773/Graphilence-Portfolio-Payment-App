@@ -55,6 +55,20 @@ const campany = ({ singleRow = false }: CampanyProps) => {
 
         {/* Single Row - Continuous Scrolling from Left to Right */}
         <div className="overflow-hidden w-full" style={{ position: 'relative', height: '48px' }}>
+          {/* Left Fog */}
+          <div 
+            className="absolute left-0 top-0 bottom-0 w-20 lg:w-32 z-10 pointer-events-none"
+            style={{
+              background: 'linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))'
+            }}
+          />
+          {/* Right Fog */}
+          <div 
+            className="absolute right-0 top-0 bottom-0 w-20 lg:w-32 z-10 pointer-events-none"
+            style={{
+              background: 'linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))'
+            }}
+          />
           <motion.div
             className="flex items-center gap-4 lg:gap-6 xl:gap-8"
             style={{ 
@@ -110,6 +124,20 @@ const campany = ({ singleRow = false }: CampanyProps) => {
             
             return (
               <div key={rowIndex} className="overflow-hidden w-full" style={{ position: 'relative', height: '48px' }}>
+                {/* Left Fog */}
+                <div 
+                  className="absolute left-0 top-0 bottom-0 w-20 lg:w-32 z-10 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))'
+                  }}
+                />
+                {/* Right Fog */}
+                <div 
+                  className="absolute right-0 top-0 bottom-0 w-20 lg:w-32 z-10 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))'
+                  }}
+                />
                 <motion.div
                   className="flex items-center gap-4 lg:gap-6 xl:gap-8"
                   style={{ 
@@ -160,6 +188,20 @@ const campany = ({ singleRow = false }: CampanyProps) => {
             
             return (
               <div key={rowIndex} className="overflow-hidden w-full" style={{ position: 'relative', height: '48px' }}>
+                {/* Left Fog */}
+                <div 
+                  className="absolute left-0 top-0 bottom-0 w-20 lg:w-32 z-10 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))'
+                  }}
+                />
+                {/* Right Fog */}
+                <div 
+                  className="absolute right-0 top-0 bottom-0 w-20 lg:w-32 z-10 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))'
+                  }}
+                />
                 <motion.div
                   className="flex items-center gap-4 lg:gap-6 xl:gap-8"
                   style={{ 
@@ -210,6 +252,20 @@ const campany = ({ singleRow = false }: CampanyProps) => {
             
             return (
               <div key={rowIndex} className="overflow-hidden w-full" style={{ position: 'relative', height: '48px' }}>
+                {/* Left Fog */}
+                <div 
+                  className="absolute left-0 top-0 bottom-0 w-20 lg:w-32 z-10 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))'
+                  }}
+                />
+                {/* Right Fog */}
+                <div 
+                  className="absolute right-0 top-0 bottom-0 w-20 lg:w-32 z-10 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))'
+                  }}
+                />
                 <motion.div
                   className="flex items-center gap-4 lg:gap-6 xl:gap-8"
                   style={{ 

@@ -7,6 +7,7 @@ import Campany from "@/Components/campany";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import { motion } from "motion/react";
+import RevealOnScroll from "@/Components/RevealOnScroll";
 
 // Testimonials data
 const testimonials = [
@@ -77,7 +78,8 @@ export default function Services() {
     <div className="px-10 lg:px-20">
       <Navbar />
       {/* Hero Banner Section */}
-      <div className="mb-20 mt-4">
+      <RevealOnScroll>
+        <div className="mb-20 mt-4">
         <div className="bg-white rounded-2xl p-6 md:p-8 lg:p-12 overflow-hidden">
           <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8 lg:gap-12">
             {/* Left Side - Text Content */}
@@ -160,12 +162,16 @@ export default function Services() {
           </div>
         </div>
       </div>
+      </RevealOnScroll>
 
       {/* Company Logos Section */}
-      <Campany singleRow={true} />
+      <RevealOnScroll delay={0.2}>
+        <Campany singleRow={true} />
+      </RevealOnScroll>
 
       {/* UI/UX Design Section */}
-      <div className="mb-20">
+      <RevealOnScroll delay={0.1} direction="left">
+        <div className="mb-20">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
           {/* Left Side - Mobile App Image */}
           <div className="flex-1 w-full lg:w-auto flex justify-center lg:justify-start">
@@ -232,9 +238,11 @@ export default function Services() {
           </div>
         </div>
       </div>
+      </RevealOnScroll>
 
       {/* Web Design Section */}
-      <div className="mb-20">
+      <RevealOnScroll delay={0.1} direction="right">
+        <div className="mb-20">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
           {/* Left Side - Web Design Content */}
           <div className="flex-1 w-full lg:max-w-2xl">
@@ -302,9 +310,11 @@ export default function Services() {
           </div>
         </div>
       </div>
+      </RevealOnScroll>
 
       {/* Industry Expertise Section (header only, as per design) */}
-      <div className="mb-20">
+      <RevealOnScroll delay={0.1}>
+        <div className="mb-20">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-8">
           <div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-tight mb-2">
@@ -403,9 +413,11 @@ export default function Services() {
           ))}
         </div>
       </div>
+      </RevealOnScroll>
 
       {/* Who we design for Section */}
-      <div className="mb-20 bg-gray-50 rounded-2xl p-6 md:p-8 lg:p-12">
+      <RevealOnScroll delay={0.1}>
+        <div className="mb-20 bg-gray-50 rounded-2xl p-6 md:p-8 lg:p-12">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-8 mb-8 md:mb-12">
           <div>
@@ -546,9 +558,11 @@ export default function Services() {
           </div>
         </div>
       </div>
+      </RevealOnScroll>
 
       {/* Slogan Section */}
-      <div className="mb-20 bg-gray-50 rounded-2xl p-8 md:p-12 lg:p-16">
+      <RevealOnScroll delay={0.1}>
+        <div className="mb-20 bg-gray-50 rounded-2xl p-8 md:p-12 lg:p-16">
         <div className="text-left">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
             <span className="text-midnight-monarch">Find your best design into us.</span>{" "}
@@ -559,8 +573,10 @@ export default function Services() {
           </p>
         </div>
       </div>
+      </RevealOnScroll>
 
-      <div className="overflow-hidden w-full">
+      <RevealOnScroll delay={0.2}>
+        <div className="overflow-hidden w-full">
         <motion.div
           className="flex gap-6"
           style={{
@@ -650,6 +666,7 @@ export default function Services() {
           </>
         </motion.div>
       </div>
+      </RevealOnScroll>
 
       <Footer />
     </div>

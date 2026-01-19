@@ -12,12 +12,12 @@
   --color-foreground: var(--foreground);
   --color-purplish-blue: var(--purplish-blue);
   --color-midnight-monarch: var(--midnight-monarch);
-  --font-sans: var(--font-space-grotesk);
+  --font-sans: var(--font-archivo);
 }
 
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-space-grotesk), sans-serif;
+  font-family: var(--font-archivo), sans-serif;
 }

@@ -41,7 +41,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-black text-white mt-20 lg:mt-32 border-t border-gray-800 -mx-10 lg:-mx-20">
+    <footer className="bg-black text-white border-t border-gray-800 -mx-10 lg:-mx-20">
       <div className="px-10 lg:px-20 py-12 lg:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left Side - Company Info and CTA */}
