@@ -69,7 +69,7 @@ const Page = () => {
     <div className="px-10 lg:px-20">
       <Navbar />
       <RevealOnScroll>
-        <h1 className="mt-20 text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-monarch">
+        <h1 className="mt-20 text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-monarch text-center">
           Fueling Minds Inspiring Designs..
         </h1>
       </RevealOnScroll>
