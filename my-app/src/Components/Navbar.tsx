@@ -57,7 +57,7 @@ const Navbar = () => {
      
       
       {/* Main Navbar */}
-      <div className="bg-white pt-8 md:pt-8 pl-0 pr-4 md:px-0 pb-4 shadow-md px-10 lg:px-20 pb-7">
+      <div className="bg-white pt-8 md:pt-8 pb-4 shadow-md px-4 md:px-8 lg:px-20 pb-7">
         <div className="flex justify-between items-center w-full gap-6 md:gap-0">
         <div>
           {/* Mobile Heading */}
