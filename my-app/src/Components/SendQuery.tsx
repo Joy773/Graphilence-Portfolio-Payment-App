@@ -27,7 +27,7 @@ const SendQuery = () => {
   };
 
   return (
-    <div className="mt-20 bg-gray-50 -mx-10 lg:-mx-20 px-10 py-16">
+    <div className="mt-20 bg-gray-50 -mx-10 lg:-mx-20 px-10 pt-16 pb-0">
       <div className="max-w-7xl mx-auto pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left Section */}

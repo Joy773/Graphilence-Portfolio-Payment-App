@@ -109,7 +109,7 @@ export default function WorkDetail() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Left Sidebar - Project Details */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl p-6 lg:p-8 sticky top-20">
+            <div className="bg-gray-50 rounded-2xl p-6 lg:p-8 sticky top-20">
               <div className="space-y-6">
                 {/* Company */}
                 <div>

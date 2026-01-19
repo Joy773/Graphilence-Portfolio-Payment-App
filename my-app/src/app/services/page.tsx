@@ -79,14 +79,14 @@ export default function Services() {
       <Navbar />
       {/* Hero Banner Section */}
       <RevealOnScroll>
-        <div className="mb-8 mt-1">
+        <div className="mb-8 mt-1 md:mt-15">
         <div className="bg-white rounded-2xl overflow-hidden">
           <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8 lg:gap-12">
             {/* Left Side - Text Content */}
             <div className="flex-1 w-full lg:max-w-2xl">
               {/* Clutch Rating Badge */}
-              <div className="mb-4 md:mb-6">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg">
+              <div className="mt-10 md:mt-0 mb-4 md:mb-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg ">
                   <span className="text-midnight-monarch font-medium">Clutch</span>
                   <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
@@ -147,7 +147,7 @@ export default function Services() {
             </div>
 
             {/* Right Side - Screen Image */}
-            <div className="flex-1 w-full lg:w-auto flex justify-center lg:justify-end lg:items-center">
+            <div className="hidden md:flex flex-1 w-full lg:w-auto justify-center lg:justify-end lg:items-center">
               <div className="relative w-full max-w-lg lg:max-w-2xl">
                 <Image
                   src="/screen_img.webp"
@@ -247,12 +247,12 @@ export default function Services() {
           {/* Left Side - Web Design Content */}
           <div className="flex-1 w-full lg:max-w-2xl flex flex-col justify-center">
             {/* Main Heading */}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-tight mb-4 md:mb-6 text-center lg:text-left">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-tight mb-4 md:mb-6">
               Web Design
             </h2>
 
             {/* Description Paragraph */}
-            <p className="text-base md:text-lg text-gray-600 mb-6 md:mb-8 leading-relaxed text-center lg:text-left">
+            <p className="text-base md:text-lg text-gray-600 mb-6 md:mb-8 leading-relaxed">
               You don&apos;t just need a website, you need a sales machine. Our web design is user-friendly, fully responsive, and supports SEO. With each scroll, you can expect more clicks, longer time spent on your website, and more conversions.
             </p>
 
@@ -315,8 +315,8 @@ export default function Services() {
       {/* Industry Expertise Section (header only, as per design) */}
       <RevealOnScroll delay={0.1}>
         <div className="mb-20">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-8">
-          <div>
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-center gap-4 md:gap-8">
+          <div className="text-center md:text-left">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-tight mb-2">
               Industry expertise
             </h2>
@@ -466,7 +466,7 @@ export default function Services() {
           <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-center md:items-center gap-4 md:gap-8 mb-8 md:mb-12">
-          <div>
+          <div className="text-center md:text-left">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-tight mb-2">
               Who we design for and how
             </h2>

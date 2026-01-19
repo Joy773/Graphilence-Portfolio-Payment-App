@@ -68,7 +68,7 @@ export default function Work() {
       <div className="mt-20 lg:mt-18 mb-20">
         {/* Heading */}
         <RevealOnScroll>
-          <div className="lg:w-1/2 mb-12 lg:mb-16">
+          <div className="lg:w-1/2 mb-12 lg:mb-16 text-center lg:text-left">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
               <span className="text-midnight-monarch">Our Case Study</span>{" "}
             </h2>
