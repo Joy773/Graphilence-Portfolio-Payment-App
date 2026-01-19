@@ -33,23 +33,23 @@ const SendQuery = () => {
           {/* Left Section */}
           <RevealOnScroll delay={0.1} direction="left">
             <div className="flex flex-col">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight text-center lg:text-left">
               Have a project idea in mind? Let&apos;s get started
             </h1>
-            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+            <p className="text-gray-600 text-lg mb-8 leading-relaxed text-center lg:text-left">
               We&apos;ll schedule a call to discuss your idea. After discovery sessions, we&apos;ll send a proposal, and upon approval, we&apos;ll get started.
             </p>
             
             {/* Profile Section */}
-            <div className="mt-auto">
+            <div className="mt-auto flex flex-col items-center lg:items-start">
               <div className="w-32 h-32 md:w-40 md:h-40 rounded-lg overflow-hidden mb-4 bg-teal-200">
                 {/* Placeholder for profile image - replace with actual image */}
                 <div className="w-full h-full bg-teal-200 flex items-center justify-center">
                   <span className="text-teal-600 text-4xl font-bold">RA</span>
                 </div>
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-1">Zihan Ahmed Joy</h3>
-              <p className="text-gray-600 mb-6">Founder & CEO of Graphilence</p>
+              <h3 className="text-xl font-semibold text-gray-800 mb-1 text-center lg:text-left">Zihan Ahmed Joy</h3>
+              <p className="text-gray-600 mb-6 text-center lg:text-left">Founder & CEO of Graphilence</p>
             </div>
           </div>
           </RevealOnScroll>

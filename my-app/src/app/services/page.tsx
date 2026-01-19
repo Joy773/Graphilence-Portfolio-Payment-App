@@ -79,8 +79,8 @@ export default function Services() {
       <Navbar />
       {/* Hero Banner Section */}
       <RevealOnScroll>
-        <div className="mb-20 mt-4">
-        <div className="bg-white rounded-2xl p-6 md:p-8 lg:p-12 overflow-hidden">
+        <div className="mb-8 mt-1">
+        <div className="bg-white rounded-2xl overflow-hidden">
           <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8 lg:gap-12">
             {/* Left Side - Text Content */}
             <div className="flex-1 w-full lg:max-w-2xl">
@@ -125,7 +125,7 @@ export default function Services() {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-midnight-monarch hover:bg-purplish-blue text-white font-semibold py-3 px-6 rounded-lg transition-colors whitespace-nowrap">
+                <button className="bg-midnight-monarch cursor-pointer text-white font-semibold py-3 px-6 rounded-lg transition-colors whitespace-nowrap">
                   Consult an expert
                 </button>
                 <button className="bg-transparent border border-zinc-500 hover:border-purplish-blue text-midnight-monarch font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
@@ -172,10 +172,10 @@ export default function Services() {
       {/* UI/UX Design Section */}
       <RevealOnScroll delay={0.1} direction="left">
         <div className="mb-20">
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
+        <div className="flex flex-col lg:flex-row items-center lg:items-center gap-8 lg:gap-12">
           {/* Left Side - Mobile App Image */}
           <div className="flex-1 w-full lg:w-auto flex justify-center lg:justify-start">
-            <div className="relative w-full max-w-sm lg:max-w-md">
+            <div className="relative w-full max-w-lg lg:max-w-2xl">
               <Image
                 src="/UI-UX.webp"
                 alt="Mobile app UI/UX design"
@@ -187,7 +187,7 @@ export default function Services() {
           </div>
 
           {/* Right Side - UI/UX Design Content */}
-          <div className="flex-1 w-full lg:max-w-2xl">
+          <div className="flex-1 w-full lg:max-w-2xl flex flex-col justify-center">
             {/* Main Heading */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-tight mb-4 md:mb-6 text-center lg:text-left">
               UI/UX Design
@@ -243,9 +243,9 @@ export default function Services() {
       {/* Web Design Section */}
       <RevealOnScroll delay={0.1} direction="right">
         <div className="mb-20">
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
+        <div className="flex flex-col lg:flex-row items-center lg:items-center gap-8 lg:gap-12">
           {/* Left Side - Web Design Content */}
-          <div className="flex-1 w-full lg:max-w-2xl">
+          <div className="flex-1 w-full lg:max-w-2xl flex flex-col justify-center">
             {/* Main Heading */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-tight mb-4 md:mb-6 text-center lg:text-left">
               Web Design
@@ -324,7 +324,7 @@ export default function Services() {
               across globally
             </p>
           </div>
-          <button className="hover:bg-purplish-blue bg-midnight-monarch text-white font-semibold py-3 px-8 rounded-full transition-colors flex items-center gap-2 whitespace-nowrap">
+          <button className="bg-midnight-monarch cursor-pointer text-white font-semibold py-3 px-8 rounded-full transition-colors flex items-center gap-2 whitespace-nowrap">
             Consult an expert
             <svg
               width="20"
@@ -351,63 +351,108 @@ export default function Services() {
               src: "/work-list/first.avif",
               alt: "Work 1",
               title: "E-Commerce & DTC",
-              description: "Our approach of making things simpler and more effective helps users go from browsing to checkout in a few simple steps"
+              description: "Our approach of making things simpler and more effective helps users go from browsing to checkout in a few simple steps",
+              bullets: [
+                "E-commerce",
+                "Branding",
+                "Web Design"
+              ]
             },
             {
               src: "/work-list/second.avif",
               alt: "Work 2",
               title: "Finance & Fintech",
-              description: "Building secure and user-friendly financial solutions that empower users to manage their finances effortlessly"
+              description: "Building secure and user-friendly financial solutions that empower users to manage their finances effortlessly",
+              bullets: [
+                "UI/UX Design",
+                "Product Design",
+                "Mobile App"
+              ]
             },
             {
               src: "/work-list/third.avif",
               alt: "Work 3",
               title: "SaaS & B2B Platforms",
-              description: "Creating powerful business solutions that streamline operations and enhance productivity for teams worldwide"
+              description: "Creating powerful business solutions that streamline operations and enhance productivity for teams worldwide",
+              bullets: [
+                "SaaS Design",
+                "Web Design",
+                "UI/UX Consulting"
+              ]
             },
             {
               src: "/work-list/fourth.avif",
               alt: "Work 4",
               title: "Healthcare & Wellness",
-              description: "Designing intuitive health platforms that connect patients with care providers seamlessly"
+              description: "Designing intuitive health platforms that connect patients with care providers seamlessly",
+              bullets: [
+                "Healthcare Design",
+                "Mobile App",
+                "UI/UX Design"
+              ]
             },
             {
               src: "/work-list/fifth.avif",
               alt: "Work 5",
               title: "Education & E-Learning",
-              description: "Transforming learning experiences with engaging and accessible educational platforms"
+              description: "Transforming learning experiences with engaging and accessible educational platforms",
+              bullets: [
+                "E-Learning Platform",
+                "Web Design",
+                "Branding"
+              ]
             },
             {
               src: "/work-list/sixth.avif",
               alt: "Work 6",
               title: "Travel & Hospitality",
-              description: "Crafting memorable travel experiences through beautiful and functional booking platforms"
+              description: "Crafting memorable travel experiences through beautiful and functional booking platforms",
+              bullets: [
+                "Travel App",
+                "Web Design",
+                "UI/UX Design"
+              ]
             },
           ].map((image, index) => (
             <div
               key={index}
-              className="relative w-full aspect-square rounded-lg overflow-hidden group cursor-pointer"
+              className="flex flex-col"
             >
-              <div className="relative w-full h-full">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  width={400}
-                  height={400}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  unoptimized
-                />
-              </div>
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 z-10">
-                <div className="text-center text-white">
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3">
-                    {image.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-gray-200 leading-relaxed">
-                    {image.description}
-                  </p>
+              <div className="relative w-full aspect-square rounded-lg overflow-hidden group cursor-pointer mb-4">
+                <div className="relative w-full h-full">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    width={400}
+                    height={400}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    unoptimized
+                  />
                 </div>
+                {/* Hover Overlay */}
+                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 z-10">
+                  <div className="text-center text-white">
+                    <p className="text-sm md:text-base text-gray-200 leading-relaxed">
+                      {image.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {/* Project Name and Bullets */}
+              <div>
+                <h3 className="text-xl md:text-2xl font-bold text-midnight-monarch mb-3">
+                  {image.title}
+                </h3>
+                <p className="text-sm md:text-base text-gray-600 flex flex-wrap items-center gap-1">
+                  {image.bullets.map((bullet, bulletIndex) => (
+                    <span key={bulletIndex} className="flex items-center">
+                      <span>{bullet}</span>
+                      {bulletIndex < image.bullets.length - 1 && (
+                        <span className="mx-2 text-midnight-monarch">•</span>
+                      )}
+                    </span>
+                  ))}
+                </p>
               </div>
             </div>
           ))}
@@ -417,9 +462,10 @@ export default function Services() {
 
       {/* Who we design for Section */}
       <RevealOnScroll delay={0.1}>
-        <div className="mb-20 bg-gray-50 rounded-2xl p-6 md:p-8 lg:p-12">
+        <div className="mb-20 bg-gray-50 -mx-10 lg:-mx-20 px-10 lg:px-20 py-12 md:py-16 lg:py-20 rounded-none">
+          <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-8 mb-8 md:mb-12">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-center gap-4 md:gap-8 mb-8 md:mb-12">
           <div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-tight mb-2">
               Who we design for and how
@@ -428,7 +474,7 @@ export default function Services() {
               we support them
             </p>
           </div>
-          <button className="hover:bg-purplish-blue bg-midnight-monarch text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center gap-2 whitespace-nowrap">
+          <button className="bg-midnight-monarch cursor-pointer text-white font-semibold py-3 px-6 rounded-lg flex items-center gap-2 whitespace-nowrap">
             Start your project
             <svg
               width="20"
@@ -557,26 +603,37 @@ export default function Services() {
             </ul>
           </div>
         </div>
-      </div>
+          </div>
+        </div>
       </RevealOnScroll>
 
       {/* Slogan Section */}
       <RevealOnScroll delay={0.1}>
-        <div className="mb-20 bg-gray-50 rounded-2xl p-8 md:p-12 lg:p-16">
-        <div className="text-left">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-            <span className="text-midnight-monarch">Find your best design into us.</span>{" "}
-            <span className="text-gray-600">We</span>
+        <div className="rounded-2xl p-8 md:p-12 lg:p-16">
+        <div className="">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-midnight-monarch text-center">
+            Find your best design into us. We guarantee next success is yours!
           </h2>
-          <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-600 mt-2">
-            guarantee next success is yours!
-          </p>
         </div>
       </div>
       </RevealOnScroll>
 
       <RevealOnScroll delay={0.2}>
-        <div className="overflow-hidden w-full">
+        <div className="overflow-hidden w-full mb-25" style={{ position: 'relative' }}>
+          {/* Left Fog */}
+          <div 
+            className="absolute left-0 top-0 bottom-0 w-20 lg:w-32 z-10 pointer-events-none"
+            style={{
+              background: 'linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))'
+            }}
+          />
+          {/* Right Fog */}
+          <div 
+            className="absolute right-0 top-0 bottom-0 w-20 lg:w-32 z-10 pointer-events-none"
+            style={{
+              background: 'linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))'
+            }}
+          />
         <motion.div
           className="flex gap-6"
           style={{

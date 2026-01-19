@@ -21,14 +21,14 @@ export default function LandingPage() {
 
   return (
     <div className="mt-20">
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 lg:gap-12">
+      <div className="flex flex-col lg:flex-row justify-between items-center md:items-center lg:items-center gap-8 lg:gap-12">
         {/* Left Section */}
-        <div className="w-full lg:w-[700px]">
-          <div className="flex items-center gap-2 mb-4">
+        <div className="w-full lg:w-[700px] flex flex-col items-center md:items-center lg:items-start">
+          <div className="flex items-center gap-2 mb-4 justify-center md:justify-center lg:justify-start">
             <div className="w-2 h-2 bg-green-500 rounded-full" style={{ boxShadow: '0 0 8px 2px rgba(34, 197, 94, 0.6)' }}></div>
             <p className="text-xs text-gray-500">Available for New Projects</p>
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-none mb-8 lg:mb-0">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-none mb-8 lg:mb-0 text-center md:text-center lg:text-left">
             Global Graphics Design Agency digital partner for{" "}
             <AnimatePresence mode="wait">
               <motion.span
@@ -46,7 +46,7 @@ export default function LandingPage() {
           </h1>
           
           {/* Buttons Section */}
-          <div className="flex flex-row gap-4 mt-8">
+          <div className="flex flex-row gap-4 mt-8 justify-center md:justify-center lg:justify-start">
             {/* Book a call button */}
             <button className="bg-midnight-monarch text-white px-6 py-3 rounded-full font-semibold transition-colors cursor-pointer">
               Book a call
@@ -60,8 +60,8 @@ export default function LandingPage() {
         </div>
 
         {/* Right Section */}
-        <div className="w-full lg:w-[400px] lg:ml-auto flex flex-col items-start">
-          <p className="text-midnight-monarch mb-6 lg:mb-8 text-base lg:text-lg leading-relaxed w-full">
+        <div className="w-full lg:w-[400px] lg:ml-auto flex flex-col items-center md:items-center lg:items-start">
+          <p className="text-midnight-monarch mb-6 lg:mb-8 text-base lg:text-lg leading-relaxed w-full text-center md:text-center lg:text-left">
             Graphilence is a global design agency that helps brands scale with fast, high performance digital experiences.
           </p>
           

@@ -47,7 +47,7 @@ const campany = ({ singleRow = false }: CampanyProps) => {
     const duplicatedRow = [...allCompanies, ...allCompanies, ...allCompanies];
 
     return (
-      <div className="mt-20 lg:mt-32 mb-16">
+      <div className="mt-8 lg:mt-12 mb-16">
         {/* Header */}
         <h2 className="text-center text-sm lg:text-base font-semibold text-midnight-monarch uppercase tracking-wide mb-8 lg:mb-12">
           TRUSTED BY 300+ GLOBAL BRANDS
