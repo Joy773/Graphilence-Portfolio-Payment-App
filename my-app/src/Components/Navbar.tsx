@@ -122,7 +122,7 @@ const Navbar = () => {
         </div>
         <div className="hidden md:block">
           <motion.button
-            className="text-white border border-midnight-monarch rounded-full px-4 py-2 cursor-pointer font-semibold bg-midnight-monarch relative overflow-hidden hover:bg-purplish-blue hover:border-purplish-blue transition-all"
+            className="text-white border border-midnight-monarch rounded-full px-4 py-2 cursor-pointer font-semibold bg-midnight-monarch relative overflow-hidden transition-all"
             initial="rest"
             whileHover="hover"
             variants={{
@@ -141,12 +141,14 @@ const Navbar = () => {
                 className="relative z-10"
                 variants={{
                   rest: { x: 0 },
-                  hover: { x: 4 },
-                }}
-                transition={{
-                  type: "spring" as const,
-                  damping: 20,
-                  stiffness: 300,
+                  hover: {
+                    x: [0, 4, 0],
+                    transition: {
+                      duration: 0.6,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    },
+                  },
                 }}
               >
                 <path
@@ -260,7 +262,7 @@ const Navbar = () => {
             ))}
           </ul>
           <motion.button
-            className="mt-6 text-white border border-midnight-monarch rounded-full px-4 py-2 cursor-pointer font-semibold bg-midnight-monarch relative overflow-hidden hover:bg-purplish-blue hover:border-purplish-blue transition-all w-full"
+            className="mt-6 text-white border border-midnight-monarch rounded-full px-4 py-2 cursor-pointer font-semibold bg-midnight-monarch relative overflow-hidden transition-all w-full"
             initial="rest"
             whileHover="hover"
             variants={{
@@ -278,14 +280,14 @@ const Navbar = () => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 className="relative z-10"
-                variants={{
-                  rest: { x: 0 },
-                  hover: { x: 4 },
-                }}
-                transition={{
-                  type: "spring" as const,
-                  damping: 20,
-                  stiffness: 300,
+                initial={{ x: 0 }}
+                whileHover={{
+                  x: [0, 4, 0],
+                  transition: {
+                    duration: 0.6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
                 }}
               >
                 <path

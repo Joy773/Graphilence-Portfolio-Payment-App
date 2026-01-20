@@ -394,7 +394,7 @@ const Page = () => {
       </div>
       </RevealOnScroll>
       <RevealOnScroll delay={0.1}>
-        <div className="mt-20">
+        <div className="mt-20 mb-20">
           <h1 className="text-2xl font-bold text-midnight-monarch mb-8">Founder & Executive</h1>
           <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 lg:gap-8">
             {teamMembers.team.map((member, index) => (

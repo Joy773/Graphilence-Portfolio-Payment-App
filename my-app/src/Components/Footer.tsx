@@ -48,33 +48,39 @@ const Footer = () => {
           <div className="flex flex-col">
             {/* Logo */}
             <div className="flex items-center mb-6">
-              <div 
+              <div
                 className="w-8 h-8 bg-midnight-monarch mr-2"
                 style={{
                   clipPath: 'polygon(0% 0%, 0% 100%, 100% 50%)'
                 }}
               ></div>
-              <div 
+              <div
                 className="w-8 h-8 bg-yellow-400"
                 style={{
                   clipPath: 'polygon(0% 50%, 50% 0%, 100% 0%, 100% 100%, 50% 100%)'
                 }}
               ></div>
             </div>
-            
+
             {/* Company Description */}
-            <p className="text-gray-400 mb-6 text-sm lg:text-base leading-relaxed">
-              An Experience Design Agency focusing on building functional, simple, human-centered digital products for future.
-            </p>
+            <div className='lg:w-2/3'>
+              <p className="text-white mb-6 text-sm lg:text-base leading-relaxed">
+                An Experience Design Agency focusing on building functional, simple, human-centered digital products for future.
+              </p>
+            </div>
+
 
             {/* Contact Button */}
-            <button className="bg-purplish-blue cursor-pointer text-white font-bold py-3 px-6 rounded-lg transition-colors w-full lg:w-auto">
+            <div>
+            <button className="bg-purplish-blue cursor-pointer text-white font-bold rounded-full py-3 px-6">
               Contact us now
             </button>
+            </div>
+           
           </div>
 
           {/* Right Side - SERVICES, QUICK LINK, and REVIEW */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 lg:gap-12">
             {/* SERVICES Section */}
             <div className="flex flex-col">
               <h3 className="text-white font-bold text-sm uppercase mb-4 tracking-wide">
@@ -166,17 +172,17 @@ const Footer = () => {
               <div className="w-12 h-12 mb-4 rounded-lg bg-gradient-to-br from-green-400 to-yellow-400 flex items-center justify-center">
                 <div className="w-8 h-8 bg-white/20 rounded"></div>
               </div>
-              
+
               {/* City Name */}
               <h3 className="text-xl lg:text-2xl font-bold mb-2 text-white">
                 {office.city}
               </h3>
-              
+
               {/* Address */}
               <p className="text-gray-400 text-sm mb-2 leading-relaxed">
                 {office.address}
               </p>
-              
+
               {/* Phone */}
               <p className="text-gray-400 text-sm">
                 {office.phone}
@@ -193,7 +199,7 @@ const Footer = () => {
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-purplish-blue rounded-full flex items-center justify-center cursor-pointer">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 4V12M4 8L8 12L12 8" stroke="#1A1436" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M8 4V12M4 8L8 12L12 8" stroke="#1A1436" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
             <div>

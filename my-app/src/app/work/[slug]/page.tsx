@@ -6,6 +6,59 @@ import Footer from "@/Components/Footer";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import HTMLFlipBook from "react-pageflip";
+
+// Page component with forwardRef for react-pageflip
+const FlipPage = React.forwardRef<
+  HTMLDivElement,
+  { image: string; alt: string }
+>(({ image, alt }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className="demoPage relative w-full h-full rounded-2xl overflow-hidden"
+      style={{
+        width: "100%",
+        height: "100%",
+        position: "relative",
+        backgroundColor: "#f3f4f6",
+      }}
+    >
+      <Image
+        src={image}
+        alt={alt}
+        fill
+        className="object-cover rounded-2xl"
+        sizes="(max-width: 1024px) 100vw, 60vw"
+        priority
+        quality={100}
+      />
+    </div>
+  );
+});
+
+FlipPage.displayName = "FlipPage";
+
+// Blank page component for single-page mode
+const BlankPage = React.forwardRef<HTMLDivElement>((props, ref) => {
+  return (
+    <div
+      ref={ref}
+      className="demoPage relative w-full h-full rounded-2xl overflow-hidden"
+      style={{
+        width: "100%",
+        height: "100%",
+        position: "relative",
+        backgroundColor: "#f3f4f6",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    />
+  );
+});
+
+BlankPage.displayName = "BlankPage";
 
 export default function WorkDetail() {
   const params = useParams();
@@ -256,26 +309,28 @@ export default function WorkDetail() {
           {/* Right Content Area - Project Image and Details */}
           <div className="lg:col-span-3">
             {/* Project Title */}
-            <div className="mb-8">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-monarch mb-4">
+            <div className="mb-0 -mb-2">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-monarch mb-0 leading-tight">
                 {project.title}
               </h1>
-              <p className="text-lg md:text-xl text-gray-600 leading-relaxed md:hidden">
+              <p className="text-lg md:text-xl text-gray-600 leading-relaxed md:hidden mb-0">
                 {project.description}
               </p>
             </div>
 
             {/* Project Image */}
-            <div className="relative w-full max-w-3xl aspect-[4/3] rounded-2xl overflow-hidden mb-12">
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                className="object-cover rounded-2xl"
-                sizes="(max-width: 1024px) 100vw, 60vw"
-                priority
-                quality={100}
-              />
+            <div className="relative w-full mt-8 mb-8 flex justify-center items-center px-4">
+              <div className="relative w-full sm:w-[800px] md:w-[1000px] lg:w-[1200px] xl:w-[1400px] aspect-[4/3] rounded-2xl overflow-hidden" style={{ minHeight: '500px' }}>
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover rounded-2xl"
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 800px, (max-width: 1024px) 1000px, (max-width: 1280px) 1200px, 1400px"
+                  priority
+                  quality={100}
+                />
+              </div>
             </div>
 
             {/* About The Project Section */}
@@ -301,30 +356,6 @@ export default function WorkDetail() {
               <p className="text-lg text-gray-600 leading-relaxed mb-6">
                 The style guide establishes a cohesive visual identity for the project, ensuring consistency across all design elements. It defines typography scales, color palettes, spacing systems, and component specifications that guide the overall aesthetic and user experience.
               </p>
-              
-              {/* Style Guide Images */}
-              <div className="grid grid-cols-1 md:grid-cols-2 mt-6 gap-6">
-                <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full h-[500px] md:aspect-[450/430]">
-                  <Image
-                    src="/work-list/first.avif"
-                    alt="Style Guide Example 1"
-                    fill
-                    className="object-cover rounded-2xl"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full h-[500px] md:aspect-[450/430]">
-                  <Image
-                    src="/work-list/second.avif"
-                    alt="Style Guide Example 2"
-                    fill
-                    className="object-cover rounded-2xl"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
             </div>
 
             {/* Icons and Illustrations Section */}
@@ -333,40 +364,6 @@ export default function WorkDetail() {
               <p className="text-lg text-gray-600 leading-relaxed mb-6">
                 The icons and illustrations used throughout the project are carefully crafted to maintain visual consistency and enhance user understanding. Each icon follows a unified design language, while illustrations serve to communicate complex concepts in an accessible and engaging manner.
               </p>
-              
-              {/* Icons and Illustrations Images */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full aspect-square">
-                  <Image
-                    src="/work-list/third.avif"
-                    alt="Icons and Illustrations Example 1"
-                    fill
-                    className="object-cover rounded-2xl"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full aspect-square">
-                  <Image
-                    src="/work-list/fourth.avif"
-                    alt="Icons and Illustrations Example 2"
-                    fill
-                    className="object-cover rounded-2xl"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full aspect-square">
-                  <Image
-                    src="/work-list/fifth.avif"
-                    alt="Icons and Illustrations Example 3"
-                    fill
-                    className="object-cover rounded-2xl"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
             </div>
 
             {/* Responsiveness Section */}
@@ -375,18 +372,6 @@ export default function WorkDetail() {
               <p className="text-lg text-gray-600 leading-relaxed mb-6">
                 The design has been carefully optimized for all device sizes, ensuring a seamless user experience across desktop, tablet, and mobile devices. The responsive layout adapts fluidly to different screen dimensions, maintaining visual hierarchy and functionality across all breakpoints.
               </p>
-              
-              {/* Responsiveness Image */}
-              <div className="relative rounded-2xl overflow-hidden bg-gray-200 w-full aspect-video mt-6">
-                <Image
-                  src="/work-list/sixth.avif"
-                  alt="Responsiveness Example"
-                  fill
-                  className="object-cover rounded-2xl"
-                  sizes="(max-width: 768px) 100vw, 100vw"
-                  loading="lazy"
-                />
-              </div>
             </div>
           </div>
         </div>
