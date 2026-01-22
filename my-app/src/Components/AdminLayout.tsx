@@ -32,7 +32,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
 
     const sidebarLinks = [
         { name: "Create a blog", path: "/admin/blog-posts", icon: dashboardicon },
-        { name: "Works", path: "/admin/works", icon: overviewicon },
+        { name: "Create a work", path: "/admin/works", icon: overviewicon },
         { name: "Queries", path: "/admin/queries", icon: chaticon },
     ];
 

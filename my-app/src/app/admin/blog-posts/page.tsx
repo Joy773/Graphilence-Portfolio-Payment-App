@@ -2,7 +2,9 @@
 
 import React, { useState } from 'react';
 import AdminLayout from '@/Components/AdminLayout';
-import { FaPen, FaTimes } from "react-icons/fa";
+import { FaPen, FaPlus } from "react-icons/fa";
+import { TfiGallery } from "react-icons/tfi";
+
 
 import { MdDelete } from "react-icons/md";
 
@@ -17,6 +19,7 @@ const BlogPostsPage = () => {
     const [sections, setSections] = useState<Section[]>([
         { id: 1, heading: "", content: "" }
     ]);
+    const [images, setImages] = useState<string[]>([]);
 
     const addSection = () => {
         const newId = sections.length > 0 ? Math.max(...sections.map(s => s.id)) + 1 : 1;
@@ -31,6 +34,25 @@ const BlogPostsPage = () => {
 
     const deleteSection = (id: number) => {
         setSections(sections.filter(section => section.id !== id));
+    };
+
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (files) {
+            Array.from(files).forEach((file) => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    if (reader.result) {
+                        setImages([...images, reader.result as string]);
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+    };
+
+    const deleteImage = (index: number) => {
+        setImages(images.filter((_, i) => i !== index));
     };
 
     const handlePublish = () => {
@@ -68,6 +90,48 @@ const BlogPostsPage = () => {
                         />
                     </div>
 
+                    {/* Images Section */}
+                    <div className="mb-6">
+                        <div className="flex items-center justify-between mb-4">
+                            <label className="block text-sm font-medium text-gray-700">
+                                Images ({images.length})
+                            </label>
+                            <label className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 cursor-pointer transition-colors">
+                                <TfiGallery className="w-4 h-4" />
+                                <span className="text-sm font-medium">Add Image</span>  
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    multiple
+                                    onChange={handleImageUpload}
+                                    className="hidden"
+                                />
+                            </label>
+                        </div>
+
+                        {/* Image Grid */}
+                        {images.length > 0 && (
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                {images.map((image, index) => (
+                                    <div key={index} className="relative group">
+                                        <img
+                                            src={image}
+                                            alt={`Upload ${index + 1}`}
+                                            className="w-full h-32 object-cover rounded-lg border border-gray-300"
+                                        />
+                                        <button
+                                            onClick={() => deleteImage(index)}
+                                            className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                            title="Delete image"
+                                        >
+                                            <MdDelete className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
                     {/* Sections */}
                     <div className="mb-6">
                         <div className="flex items-center justify-between mb-4">
@@ -76,11 +140,9 @@ const BlogPostsPage = () => {
                             </label>
                             <button
                                 onClick={addSection}
-                                className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 transition-colors"
+                                className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 cursor-pointer rounded-lg text-gray-700 transition-colors"
                             >
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
-                                </svg>
+                                <FaPlus className="w-4 h-4" />
                                 <span className="text-sm font-medium">Add Section</span>
                             </button>
                         </div>
