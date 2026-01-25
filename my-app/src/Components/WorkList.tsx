@@ -1,67 +1,72 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import RevealOnScroll from './RevealOnScroll';
 
+interface WorkItem {
+  _id: string;
+  title: string;
+  clientName?: string;
+  projectUrl?: string;
+  keywords: string[];
+  images: string[];
+  sections: Array<{ heading?: string; content?: string }>;
+  createdAt: string;
+}
+
 const WorkList = () => {
-  const workItems = [
-    {
-      id: 1,
-      image: "/work-list/first.avif",
-      title: "Tournament - Sport management web app",
-      description: "User-centric website design for sport management services that streamline tournament organization and enhance user engagement",
-      tags: "App Design • Saas Design • UI/UX Design",
-      gradient: "from-purple-500 to-pink-500",
-      slug: "tournament"
-    },
-    {
-      id: 2,
-      image: "/work-list/second.avif",
-      title: "Off-White - Modern fashion web design",
-      description: "E-commerce platform design for modern fashion brand that combines aesthetics with functionality for seamless shopping experience",
-      tags: "E-commerce • Branding • Web Design",
-      gradient: "from-purple-300 to-purple-600",
-      slug: "off-white"
-    },
-    {
-      id: 3,
-      image: "/work-list/third.avif",
-      title: "Project Title",
-      description: "Description for project showcasing innovative design solutions that drive business growth and user satisfaction",
-      tags: "Category 1 • Category 2 • Category 3",
-      gradient: "from-blue-500 to-cyan-500",
-      slug: "project-3"
-    },
-    {
-      id: 4,
-      image: "/work-list/fourth.avif",
-      title: "Project Title",
-      description: "Description for project showcasing innovative design solutions that drive business growth and user satisfaction",
-      tags: "Category 1 • Category 2 • Category 3",
-      gradient: "from-green-500 to-emerald-500",
-      slug: "project-4"
-    },
-    {
-      id: 5,
-      image: "/work-list/fifth.avif",
-      title: "Project Title",
-      description: "Description for project showcasing innovative design solutions that drive business growth and user satisfaction",
-      tags: "Category 1 • Category 2 • Category 3",
-      gradient: "from-orange-500 to-red-500",
-      slug: "project-5"
-    },
-    {
-      id: 6,
-      image: "/work-list/sixth.avif",
-      title: "Project Title",
-      description: "Description for project showcasing innovative design solutions that drive business growth and user satisfaction",
-      tags: "Category 1 • Category 2 • Category 3",
-      gradient: "from-indigo-500 to-purple-500",
-      slug: "project-6"
-    },
+  const [workItems, setWorkItems] = useState<WorkItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Gradient colors for cards
+  const gradients = [
+    "from-purple-500 to-pink-500",
+    "from-purple-300 to-purple-600",
+    "from-blue-500 to-cyan-500",
+    "from-green-500 to-emerald-500",
+    "from-orange-500 to-red-500",
+    "from-indigo-500 to-purple-500",
   ];
+
+  useEffect(() => {
+    const fetchWorks = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/works');
+        const result = await response.json();
+
+        if (result.success) {
+          setWorkItems(result.data);
+        } else {
+          setError('Failed to load works');
+        }
+      } catch (err) {
+        console.error('Error fetching works:', err);
+        setError('An error occurred while loading works');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWorks();
+  }, []);
+
+  // Get description from first section's content
+  const getDescription = (work: WorkItem) => {
+    if (work.sections && work.sections.length > 0 && work.sections[0].content) {
+      return work.sections[0].content.substring(0, 120) + (work.sections[0].content.length > 120 ? '...' : '');
+    }
+    return "A creative project showcasing innovative design solutions that drive business growth and user satisfaction";
+  };
+
+  // Format keywords as string with bullet separator
+  const formatTags = (keywords: string[]) => {
+    if (!keywords || keywords.length === 0) return "Design • Development • Creative";
+    return keywords.join(" • ");
+  };
 
   return (
     <div className="mt-20 lg:mt-32 mb-16">
@@ -75,51 +80,80 @@ const WorkList = () => {
           </h2>
         </div>
       </RevealOnScroll>
+      {loading && (
+        <div className="text-center py-12">
+          <p className="text-gray-600">Loading works...</p>
+        </div>
+      )}
+
+      {error && (
+        <div className="text-center py-12">
+          <p className="text-red-600">{error}</p>
+        </div>
+      )}
+
       {/* Work Grid - 3 cards per row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-        {workItems.map((item, index) => (
-          <RevealOnScroll key={item.id} delay={index * 0.1}>
-            <div className="flex flex-col group">
-            {/* Gradient Card with Image */}
-            <Link href={`/work/${item.slug}`}>
-              <div className={`relative rounded-2xl overflow-hidden bg-gradient-to-r ${item.gradient} mb-4 cursor-pointer`}>
-                {/* Image Container */}
-                <div className="relative w-full aspect-[4/3]">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover rounded-2xl transition-transform duration-300 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                </div>
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 z-10">
-                  <div className="text-center text-white">
-                    <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm md:text-base text-gray-200 leading-relaxed">
-                      {item.description}
-                    </p>
+      {!loading && !error && workItems.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {workItems.map((item, index) => {
+            const gradient = gradients[index % gradients.length];
+            return (
+              <RevealOnScroll key={item._id} delay={index * 0.1}>
+                <div className="flex flex-col group">
+                {/* Gradient Card with Image */}
+                <Link href={`/work/${item._id}`}>
+                  <div className={`relative rounded-2xl overflow-hidden bg-gradient-to-r ${gradient} mb-4 cursor-pointer`}>
+                    {/* Image Container */}
+                    <div className="relative w-full aspect-[4/3]">
+                      {item.images && item.images.length > 0 ? (
+                        <Image
+                          src={item.images[0]}
+                          alt={item.title}
+                          fill
+                          className="object-cover rounded-2xl transition-transform duration-300 group-hover:scale-110"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-white/20 rounded-2xl">
+                          <span className="text-white/70 text-sm">No Image</span>
+                        </div>
+                      )}
+                    </div>
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 z-10">
+                      <div className="text-center text-white">
+                        <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3">
+                          {item.title}
+                        </h3>
+                        <p className="text-sm md:text-base text-gray-200 leading-relaxed">
+                          {getDescription(item)}
+                        </p>
+                      </div>
+                    </div>
                   </div>
+                </Link>
+
+                {/* Title and Tags - Below gradient card on white background */}
+                <div className="text-midnight-monarch">
+                  <h3 className="text-lg lg:text-xl font-bold mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm lg:text-base text-gray-600">
+                    {formatTags(item.keywords)}
+                  </p>
                 </div>
               </div>
-            </Link>
+              </RevealOnScroll>
+            );
+          })}
+        </div>
+      )}
 
-            {/* Title and Tags - Below gradient card on white background */}
-            <div className="text-midnight-monarch">
-              <h3 className="text-lg lg:text-xl font-bold mb-2">
-                {item.title}
-              </h3>
-              <p className="text-sm lg:text-base text-gray-600">
-                {item.tags}
-              </p>
-            </div>
-          </div>
-          </RevealOnScroll>
-        ))}
-      </div>
+      {!loading && !error && workItems.length === 0 && (
+        <div className="text-center py-12">
+          <p className="text-gray-600">No works available yet.</p>
+        </div>
+      )}
     </div>
   );
 };

@@ -23,7 +23,23 @@ export function proxy(request: NextRequest) {
     }
 
     const currentTime = Math.floor(Date.now() / 1000);
-    const sessionDuration = 60; // 1 minute
+    const sessionDurationStr = process.env.SESSION_DURATION;
+    
+    // Validate session duration from environment variable
+    if (!sessionDurationStr) {
+      // If SESSION_DURATION is not set, redirect to login for security
+      const response = NextResponse.redirect(new URL("/login", request.url));
+      response.cookies.delete("auth");
+      return response;
+    }
+
+    const sessionDuration = parseInt(sessionDurationStr);
+    if (isNaN(sessionDuration)) {
+      // Invalid session duration, redirect to login
+      const response = NextResponse.redirect(new URL("/login", request.url));
+      response.cookies.delete("auth");
+      return response;
+    }
 
     if ((currentTime - loginTime) > sessionDuration) {
       // Session expired, clear cookie and redirect

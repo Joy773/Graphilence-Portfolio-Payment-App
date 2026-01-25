@@ -1,12 +1,23 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import HTMLFlipBook from "react-pageflip";
+
+interface WorkItem {
+  _id: string;
+  title: string;
+  clientName?: string;
+  projectUrl?: string;
+  keywords: string[];
+  images: string[];
+  sections: Array<{ heading?: string; content?: string }>;
+  createdAt: string;
+}
 
 // Page component with forwardRef for react-pageflip
 const FlipPage = React.forwardRef<
@@ -62,67 +73,68 @@ BlankPage.displayName = "BlankPage";
 
 export default function WorkDetail() {
   const params = useParams();
-  const slug = params?.slug as string;
+  const workId = params?.slug as string;
+  const [project, setProject] = useState<WorkItem | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentUrl, setCurrentUrl] = useState<string>('');
 
-  const workItems = [
-    {
-      id: 1,
-      image: "/work-list/first.avif",
-      title: "Tournament - Sport management web app",
-      description: "User-centric website design for sport management services",
-      tags: ["App Design", "Saas Design", "UI/UX Design"],
-      slug: "tournament",
-    },
-    {
-      id: 2,
-      image: "/work-list/second.avif",
-      title: "Off-White - Modern fashion web design",
-      description: "E-commerce platform design for modern fashion brand",
-      tags: ["E-commerce", "Branding", "Web Design"],
-      slug: "off-white",
-    },
-    {
-      id: 3,
-      image: "/work-list/third.avif",
-      title: "Project Title",
-      description: "Description for project showcasing innovative design solutions",
-      tags: ["Category 1", "Category 2", "Category 3"],
-      slug: "project-3",
-    },
-    {
-      id: 4,
-      image: "/work-list/fourth.avif",
-      title: "Project Title",
-      description: "Description for project showcasing innovative design solutions",
-      tags: ["Category 1", "Category 2", "Category 3"],
-      slug: "project-4",
-    },
-    {
-      id: 5,
-      image: "/work-list/fifth.avif",
-      title: "Project Title",
-      description: "Description for project showcasing innovative design solutions",
-      tags: ["Category 1", "Category 2", "Category 3"],
-      slug: "project-5",
-    },
-    {
-      id: 6,
-      image: "/work-list/sixth.avif",
-      title: "Project Title",
-      description: "Description for project showcasing innovative design solutions",
-      tags: ["Category 1", "Category 2", "Category 3"],
-      slug: "project-6",
-    },
-  ];
+  useEffect(() => {
+    const fetchWork = async () => {
+      try {
+        setLoading(true);
+        if (!workId) {
+          setError('Work ID is missing');
+          return;
+        }
 
-  const project = workItems.find((item) => item.slug === slug);
+        const response = await fetch(`/api/works/${workId}`);
+        const result = await response.json();
 
-  if (!project) {
+        if (result.success) {
+          setProject(result.data);
+        } else {
+          setError(result.message || 'Failed to load work');
+        }
+      } catch (err) {
+        console.error('Error fetching work:', err);
+        setError('An error occurred while loading the work');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (workId) {
+      fetchWork();
+      // Set current URL for sharing
+      if (typeof window !== 'undefined') {
+        setCurrentUrl(window.location.href);
+      }
+    }
+  }, [workId]);
+
+  if (loading) {
+    return (
+      <div className="px-10 lg:px-20">
+        <Navbar />
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-gray-600 text-lg">Loading work...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error || !project) {
     return (
       <div className="px-10 lg:px-20">
         <Navbar />
         <div className="mt-20 mb-20 text-center">
-          <h1 className="text-4xl font-bold text-midnight-monarch mb-4">Project Not Found</h1>
+          <h1 className="text-4xl font-bold text-midnight-monarch mb-4">
+            {error || 'Project Not Found'}
+          </h1>
           <Link href="/work" className="text-purplish-blue hover:underline">
             Back to Work
           </Link>
@@ -170,7 +182,7 @@ export default function WorkDetail() {
                     COMPANY
                   </h3>
                   <p className="text-lg font-semibold text-midnight-monarch">
-                    {project.title.split(" - ")[0] || "Company Name"}
+                    {project.clientName || project.title.split(" - ")[0] || "Company Name"}
                   </p>
                 </div>
 
@@ -180,63 +192,59 @@ export default function WorkDetail() {
                     CATEGORY
                   </h3>
                   <p className="text-lg font-semibold text-midnight-monarch">
-                    {project.tags[0] || "Web/App Design"}
+                    {project.keywords && project.keywords.length > 0 ? project.keywords[0] : "Web/App Design"}
                   </p>
                 </div>
 
                 {/* Live View */}
-                <div>
-                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                    LIVE VIEW
-                  </h3>
-                  <a
-                    href="#"
-                    className="inline-flex items-center gap-2 text-lg font-semibold text-midnight-monarch hover:text-purplish-blue transition-colors"
-                  >
-                    Visit Website
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                {project.projectUrl && (
+                  <div>
+                    <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                      LIVE VIEW
+                    </h3>
+                    <a
+                      href={project.projectUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-lg font-semibold text-midnight-monarch hover:text-purplish-blue transition-colors"
                     >
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                      <polyline points="15 3 21 3 21 9" />
-                      <line x1="10" y1="14" x2="21" y2="3" />
-                    </svg>
-                  </a>
-                </div>
-
-                {/* Timelines */}
-                <div>
-                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                    TIMELINES
-                  </h3>
-                  <p className="text-lg font-semibold text-midnight-monarch">
-                    3 Months
-                  </p>
-                </div>
+                      Visit Website
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                      </svg>
+                    </a>
+                  </div>
+                )}
 
                 {/* Service We Provided */}
-                <div>
-                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
-                    SERVICE WE PROVIDED
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full text-sm font-medium"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                {project.keywords && project.keywords.length > 0 && (
+                  <div>
+                    <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+                      SERVICE WE PROVIDED
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {project.keywords.map((keyword, index) => (
+                        <span
+                          key={index}
+                          className="bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full text-sm font-medium"
+                        >
+                          {keyword}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Share this Case Study */}
                 <div>
@@ -246,7 +254,9 @@ export default function WorkDetail() {
                   <div className="flex gap-3">
                     {/* Facebook */}
                     <a
-                      href="#"
+                      href={currentUrl ? `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}` : '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
                       aria-label="Share on Facebook"
                     >
@@ -254,7 +264,9 @@ export default function WorkDetail() {
                     </a>
                     {/* Twitter/X */}
                     <a
-                      href="#"
+                      href={currentUrl ? `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(project.title)}` : '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
                       aria-label="Share on Twitter"
                     >
@@ -274,7 +286,9 @@ export default function WorkDetail() {
                     </a>
                     {/* LinkedIn */}
                     <a
-                      href="#"
+                      href={currentUrl ? `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}` : '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
                       aria-label="Share on LinkedIn"
                     >
@@ -282,7 +296,9 @@ export default function WorkDetail() {
                     </a>
                     {/* WhatsApp */}
                     <a
-                      href="#"
+                      href={currentUrl ? `https://wa.me/?text=${encodeURIComponent(project.title + ' ' + currentUrl)}` : '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
                       aria-label="Share on WhatsApp"
                     >
@@ -313,66 +329,75 @@ export default function WorkDetail() {
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-monarch mb-0 leading-tight">
                 {project.title}
               </h1>
-              <p className="text-lg md:text-xl text-gray-600 leading-relaxed md:hidden mb-0">
-                {project.description}
-              </p>
+              {project.sections && project.sections.length > 0 && project.sections[0].content && (
+                <p className="text-lg md:text-xl text-gray-600 leading-relaxed md:hidden mb-0">
+                  {project.sections[0].content.substring(0, 100)}...
+                </p>
+              )}
             </div>
 
-            {/* Project Image */}
-            <div className="relative w-full mt-8 mb-8 flex justify-center items-center px-4">
-              <div className="relative w-full sm:w-[800px] md:w-[1000px] lg:w-[1200px] xl:w-[1400px] aspect-[4/3] rounded-2xl overflow-hidden" style={{ minHeight: '500px' }}>
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover rounded-2xl"
-                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 800px, (max-width: 1024px) 1000px, (max-width: 1280px) 1200px, 1400px"
-                  priority
-                  quality={100}
-                />
+            {/* Project Images */}
+            {project.images && project.images.length > 0 && (
+              <div className="relative w-full mt-8 mb-8 flex justify-center items-center px-4">
+                {project.images.length === 1 ? (
+                  <div className="relative w-full sm:w-[800px] md:w-[1000px] lg:w-[1200px] xl:w-[1400px] aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200" style={{ minHeight: '500px' }}>
+                    <Image
+                      src={project.images[0]}
+                      alt={project.title}
+                      fill
+                      className="object-cover rounded-2xl"
+                      sizes="(max-width: 640px) 100vw, (max-width: 768px) 800px, (max-width: 1024px) 1000px, (max-width: 1280px) 1200px, 1400px"
+                      priority
+                      quality={100}
+                    />
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                    {project.images.slice(0, 2).map((image, index) => (
+                      <div key={index} className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200">
+                        <Image
+                          src={image}
+                          alt={`${project.title} - Image ${index + 1}`}
+                          fill
+                          className="object-cover rounded-2xl"
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-            </div>
+            )}
 
-            {/* About The Project Section */}
-            <div className="max-w-4xl mb-12">
-                <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch block mb-4">About The Project</p>
-                This project represents a comprehensive design solution that combines innovative user experience design with modern web technologies. Our team worked closely with the client to understand their vision and translate it into a functional, beautiful, and user-friendly digital experience. 
-            </div>
-
-            {/* Objectives Section */}
-            <div className="max-w-4xl">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch mb-4">Objectives</h1>
-              <p className="text-lg text-gray-600 leading-relaxed">The client wanted a website for Recharge IV that makes booking door-to-door drip therapies effortless. They emphasized the importance of keeping the design consistent even when adding new drip and wellness products.</p>
-            </div>
-{/* Requirements Section */}
-            <div className="max-w-4xl mt-12">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch mb-4">Requirements</h2>
-              <p className="text-lg text-gray-600 leading-relaxed">The drip booking should be straightforward and swift, avoiding unnecessary steps for users. Additionally, they want the ability to update the site with new content easily, minimizing the need for frequent designer involvement.</p>
-            </div>
-
-            {/* Styled Guide Section */}
-            <div className="max-w-4xl mt-12">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch mb-4">Styled Guide</h2>
-              <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                The style guide establishes a cohesive visual identity for the project, ensuring consistency across all design elements. It defines typography scales, color palettes, spacing systems, and component specifications that guide the overall aesthetic and user experience.
-              </p>
-            </div>
-
-            {/* Icons and Illustrations Section */}
-            <div className="max-w-4xl mt-12">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch mb-4">Icons and illustrations</h2>
-              <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                The icons and illustrations used throughout the project are carefully crafted to maintain visual consistency and enhance user understanding. Each icon follows a unified design language, while illustrations serve to communicate complex concepts in an accessible and engaging manner.
-              </p>
-            </div>
-
-            {/* Responsiveness Section */}
-            <div className="max-w-4xl mt-12">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch mb-4">Responsiveness</h2>
-              <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                The design has been carefully optimized for all device sizes, ensuring a seamless user experience across desktop, tablet, and mobile devices. The responsive layout adapts fluidly to different screen dimensions, maintaining visual hierarchy and functionality across all breakpoints.
-              </p>
-            </div>
+            {/* Dynamic Sections from Database */}
+            {project.sections && project.sections.length > 0 ? (
+              <div className="space-y-12">
+                {project.sections.map((section, index) => (
+                  <div key={index} className="max-w-4xl">
+                    {section.heading && (
+                      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch mb-4">
+                        {section.heading}
+                      </h2>
+                    )}
+                    {section.content && (
+                      <div className="text-lg text-gray-600 leading-relaxed whitespace-pre-wrap">
+                        {section.content.split('\n').map((paragraph, pIndex) => (
+                          paragraph.trim() && (
+                            <p key={pIndex} className="mb-6">
+                              {paragraph}
+                            </p>
+                          )
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="max-w-4xl">
+                <p className="text-lg text-gray-600">No content available for this project.</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
