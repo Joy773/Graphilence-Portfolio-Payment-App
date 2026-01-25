@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import RevealOnScroll from './RevealOnScroll';
+import LoadingProgressBar from './LoadingProgressBar';
 
 interface WorkItem {
   _id: string;
@@ -13,6 +14,7 @@ interface WorkItem {
   keywords: string[];
   images: string[];
   sections: Array<{ heading?: string; content?: string }>;
+  featured?: boolean;
   createdAt: string;
 }
 
@@ -39,7 +41,11 @@ const WorkList = () => {
         const result = await response.json();
 
         if (result.success) {
-          setWorkItems(result.data);
+          // Filter and show only featured works, limit to 6
+          const featuredWorks = result.data
+            .filter((work: WorkItem) => work.featured === true)
+            .slice(0, 6);
+          setWorkItems(featuredWorks);
         } else {
           setError('Failed to load works');
         }
@@ -70,6 +76,7 @@ const WorkList = () => {
 
   return (
     <div className="mt-20 lg:mt-32 mb-16">
+      <LoadingProgressBar isLoading={loading} />
       {/* Heading */}
       <RevealOnScroll>
         <div className='w-full flex justify-center'>
@@ -80,12 +87,6 @@ const WorkList = () => {
           </h2>
         </div>
       </RevealOnScroll>
-      {loading && (
-        <div className="text-center py-12">
-          <p className="text-gray-600">Loading works...</p>
-        </div>
-      )}
-
       {error && (
         <div className="text-center py-12">
           <p className="text-red-600">{error}</p>

@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SendQuery from "@/Components/SendQuery";
 import RevealOnScroll from "@/Components/RevealOnScroll";
+import LoadingProgressBar from "@/Components/LoadingProgressBar";
 
 interface WorkItem {
   _id: string;
@@ -57,6 +58,7 @@ export default function Work() {
 
   return (
     <div className="px-10 lg:px-20">
+      <LoadingProgressBar isLoading={loading} />
       <Navbar />
       
       {/* Work Grid Section */}
@@ -70,12 +72,6 @@ export default function Work() {
             <p className="text-gray-600 mt-4">An Experience design agency building high-end products and experiences that grow your business exponentially.</p>
           </div>
         </RevealOnScroll>
-
-        {loading && (
-          <div className="text-center py-12">
-            <p className="text-gray-600">Loading works...</p>
-          </div>
-        )}
 
         {error && (
           <div className="text-center py-12">

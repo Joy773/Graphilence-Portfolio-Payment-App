@@ -8,8 +8,10 @@ export async function GET(request: NextRequest) {
         await connectDB();
 
         const blogs = await Blog.find()
-            .select('title images keywords createdAt') // Select title, images, keywords, and createdAt
-            .sort({ createdAt: -1 }); // Sort by newest first
+            .select('title images keywords createdAt')
+            .sort({ createdAt: -1 })
+            .lean() // Use lean() for faster queries
+            .limit(100); // Limit results to prevent slow queries
 
         return NextResponse.json(
             { success: true, data: blogs, count: blogs.length },
@@ -59,43 +61,21 @@ export async function POST(request: NextRequest) {
             }
         }
 
-        console.log('Keywords received:', keywords);
-        console.log('Keywords processed:', keywordsArray);
-
-        // Create blog post object with all fields - explicitly include keywords
+        // Create blog post object with all fields
         const blogData: any = {
             title: title.trim(),
             sections: validSections,
             images: images || [],
-            keywords: keywordsArray, // Explicitly set keywords
+            keywords: keywordsArray,
         };
-
-        console.log('Blog data before save:', JSON.stringify(blogData, null, 2));
-        console.log('Keywords in blogData:', blogData.keywords);
-        console.log('Keywords type:', typeof blogData.keywords);
-        console.log('Keywords is array:', Array.isArray(blogData.keywords));
 
         const blogPost = new Blog(blogData);
         
-        // Explicitly set keywords again to ensure it's included
+        // Explicitly set keywords and mark as modified to ensure they're saved
         blogPost.set('keywords', keywordsArray);
-        
-        // Mark keywords as modified to ensure they're saved
         blogPost.markModified('keywords');
         
-        // Log before save
-        console.log('Blog post before save - keywords:', blogPost.keywords);
-        console.log('Blog post before save - toObject:', blogPost.toObject());
-        
         const savedBlog = await blogPost.save();
-        
-        console.log('Blog saved with ID:', savedBlog._id);
-        console.log('Blog saved with keywords:', savedBlog.keywords);
-        console.log('Keywords length:', savedBlog.keywords?.length || 0);
-        
-        // Verify by fetching the blog again
-        const verifyBlog = await Blog.findById(savedBlog._id);
-        console.log('Verified blog keywords:', verifyBlog?.keywords);
 
         return NextResponse.json(
             {success: true, message: "Blog post created successfully", data: savedBlog},

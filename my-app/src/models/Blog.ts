@@ -33,6 +33,10 @@ const BlogSchema = new mongoose.Schema(
     {timestamps: true}
 );
 
+// Add indexes for better query performance
+BlogSchema.index({ createdAt: -1 }); // Index for sorting by creation date
+BlogSchema.index({ title: 'text' }); // Text index for search functionality
+
 // Delete the model if it exists to ensure fresh schema compilation with keywords field
 if (mongoose.models.Blog) {
     delete mongoose.models.Blog;

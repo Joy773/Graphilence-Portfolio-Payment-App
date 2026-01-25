@@ -39,6 +39,11 @@ const WorkSchema = new mongoose.Schema(
             default: [],
             required: false,
         },
+        featured: {
+            type: Boolean,
+            default: false,
+            required: false,
+        },
         sections: [
             {
                 heading: {
@@ -64,6 +69,11 @@ const WorkSchema = new mongoose.Schema(
     },
     { timestamps: true }
 );
+
+// Add indexes for better query performance
+WorkSchema.index({ createdAt: -1 }); // Index for sorting by creation date
+WorkSchema.index({ title: 'text' }); // Text index for search functionality
+WorkSchema.index({ featured: 1 }); // Index for filtering featured works
 
 // Delete the model if it exists to ensure fresh schema compilation with keywords field
 if (mongoose.models.Work) {

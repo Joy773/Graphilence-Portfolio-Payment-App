@@ -8,8 +8,10 @@ export async function GET(request: NextRequest) {
         await connectDB();
 
         const works = await Work.find()
-            .select('title clientName projectUrl keywords images sections createdAt')
-            .sort({ createdAt: -1 }); // Sort by newest first
+            .select('title clientName projectUrl keywords images sections featured createdAt')
+            .sort({ createdAt: -1 })
+            .lean() // Use lean() for faster queries (returns plain JavaScript objects)
+            .limit(100); // Limit results to prevent slow queries with large datasets
 
         return NextResponse.json(
             { success: true, data: works, count: works.length },
@@ -30,7 +32,7 @@ export async function POST(request: NextRequest) {
         await connectDB();
 
         const body = await request.json();
-        const { title, clientName, projectUrl, keywords, sections, images } = body;
+        const { title, clientName, projectUrl, keywords, sections, images, featured } = body;
 
         // Validate required fields
         if (!title || title.trim() === "") {
@@ -73,20 +75,27 @@ export async function POST(request: NextRequest) {
             }
         }
 
-        console.log('Keywords received:', keywords);
-        console.log('Keywords type:', typeof keywords);
-        console.log('Keywords is array:', Array.isArray(keywords));
-        console.log('Keywords processed:', keywordsArray);
+        // If this work is being marked as featured, check if we already have 6 featured works
+        if (featured === true) {
+            const featuredCount = await Work.countDocuments({ featured: true });
+            if (featuredCount >= 6) {
+                // Unfeature the oldest featured work
+                const oldestFeatured = await Work.findOne({ featured: true }).sort({ createdAt: 1 });
+                if (oldestFeatured) {
+                    oldestFeatured.featured = false;
+                    await oldestFeatured.save();
+                }
+            }
+        }
 
         // Create work object with all fields
         const workData: any = {
             title: title.trim(),
             sections: validSections,
             images: images || [],
+            keywords: keywordsArray,
+            featured: featured === true,
         };
-
-        // Always set keywords, even if empty array
-        workData.keywords = keywordsArray;
 
         // Add optional fields only if they have values
         if (clientName && clientName.trim()) {
@@ -96,36 +105,16 @@ export async function POST(request: NextRequest) {
             workData.projectUrl = projectUrl.trim();
         }
 
-        console.log('Work data before save:', JSON.stringify(workData, null, 2));
-        console.log('Keywords in workData:', workData.keywords);
-        console.log('Keywords type:', typeof workData.keywords);
-        console.log('Keywords is array:', Array.isArray(workData.keywords));
-
         const work = new Work(workData);
         
-        // Explicitly set keywords again to ensure it's included
+        // Explicitly set keywords and mark as modified to ensure they're saved
         work.set('keywords', keywordsArray);
-        
-        // Mark keywords as modified to ensure they're saved
         work.markModified('keywords');
         
-        // Log before save
-        console.log('Work before save - keywords:', work.keywords);
-        console.log('Work before save - toObject:', work.toObject());
-        
         const savedWork = await work.save();
-        
-        console.log('Work saved with ID:', savedWork._id);
-        console.log('Work saved with keywords:', savedWork.keywords);
-        console.log('Keywords length:', savedWork.keywords?.length || 0);
-        
-        // Verify by fetching the work again
-        const verifyWork = await Work.findById(savedWork._id);
-        console.log('Verified work keywords:', verifyWork?.keywords);
-        console.log('Verified work full object:', verifyWork?.toObject());
 
         return NextResponse.json(
-            { success: true, message: "Work created successfully", data: work },
+            { success: true, message: "Work created successfully", data: savedWork },
             { status: 201 }
         );
     } catch (error) {

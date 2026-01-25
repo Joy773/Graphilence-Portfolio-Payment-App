@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import Campany from "@/Components/campany";
@@ -8,6 +8,19 @@ import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import { motion } from "motion/react";
 import RevealOnScroll from "@/Components/RevealOnScroll";
+import LoadingProgressBar from "@/Components/LoadingProgressBar";
+
+interface WorkItem {
+  _id: string;
+  title: string;
+  clientName?: string;
+  projectUrl?: string;
+  keywords: string[];
+  images: string[];
+  sections: Array<{ heading?: string; content?: string }>;
+  featured?: boolean;
+  createdAt: string;
+}
 
 // Testimonials data
 const testimonials = [
@@ -74,8 +87,52 @@ const testimonials = [
 ];
 
 export default function Services() {
+  const [works, setWorks] = useState<WorkItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchWorks = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/works');
+        const result = await response.json();
+
+        if (result.success) {
+          // Filter and show only featured works, limit to 6
+          const featuredWorks = result.data
+            .filter((work: WorkItem) => work.featured === true)
+            .slice(0, 6);
+          setWorks(featuredWorks);
+        }
+      } catch (err) {
+        console.error('Error fetching works:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWorks();
+  }, []);
+
+  // Get description from first section's content, or use a default
+  const getDescription = (work: WorkItem) => {
+    if (work.sections && work.sections.length > 0 && work.sections[0].content) {
+      return work.sections[0].content.substring(0, 150) + (work.sections[0].content.length > 150 ? '...' : '');
+    }
+    return "A creative project showcasing innovative design solutions";
+  };
+
+  // Get the first image or use a placeholder
+  const getImage = (work: WorkItem) => {
+    if (work.images && work.images.length > 0) {
+      return work.images[0];
+    }
+    return "/work-list/first.avif"; // Fallback to placeholder
+  };
+
   return (
     <div className="px-10 lg:px-20">
+      <LoadingProgressBar isLoading={loading} />
       <Navbar />
       {/* Hero Banner Section */}
       <RevealOnScroll>
@@ -346,116 +403,167 @@ export default function Services() {
 
         {/* Six Images Grid - 3 per row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-12">
-          {[
-            {
-              src: "/work-list/first.avif",
-              alt: "Work 1",
-              title: "E-Commerce & DTC",
-              description: "Our approach of making things simpler and more effective helps users go from browsing to checkout in a few simple steps",
-              bullets: [
-                "E-commerce",
-                "Branding",
-                "Web Design"
-              ]
-            },
-            {
-              src: "/work-list/second.avif",
-              alt: "Work 2",
-              title: "Finance & Fintech",
-              description: "Building secure and user-friendly financial solutions that empower users to manage their finances effortlessly",
-              bullets: [
-                "UI/UX Design",
-                "Product Design",
-                "Mobile App"
-              ]
-            },
-            {
-              src: "/work-list/third.avif",
-              alt: "Work 3",
-              title: "SaaS & B2B Platforms",
-              description: "Creating powerful business solutions that streamline operations and enhance productivity for teams worldwide",
-              bullets: [
-                "SaaS Design",
-                "Web Design",
-                "UI/UX Consulting"
-              ]
-            },
-            {
-              src: "/work-list/fourth.avif",
-              alt: "Work 4",
-              title: "Healthcare & Wellness",
-              description: "Designing intuitive health platforms that connect patients with care providers seamlessly",
-              bullets: [
-                "Healthcare Design",
-                "Mobile App",
-                "UI/UX Design"
-              ]
-            },
-            {
-              src: "/work-list/fifth.avif",
-              alt: "Work 5",
-              title: "Education & E-Learning",
-              description: "Transforming learning experiences with engaging and accessible educational platforms",
-              bullets: [
-                "E-Learning Platform",
-                "Web Design",
-                "Branding"
-              ]
-            },
-            {
-              src: "/work-list/sixth.avif",
-              alt: "Work 6",
-              title: "Travel & Hospitality",
-              description: "Crafting memorable travel experiences through beautiful and functional booking platforms",
-              bullets: [
-                "Travel App",
-                "Web Design",
-                "UI/UX Design"
-              ]
-            },
-          ].map((image, index) => (
-            <div
-              key={index}
-              className="flex flex-col"
-            >
-              <div className="relative w-full aspect-square rounded-lg overflow-hidden group cursor-pointer mb-4">
-                <div className="relative w-full h-full">
+          {works.length > 0 ? (
+            works.map((work, index) => (
+              <div
+                key={work._id}
+                className="flex flex-col"
+              >
+                <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden group cursor-pointer mb-4">
+                  {work.images && work.images.length > 0 ? (
+                    <Image
+                      src={work.images[0]}
+                      alt={work.title}
+                      fill
+                      className="object-cover rounded-lg transition-transform duration-300 group-hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gray-200 rounded-lg">
+                      <span className="text-gray-400 text-sm">No Image</span>
+                    </div>
+                  )}
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 z-10">
+                    <div className="text-center text-white">
+                      <p className="text-sm md:text-base text-gray-200 leading-relaxed">
+                        {getDescription(work)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {/* Project Name and Bullets */}
+                <div>
+                  <h3 className="text-xl md:text-2xl font-bold text-midnight-monarch mb-3">
+                    {work.title}
+                  </h3>
+                  <p className="text-sm md:text-base text-gray-600 flex flex-wrap items-center gap-1">
+                    {work.keywords && work.keywords.length > 0 ? (
+                      work.keywords.map((keyword, keywordIndex) => (
+                        <span key={keywordIndex} className="flex items-center">
+                          <span>{keyword}</span>
+                          {keywordIndex < work.keywords.length - 1 && (
+                            <span className="mx-2 text-midnight-monarch">•</span>
+                          )}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-gray-400">No keywords available</span>
+                    )}
+                  </p>
+                </div>
+              </div>
+            ))
+          ) : (
+            // Fallback to dummy data if no works are available
+            [
+              {
+                src: "/work-list/first.avif",
+                alt: "Work 1",
+                title: "E-Commerce & DTC",
+                description: "Our approach of making things simpler and more effective helps users go from browsing to checkout in a few simple steps",
+                bullets: [
+                  "E-commerce",
+                  "Branding",
+                  "Web Design"
+                ]
+              },
+              {
+                src: "/work-list/second.avif",
+                alt: "Work 2",
+                title: "Finance & Fintech",
+                description: "Building secure and user-friendly financial solutions that empower users to manage their finances effortlessly",
+                bullets: [
+                  "UI/UX Design",
+                  "Product Design",
+                  "Mobile App"
+                ]
+              },
+              {
+                src: "/work-list/third.avif",
+                alt: "Work 3",
+                title: "SaaS & B2B Platforms",
+                description: "Creating powerful business solutions that streamline operations and enhance productivity for teams worldwide",
+                bullets: [
+                  "SaaS Design",
+                  "Web Design",
+                  "UI/UX Consulting"
+                ]
+              },
+              {
+                src: "/work-list/fourth.avif",
+                alt: "Work 4",
+                title: "Healthcare & Wellness",
+                description: "Designing intuitive health platforms that connect patients with care providers seamlessly",
+                bullets: [
+                  "Healthcare Design",
+                  "Mobile App",
+                  "UI/UX Design"
+                ]
+              },
+              {
+                src: "/work-list/fifth.avif",
+                alt: "Work 5",
+                title: "Education & E-Learning",
+                description: "Transforming learning experiences with engaging and accessible educational platforms",
+                bullets: [
+                  "E-Learning Platform",
+                  "Web Design",
+                  "Branding"
+                ]
+              },
+              {
+                src: "/work-list/sixth.avif",
+                alt: "Work 6",
+                title: "Travel & Hospitality",
+                description: "Crafting memorable travel experiences through beautiful and functional booking platforms",
+                bullets: [
+                  "Travel App",
+                  "Web Design",
+                  "UI/UX Design"
+                ]
+              },
+            ].map((image, index) => (
+              <div
+                key={index}
+                className="flex flex-col"
+              >
+                <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden group cursor-pointer mb-4">
                   <Image
                     src={image.src}
                     alt={image.alt}
-                    width={400}
-                    height={400}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                    unoptimized
+                    fill
+                    className="object-cover rounded-lg transition-transform duration-300 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                </div>
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 z-10">
-                  <div className="text-center text-white">
-                    <p className="text-sm md:text-base text-gray-200 leading-relaxed">
-                      {image.description}
-                    </p>
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 z-10">
+                    <div className="text-center text-white">
+                      <p className="text-sm md:text-base text-gray-200 leading-relaxed">
+                        {image.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
+                {/* Project Name and Bullets */}
+                <div>
+                  <h3 className="text-xl md:text-2xl font-bold text-midnight-monarch mb-3">
+                    {image.title}
+                  </h3>
+                  <p className="text-sm md:text-base text-gray-600 flex flex-wrap items-center gap-1">
+                    {image.bullets.map((bullet, bulletIndex) => (
+                      <span key={bulletIndex} className="flex items-center">
+                        <span>{bullet}</span>
+                        {bulletIndex < image.bullets.length - 1 && (
+                          <span className="mx-2 text-midnight-monarch">•</span>
+                        )}
+                      </span>
+                    ))}
+                  </p>
+                </div>
               </div>
-              {/* Project Name and Bullets */}
-              <div>
-                <h3 className="text-xl md:text-2xl font-bold text-midnight-monarch mb-3">
-                  {image.title}
-                </h3>
-                <p className="text-sm md:text-base text-gray-600 flex flex-wrap items-center gap-1">
-                  {image.bullets.map((bullet, bulletIndex) => (
-                    <span key={bulletIndex} className="flex items-center">
-                      <span>{bullet}</span>
-                      {bulletIndex < image.bullets.length - 1 && (
-                        <span className="mx-2 text-midnight-monarch">•</span>
-                      )}
-                    </span>
-                  ))}
-                </p>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
       </RevealOnScroll>

@@ -52,6 +52,11 @@ const InquirySchema = new mongoose.Schema(
     { timestamps: true }
 );
 
+// Add indexes for better query performance
+InquirySchema.index({ createdAt: -1 }); // Index for sorting by creation date
+InquirySchema.index({ status: 1 }); // Index for filtering by status
+InquirySchema.index({ email: 1 }); // Index for email lookups
+
 // Delete the model if it exists to ensure fresh schema compilation
 if (mongoose.models.Inquiry) {
     delete mongoose.models.Inquiry;

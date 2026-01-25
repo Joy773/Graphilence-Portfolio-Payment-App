@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '@/Components/Navbar'
 import Footer from '@/Components/Footer'      
 import Link from 'next/link'     
-import Image from 'next/image' 
+import Image from 'next/image'
+import LoadingProgressBar from '@/Components/LoadingProgressBar' 
 
 interface BlogPost {
   _id: string;
@@ -53,17 +54,12 @@ const Page = () => {
 
   return (
     <div className='px-10 lg:px-20'>   
+      <LoadingProgressBar isLoading={loading} />
       <Navbar />
       <div className='mt-20 mb-20'>
         <h1 className='text-4xl font-bold text-midnight-monarch text-center mb-12'>
           Graphilence Blog Posts
         </h1>
-
-        {loading && (
-          <div className="text-center py-12">
-            <p className="text-gray-600">Loading blogs...</p>
-          </div>
-        )}
 
         {error && (
           <div className="text-center py-12">

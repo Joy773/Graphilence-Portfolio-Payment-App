@@ -20,7 +20,9 @@ export async function GET(request: NextRequest) {
 
         const inquiries = await Inquiry.find(query)
             .sort(sort)
-            .select("name email phone subject message status createdAt updatedAt");
+            .select("name email phone subject message status createdAt updatedAt")
+            .lean() // Use lean() for faster queries
+            .limit(100); // Limit results
 
         return NextResponse.json(
             { success: true, data: inquiries, count: inquiries.length },
@@ -92,8 +94,6 @@ export async function POST(request: NextRequest) {
         });
 
         await inquiry.save();
-
-        console.log("Inquiry created successfully:", inquiry._id);
 
         return NextResponse.json(
             {

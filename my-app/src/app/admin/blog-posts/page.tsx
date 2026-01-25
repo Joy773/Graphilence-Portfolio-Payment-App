@@ -1,17 +1,24 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AdminLayout from '@/Components/AdminLayout';
-import { FaPen, FaPlus } from "react-icons/fa";
+import { FaPen, FaPlus, FaEdit } from "react-icons/fa";
 import { TfiGallery } from "react-icons/tfi";
-
-
 import { MdDelete } from "react-icons/md";
 
 interface Section {
     id: number;
     heading: string;
     content: string;
+}
+
+interface Blog {
+    _id: string;
+    title: string;
+    keywords: string[];
+    sections: Array<{ heading?: string; content?: string }>;
+    images: string[];
+    createdAt: string;
 }
 
 const BlogPostsPage = () => {
@@ -23,6 +30,29 @@ const BlogPostsPage = () => {
     const [images, setImages] = useState<string[]>([]);
     const [isSaving, setIsSaving] = useState(false);
     const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
+    const [blogs, setBlogs] = useState<Blog[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [editingId, setEditingId] = useState<string | null>(null);
+
+    useEffect(() => {
+        fetchBlogs();
+    }, []);
+
+    const fetchBlogs = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch('/api/blog-posts');
+            const result = await response.json();
+
+            if (result.success) {
+                setBlogs(result.data);
+            }
+        } catch (error) {
+            console.error('Error fetching blogs:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const addSection = () => {
         const newId = sections.length > 0 ? Math.max(...sections.map(s => s.id)) + 1 : 1;
@@ -56,6 +86,81 @@ const BlogPostsPage = () => {
 
     const deleteImage = (index: number) => {
         setImages(images.filter((_, i) => i !== index));
+    };
+
+    const handleEdit = async (blogId: string) => {
+        try {
+            const response = await fetch(`/api/blog-posts/${blogId}`);
+            const result = await response.json();
+
+            if (result.success) {
+                const blog = result.data;
+                setPostTitle(blog.title);
+                setKeywords(blog.keywords ? blog.keywords.join(', ') : '');
+                setImages(blog.images || []);
+                
+                // Convert sections to form format
+                if (blog.sections && blog.sections.length > 0) {
+                    const formSections = blog.sections.map((section: any, index: number) => ({
+                        id: index + 1,
+                        heading: section.heading || '',
+                        content: section.content || '',
+                    }));
+                    setSections(formSections);
+                } else {
+                    setSections([{ id: 1, heading: '', content: '' }]);
+                }
+
+                setEditingId(blogId);
+                setMessage(null);
+                
+                // Scroll to form
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        } catch (error) {
+            console.error('Error fetching blog:', error);
+            setMessage({ type: 'error', text: 'Failed to load blog post' });
+        }
+    };
+
+    const handleDelete = async (blogId: string) => {
+        if (!window.confirm('Are you sure you want to delete this blog post?')) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/blog-posts/${blogId}`, {
+                method: 'DELETE',
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                setMessage({ type: 'success', text: 'Blog post deleted successfully!' });
+                fetchBlogs();
+                setTimeout(() => setMessage(null), 3000);
+            } else {
+                setMessage({ type: 'error', text: result.message || 'Failed to delete blog post' });
+                setTimeout(() => setMessage(null), 3000);
+            }
+        } catch (error) {
+            console.error('Error deleting blog:', error);
+            setMessage({ type: 'error', text: 'An error occurred while deleting' });
+            setTimeout(() => setMessage(null), 3000);
+        }
+    };
+
+    const resetForm = () => {
+        setPostTitle('');
+        setKeywords('');
+        setSections([{ id: 1, heading: '', content: '' }]);
+        setImages([]);
+        setEditingId(null);
+        setMessage(null);
+    };
+
+    const handleCreateNew = () => {
+        resetForm();
     };
 
     const handlePublish = async () => {
@@ -100,9 +205,12 @@ const BlogPostsPage = () => {
 
             console.log('Blog data being sent:', blogData);
 
-            // Send to API
-            const response = await fetch('/api/blog-posts', {
-                method: 'POST',
+            // Send to API (POST for create, PUT for update)
+            const url = editingId ? `/api/blog-posts/${editingId}` : '/api/blog-posts';
+            const method = editingId ? 'PUT' : 'POST';
+
+            const response = await fetch(url, {
+                method: method,
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -112,12 +220,14 @@ const BlogPostsPage = () => {
             const result = await response.json();
 
             if (result.success) {
-                setMessage({ type: 'success', text: 'Blog post saved successfully!' });
+                setMessage({ 
+                    type: 'success', 
+                    text: editingId ? 'Blog post updated successfully!' : 'Blog post saved successfully!' 
+                });
                 // Clear the form
-                setPostTitle('');
-                setKeywords('');
-                setSections([{ id: 1, heading: '', content: '' }]);
-                setImages([]);
+                handleCreateNew();
+                // Refresh blogs list
+                fetchBlogs();
                 // Clear success message after 3 seconds
                 setTimeout(() => setMessage(null), 3000);
             } else {
@@ -135,18 +245,35 @@ const BlogPostsPage = () => {
 
     const handleCancel = () => {
         if (window.confirm('Are you sure you want to cancel? All unsaved changes will be lost.')) {
-            setPostTitle('');
-            setKeywords('');
-            setSections([{ id: 1, heading: '', content: '' }]);
-            setImages([]);
+            resetForm();
             setMessage(null);
         }
     };
 
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+        });
+    };
+
     return (
         <AdminLayout>
-            <div className="max-w-4xl mx-auto">
-                <h1 className="text-2xl font-bold text-midnight-monarch mb-6">Blog Posts</h1>
+            <div className="max-w-7xl mx-auto">
+                <div className="flex items-center justify-between mb-6">
+                    <h1 className="text-2xl font-bold text-midnight-monarch">Blog Posts</h1>
+                    {editingId && (
+                        <button
+                            onClick={handleCreateNew}
+                            className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 transition-colors"
+                        >
+                            <FaPlus className="w-4 h-4" />
+                            Create New Post
+                        </button>
+                    )}
+                </div>
                 
                 {/* Success/Error Message */}
                 {message && (
@@ -173,9 +300,10 @@ const BlogPostsPage = () => {
                     <div className="flex items-center justify-between mb-6">
                         <div className="flex items-center gap-3">
                            <FaPen className="w-4 h-4" />
-                            <h2 className="text-xl font-bold text-midnight-monarch">Create New Post</h2>
+                            <h2 className="text-xl font-bold text-midnight-monarch">
+                                {editingId ? 'Edit Post' : 'Create New Post'}
+                            </h2>
                         </div>
-                   
                     </div>
 
                     {/* Post Title */}
@@ -345,7 +473,7 @@ const BlogPostsPage = () => {
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
-                                    <span>Publish Post</span>
+                                    <span>{editingId ? 'Update Post' : 'Publish Post'}</span>
                                 </>
                             )}
                         </button>
@@ -361,6 +489,76 @@ const BlogPostsPage = () => {
                             Cancel
                         </button>
                     </div>
+                </div>
+
+                {/* All Blog Posts List */}
+                <div className="mt-12">
+                    <h2 className="text-xl font-bold text-midnight-monarch mb-6">All Blog Posts</h2>
+                    
+                    {loading && (
+                        <div className="text-center py-8">
+                            <p className="text-gray-600">Loading blogs...</p>
+                        </div>
+                    )}
+
+                    {!loading && blogs.length === 0 && (
+                        <div className="text-center py-8 bg-gray-50 rounded-lg">
+                            <p className="text-gray-600">No blog posts yet. Create your first post above!</p>
+                        </div>
+                    )}
+
+                    {!loading && blogs.length > 0 && (
+                        <div className="space-y-4">
+                            {blogs.map((blog) => (
+                                <div
+                                    key={blog._id}
+                                    className="bg-white rounded-lg border-2 border-gray-200 p-6 hover:shadow-md transition-shadow"
+                                >
+                                    <div className="flex items-start justify-between">
+                                        <div className="flex-1">
+                                            <h3 className="text-lg font-semibold text-midnight-monarch mb-2">
+                                                {blog.title}
+                                            </h3>
+                                            <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
+                                                <span>{formatDate(blog.createdAt)}</span>
+                                                {blog.keywords && blog.keywords.length > 0 && (
+                                                    <span className="flex items-center gap-2">
+                                                        Keywords: {blog.keywords.join(', ')}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            {blog.images && blog.images.length > 0 && (
+                                                <p className="text-sm text-gray-500">
+                                                    {blog.images.length} image(s)
+                                                </p>
+                                            )}
+                                            {blog.sections && blog.sections.length > 0 && (
+                                                <p className="text-sm text-gray-500">
+                                                    {blog.sections.length} section(s)
+                                                </p>
+                                            )}
+                                        </div>
+                                        <div className="flex items-center gap-2 ml-4">
+                                            <button
+                                                onClick={() => handleEdit(blog._id)}
+                                                className="p-2 text-midnight-monarch hover:bg-gray-100 rounded-lg transition-colors"
+                                                title="Edit"
+                                            >
+                                                <FaEdit className="w-5 h-5" />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(blog._id)}
+                                                className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                title="Delete"
+                                            >
+                                                <MdDelete className="w-5 h-5" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </AdminLayout>

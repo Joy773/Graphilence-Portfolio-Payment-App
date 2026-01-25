@@ -30,19 +30,19 @@ export async function GET(
             );
         }
 
-        const inquiry = await Inquiry.findById(id);
+    const inquiry = await Inquiry.findById(id).lean(); // Use lean() for faster queries
 
-        if (!inquiry) {
-            return NextResponse.json(
-                { success: false, message: "Inquiry not found" },
-                { status: 404 }
-            );
-        }
+    if (!inquiry) {
+      return NextResponse.json(
+        { success: false, message: "Inquiry not found" },
+        { status: 404 }
+      );
+    }
 
-        return NextResponse.json(
-            { success: true, data: inquiry },
-            { status: 200 }
-        );
+    return NextResponse.json(
+      { success: true, data: inquiry },
+      { status: 200 }
+    );
     } catch (error) {
         console.error("Error fetching inquiry:", error);
         return NextResponse.json(
