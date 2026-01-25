@@ -13,17 +13,98 @@ const SendQuery = () => {
     projectDetails: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+    // Clear message when user starts typing
+    if (message) {
+      setMessage(null);
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    setMessage(null);
+
+    try {
+      // Build subject from service
+      const subject = formData.service 
+        ? `Inquiry for ${formData.service.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}`
+        : "Project Inquiry";
+
+      // Build message with all details
+      let messageContent = formData.projectDetails;
+      
+      if (formData.companyName) {
+        messageContent = `Company: ${formData.companyName}\n\n${messageContent}`;
+      }
+      
+      if (formData.budget) {
+        const budgetText = formData.budget
+          .replace(/-/g, ' - $')
+          .replace(/k/g, ',000')
+          .replace(/\+/g, '+');
+        messageContent = `${messageContent}\n\nBudget: $${budgetText}`;
+      }
+
+      // Prepare inquiry data
+      const inquiryData = {
+        name: formData.fullName.trim(),
+        email: formData.email.trim(),
+        subject: subject,
+        message: messageContent.trim(),
+      };
+
+      // Send to API
+      const response = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(inquiryData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setMessage({ 
+          type: 'success', 
+          text: 'Thank you! Your inquiry has been submitted successfully. We\'ll get back to you soon.' 
+        });
+        
+        // Clear the form
+        setFormData({
+          fullName: "",
+          companyName: "",
+          email: "",
+          service: "",
+          budget: "",
+          projectDetails: "",
+        });
+
+        // Clear success message after 5 seconds
+        setTimeout(() => setMessage(null), 5000);
+      } else {
+        setMessage({ 
+          type: 'error', 
+          text: result.message || 'Failed to submit inquiry. Please try again.' 
+        });
+      }
+    } catch (error) {
+      console.error('Error submitting inquiry:', error);
+      setMessage({ 
+        type: 'error', 
+        text: 'An error occurred while submitting. Please try again.' 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -57,6 +138,25 @@ const SendQuery = () => {
           {/* Right Section - Form */}
           <RevealOnScroll delay={0.1} direction="right">
             <div className="bg-white rounded-lg p-6 md:p-8 shadow-sm">
+            {/* Success/Error Message */}
+            {message && (
+              <div className={`mb-6 p-4 rounded-lg ${
+                message.type === 'success' 
+                  ? 'bg-green-100 text-green-800 border border-green-300' 
+                  : 'bg-red-100 text-red-800 border border-red-300'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <span>{message.text}</span>
+                  <button
+                    onClick={() => setMessage(null)}
+                    className="ml-4 text-lg font-bold hover:opacity-70"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Full Name */}
               <div>
@@ -171,9 +271,24 @@ const SendQuery = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-midnight-monarch cursor-pointer text-white font-semibold py-4 px-6 rounded-lg transition-colors"
+                disabled={isSubmitting}
+                className={`w-full bg-midnight-monarch text-white font-semibold py-4 px-6 rounded-lg transition-colors ${
+                  isSubmitting 
+                    ? 'opacity-50 cursor-not-allowed' 
+                    : 'cursor-pointer hover:bg-opacity-90'
+                }`}
               >
-                Send inquiry
+                {isSubmitting ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Submitting...
+                  </span>
+                ) : (
+                  'Send inquiry'
+                )}
               </button>
 
               {/* Alternative Contact */}
