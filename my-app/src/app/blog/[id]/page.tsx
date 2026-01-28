@@ -17,6 +17,8 @@ interface BlogPost {
   title: string;
   images: string[];
   sections: BlogSection[];
+  fontColor?: string;
+  fontStyle?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -290,16 +292,34 @@ const BlogDetailPage = () => {
 
             {/* Blog Sections */}
             {blog.sections && blog.sections.length > 0 ? (
-              <div className="space-y-12">
+              <div 
+                className="space-y-12"
+                style={{
+                  color: blog.fontColor || '#000000',
+                  fontFamily: blog.fontStyle || 'Arial, sans-serif'
+                }}
+              >
                 {blog.sections.map((section, index) => (
                   <div key={index} className="max-w-4xl">
                     {section.heading && (
-                      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-monarch mb-4">
+                      <h2 
+                        className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4"
+                        style={{
+                          color: blog.fontColor || '#1a1a2e',
+                          fontFamily: blog.fontStyle || 'Arial, sans-serif'
+                        }}
+                      >
                         {section.heading}
                       </h2>
                     )}
                     {section.content && (
-                      <div className="text-lg text-gray-600 leading-relaxed whitespace-pre-wrap">
+                      <div 
+                        className="text-lg leading-relaxed whitespace-pre-wrap"
+                        style={{
+                          color: blog.fontColor || '#4b5563',
+                          fontFamily: blog.fontStyle || 'Arial, sans-serif'
+                        }}
+                      >
                         {section.content.split('\n').map((paragraph, pIndex) => (
                           paragraph.trim() && (
                             <p key={pIndex} className="mb-6">

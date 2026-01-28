@@ -27,35 +27,7 @@ const FlipPage = React.forwardRef<
   return (
     <div
       ref={ref}
-      className="demoPage relative w-full h-full rounded-2xl overflow-hidden"
-      style={{
-        width: "100%",
-        height: "100%",
-        position: "relative",
-        backgroundColor: "#f3f4f6",
-      }}
-    >
-      <Image
-        src={image}
-        alt={alt}
-        fill
-        className="object-cover rounded-2xl"
-        sizes="(max-width: 1024px) 100vw, 60vw"
-        priority
-        quality={100}
-      />
-    </div>
-  );
-});
-
-FlipPage.displayName = "FlipPage";
-
-// Blank page component for single-page mode
-const BlankPage = React.forwardRef<HTMLDivElement>((props, ref) => {
-  return (
-    <div
-      ref={ref}
-      className="demoPage relative w-full h-full rounded-2xl overflow-hidden"
+      className="demoPage relative w-full h-full"
       style={{
         width: "100%",
         height: "100%",
@@ -64,6 +36,42 @@ const BlankPage = React.forwardRef<HTMLDivElement>((props, ref) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        padding: "10px",
+        boxSizing: "border-box",
+      }}
+    >
+      <div className="relative w-full h-full rounded-lg overflow-hidden">
+        <Image
+          src={image}
+          alt={alt}
+          fill
+          className="object-contain"
+          sizes="(max-width: 1024px) 100vw, 60vw"
+          quality={100}
+        />
+      </div>
+    </div>
+  );
+});
+
+FlipPage.displayName = "FlipPage";
+
+// Blank page component for cover pages
+const BlankPage = React.forwardRef<HTMLDivElement>((props, ref) => {
+  return (
+    <div
+      ref={ref}
+      className="demoPage relative w-full h-full"
+      style={{
+        width: "100%",
+        height: "100%",
+        position: "relative",
+        backgroundColor: "#f3f4f6",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "10px",
+        boxSizing: "border-box",
       }}
     />
   );
@@ -336,36 +344,67 @@ export default function WorkDetail() {
               )}
             </div>
 
-            {/* Project Images */}
+            {/* Project Images - Flipbook */}
             {project.images && project.images.length > 0 && (
               <div className="relative w-full mt-8 mb-8 flex justify-center items-center px-4">
-                {project.images.length === 1 ? (
-                  <div className="relative w-full sm:w-[800px] md:w-[1000px] lg:w-[1200px] xl:w-[1400px] aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200" style={{ minHeight: '500px' }}>
-                    <Image
-                      src={project.images[0]}
-                      alt={project.title}
-                      fill
-                      className="object-cover rounded-2xl"
-                      sizes="(max-width: 640px) 100vw, (max-width: 768px) 800px, (max-width: 1024px) 1000px, (max-width: 1280px) 1200px, 1400px"
-                      priority
-                      quality={100}
-                    />
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-                    {project.images.slice(0, 2).map((image, index) => (
-                      <div key={index} className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200">
-                        <Image
-                          src={image}
-                          alt={`${project.title} - Image ${index + 1}`}
-                          fill
-                          className="object-cover rounded-2xl"
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                        />
-                      </div>
+                <div className="w-full flex justify-center">
+                  <style jsx global>{`
+                    .flipbook-container {
+                      margin: 0 auto;
+                    }
+                    .flipbook-container .stf__block {
+                      background: transparent;
+                    }
+                    .flipbook-container .stf__item {
+                      background: #f3f4f6;
+                      border-radius: 1rem;
+                      overflow: hidden;
+                    }
+                    .flipbook-container .stf__item--hard {
+                      background: #f3f4f6;
+                    }
+                    .flipbook-container .stf__item--odd {
+                      background: #f3f4f6;
+                    }
+                    .flipbook-container .stf__item--even {
+                      background: #f3f4f6;
+                    }
+                  `}</style>
+                  <HTMLFlipBook
+                    width={500}
+                    height={700}
+                    minWidth={300}
+                    maxWidth={900}
+                    minHeight={450}
+                    maxHeight={1200}
+                    size="stretch"
+                    maxShadowOpacity={0.5}
+                    showCover={false}
+                    mobileScrollSupport={true}
+                    startPage={0}
+                    drawShadow={true}
+                    flippingTime={1000}
+                    usePortrait={true}
+                    startZIndex={0}
+                    autoSize={true}
+                    clickEventForward={true}
+                    useMouseEvents={true}
+                    swipeDistance={30}
+                    showPageCorners={true}
+                    disableFlipByClick={false}
+                    className="flipbook-container"
+                    style={{ margin: '0 auto' }}
+                  >
+                    {/* Image Pages - Start directly with images */}
+                    {project.images.map((image, index) => (
+                      <FlipPage
+                        key={index}
+                        image={image}
+                        alt={`${project.title} - Image ${index + 1}`}
+                      />
                     ))}
-                  </div>
-                )}
+                  </HTMLFlipBook>
+                </div>
               </div>
             )}
 

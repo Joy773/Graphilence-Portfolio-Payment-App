@@ -2,6 +2,10 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { FaArrowDown } from "react-icons/fa";
+import { motion } from 'framer-motion';
+import { MdArrowOutward } from "react-icons/md";
+
 
 const Footer = () => {
   const servicesLeft = [
@@ -47,14 +51,27 @@ const Footer = () => {
 
             {/* Company Deck Button */}
             <div className="mb-8 lg:mb-12">
-              <button className="group relative bg-purplish-blue text-white font-semibold rounded-full py-3 px-6 pr-12 flex items-center gap-3 hover:opacity-90 transition-opacity">
+              <motion.button
+                className="group relative bg-purplish-blue text-white font-semibold rounded-full py-3 px-6 pr-12 flex items-center gap-3 cursor-pointer transition-opacity"
+                initial="rest"
+                animate="rest"
+                whileHover="hover"
+              >
                 <span>Company Deck</span>
                 <div className="absolute right-2 w-8 h-8 bg-black rounded-full flex items-center justify-center">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 4V12M4 8L8 12L12 8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                  <motion.div
+                    variants={{
+                      rest: { rotate: 0 },
+                      hover: {
+                        rotate: 360,
+                        transition: { duration: 1, repeat: Infinity, ease: "linear" },
+                      },
+                    }}
+                  >
+                    <FaArrowDown className="text-white" size={16} />
+                  </motion.div>
                 </div>
-              </button>
+              </motion.button>
             </div>
 
           </div>
@@ -116,18 +133,31 @@ const Footer = () => {
         <div className="mt-12 lg:mt-16 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
           {/* Social Media Links */}
           <div className="flex items-center gap-4 lg:gap-6">
-            <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Instagram
-            </Link>
-            <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Facebook
-            </Link>
-            <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-              LinkedIn
-            </Link>
-            <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Twitter
-            </Link>
+            {["Instagram", "Facebook", "LinkedIn", "Twitter"].map((social, index) => (
+              <motion.div
+                key={index}
+                className="relative inline-block"
+              >
+                <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors relative inline-block">
+                  {social}
+                </Link>
+                <motion.div
+                  className="absolute bottom-0 h-0.5 origin-left"
+                  style={{ 
+                    backgroundColor: '#ffffff',
+                    left: '-4px',
+                    right: '-4px',
+                  }}
+                  initial={{ scaleX: 0 }}
+                  whileHover={{ scaleX: 1 }}
+                  transition={{
+                    type: "spring" as const,
+                    damping: 20,
+                    stiffness: 300,
+                  }}
+                />
+              </motion.div>
+            ))}
           </div>
           
           {/* CTA Section */}
@@ -135,16 +165,37 @@ const Footer = () => {
             <h3 className="text-white font-medium text-base mb-3">
               Let's work together
             </h3>
-            <div className="flex items-center gap-3 group cursor-pointer">
+            <motion.div 
+              className="flex items-center gap-3 group cursor-pointer"
+              initial="rest"
+              whileHover="hover"
+            >
               <span className="text-purplish-blue font-bold text-2xl lg:text-3xl whitespace-nowrap">
                 Call wavespace
               </span>
-              <div className="w-12 h-12 bg-purplish-blue rounded-full flex items-center justify-center group-hover:opacity-90 transition-colors flex-shrink-0">
-                <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4 12L12 4M12 4H6M12 4V10" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+              <div className="w-12 h-12 bg-purplish-blue rounded-full flex items-center justify-center flex-shrink-0">
+                <motion.div
+                  variants={{
+                    rest: { 
+                      x: 0, 
+                      y: 0,
+                    },
+                    hover: { 
+                      x: [0, 3, -3, 0],
+                      y: [0, -3, 3, 0],
+                      transition: { 
+                        duration: 0.8,
+                        repeat: Infinity,
+                        repeatType: "reverse" as const,
+                        ease: "easeInOut"
+                      }
+                    },
+                  }}
+                >
+                  <MdArrowOutward className="text-white" size={20} />
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

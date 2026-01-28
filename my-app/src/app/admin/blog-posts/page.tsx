@@ -18,12 +18,16 @@ interface Blog {
     keywords: string[];
     sections: Array<{ heading?: string; content?: string }>;
     images: string[];
+    fontColor?: string;
+    fontStyle?: string;
     createdAt: string;
 }
 
 const BlogPostsPage = () => {
     const [postTitle, setPostTitle] = useState("");
     const [keywords, setKeywords] = useState<string>("");
+    const [fontColor, setFontColor] = useState<string>("#000000");
+    const [fontStyle, setFontStyle] = useState<string>("Arial");
     const [sections, setSections] = useState<Section[]>([
         { id: 1, heading: "", content: "" }
     ]);
@@ -97,6 +101,8 @@ const BlogPostsPage = () => {
                 const blog = result.data;
                 setPostTitle(blog.title);
                 setKeywords(blog.keywords ? blog.keywords.join(', ') : '');
+                setFontColor(blog.fontColor || '#000000');
+                setFontStyle(blog.fontStyle || 'Arial');
                 setImages(blog.images || []);
                 
                 // Convert sections to form format
@@ -153,6 +159,8 @@ const BlogPostsPage = () => {
     const resetForm = () => {
         setPostTitle('');
         setKeywords('');
+        setFontColor('#000000');
+        setFontStyle('Arial');
         setSections([{ id: 1, heading: '', content: '' }]);
         setImages([]);
         setEditingId(null);
@@ -199,6 +207,8 @@ const BlogPostsPage = () => {
             const blogData = {
                 title: postTitle.trim(),
                 keywords: keywordsArray,
+                fontColor: fontColor,
+                fontStyle: fontStyle,
                 sections: sections.map(({ id, ...rest }) => rest),
                 images: images,
             };
@@ -335,6 +345,62 @@ const BlogPostsPage = () => {
                         <p className="text-xs text-gray-500 mt-1">
                             Separate multiple keywords with commas
                         </p>
+                    </div>
+
+                    {/* Font Color and Style Section */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Font Color
+                            </label>
+                            <div className="flex items-center gap-3">
+                                <input
+                                    type="color"
+                                    value={fontColor}
+                                    onChange={(e) => setFontColor(e.target.value)}
+                                    className="w-16 h-10 border-2 border-zinc-300 rounded-lg cursor-pointer"
+                                />
+                                <input
+                                    type="text"
+                                    value={fontColor}
+                                    onChange={(e) => setFontColor(e.target.value)}
+                                    placeholder="#000000"
+                                    className="flex-1 px-4 py-2 bg-gray-50 border-2 border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                />
+                            </div>
+                            <p className="text-xs text-gray-500 mt-1">
+                                Choose a color for the blog text
+                            </p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Font Style
+                            </label>
+                            <select
+                                value={fontStyle}
+                                onChange={(e) => setFontStyle(e.target.value)}
+                                className="w-full px-4 py-2 bg-gray-50 border-2 border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                            >
+                                <option value="Arial">Arial</option>
+                                <option value="Helvetica">Helvetica</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Georgia">Georgia</option>
+                                <option value="Verdana">Verdana</option>
+                                <option value="Courier New">Courier New</option>
+                                <option value="Comic Sans MS">Comic Sans MS</option>
+                                <option value="Impact">Impact</option>
+                                <option value="Trebuchet MS">Trebuchet MS</option>
+                                <option value="Palatino">Palatino</option>
+                                <option value="Garamond">Garamond</option>
+                                <option value="Bookman">Bookman</option>
+                                <option value="serif">Serif</option>
+                                <option value="sans-serif">Sans-serif</option>
+                                <option value="monospace">Monospace</option>
+                            </select>
+                            <p className="text-xs text-gray-500 mt-1">
+                                Choose a font family for the blog
+                            </p>
+                        </div>
                     </div>
 
                     {/* Images Section */}

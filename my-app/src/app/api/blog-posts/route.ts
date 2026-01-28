@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
         await connectDB();
 
         const body = await request.json();
-        const {title, keywords, sections, images} = body;
+        const {title, keywords, sections, images, fontColor, fontStyle} = body;
 
         if(!title || title.trim() === "") {
             return NextResponse.json(
@@ -67,6 +67,8 @@ export async function POST(request: NextRequest) {
             sections: validSections,
             images: images || [],
             keywords: keywordsArray,
+            fontColor: fontColor || '#000000',
+            fontStyle: fontStyle || 'Arial',
         };
 
         const blogPost = new Blog(blogData);

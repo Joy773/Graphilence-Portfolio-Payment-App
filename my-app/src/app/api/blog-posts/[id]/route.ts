@@ -78,7 +78,7 @@ export async function PUT(
     }
 
     const body = await request.json();
-    const { title, keywords, sections, images } = body;
+    const { title, keywords, sections, images, fontColor, fontStyle } = body;
 
     if (!title || title.trim() === "") {
       return NextResponse.json(
@@ -114,6 +114,8 @@ export async function PUT(
         keywords: keywordsArray,
         sections: validSections,
         images: images || [],
+        fontColor: fontColor || '#000000',
+        fontStyle: fontStyle || 'Arial',
         updatedAt: new Date(),
       },
       { new: true, runValidators: true }

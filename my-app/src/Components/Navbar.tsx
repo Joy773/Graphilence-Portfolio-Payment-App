@@ -122,7 +122,7 @@ const Navbar = () => {
         </div>
         <div className="hidden md:block">
           <motion.button
-            className="text-white border border-midnight-monarch rounded-full px-4 py-2 cursor-pointer font-semibold bg-midnight-monarch relative overflow-hidden transition-all"
+            className="text-white rounded-full px-4 py-2 cursor-pointer font-semibold bg-midnight-monarch hover:bg-purplish-blue relative overflow-hidden transition-all"
             initial="rest"
             whileHover="hover"
             variants={{
@@ -262,7 +262,7 @@ const Navbar = () => {
             ))}
           </ul>
           <motion.button
-            className="mt-6 text-white border border-midnight-monarch rounded-full px-4 py-2 cursor-pointer font-semibold bg-midnight-monarch relative overflow-hidden transition-all w-full"
+            className="mt-6 text-white rounded-full px-4 py-2 cursor-pointer font-semibold bg-midnight-monarch hover:bg-purplish-blue relative overflow-hidden transition-all w-full"
             initial="rest"
             whileHover="hover"
             variants={{

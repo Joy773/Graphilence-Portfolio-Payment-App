@@ -21,6 +21,16 @@ const BlogSchema = new mongoose.Schema(
             default: [],
             required: false,
         },
+        fontColor: {
+            type: String,
+            default: '#000000',
+            required: false,
+        },
+        fontStyle: {
+            type: String,
+            default: 'Arial',
+            required: false,
+        },
         createdAt : {
             type: Date,
             default: Date.now,

@@ -48,7 +48,7 @@ export default function LandingPage() {
           {/* Buttons Section */}
           <div className="flex flex-row gap-4 mt-8 justify-center md:justify-center lg:justify-start">
             {/* Book a call button */}
-            <button className="bg-midnight-monarch text-white px-6 py-3 rounded-full font-semibold transition-colors cursor-pointer">
+            <button className="bg-midnight-monarch hover:bg-purplish-blue text-white px-6 py-3 rounded-full font-semibold transition-colors cursor-pointer">
               Book a call
             </button>
             

@@ -272,7 +272,7 @@ const SendQuery = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full bg-midnight-monarch text-white font-semibold py-4 px-6 rounded-lg transition-colors ${
+                className={`w-full bg-midnight-monarch hover:bg-purplish-blue text-white font-semibold py-4 px-6 rounded-lg transition-colors ${
                   isSubmitting 
                     ? 'opacity-50 cursor-not-allowed' 
                     : 'cursor-pointer hover:bg-opacity-90'
@@ -300,7 +300,7 @@ const SendQuery = () => {
                   href="https://calendly.com/musemind/30min"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-midnight-monarch hover:text-purplish-blue underline font-medium"
+                  className="text-midnight-monarch hover:text-purplish-blue font-medium"
                 >
                   Book A Call Directly
                 </a>
