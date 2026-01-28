@@ -6,11 +6,11 @@ import Footer from "@/Components/Footer";
 import Campany from "@/Components/campany";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
+import { MdArrowOutward } from "react-icons/md";
 import { motion } from "motion/react";
 import RevealOnScroll from "@/Components/RevealOnScroll";
 import LoadingProgressBar from "@/Components/LoadingProgressBar";
 import Lottie from "lottie-react";
-
 interface WorkItem {
   _id: string;
   title: string;
@@ -162,7 +162,7 @@ export default function Services() {
       <RevealOnScroll>
         <div className="mb-8 mt-1 md:mt-15">
         <div className="bg-white rounded-2xl overflow-hidden">
-          <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8 lg:gap-12">
+          <div className="flex flex-row items-start gap-8 lg:gap-12">
             {/* Left Side - Text Content */}
             <div className="flex-1 w-full lg:max-w-2xl">
               {/* Clutch Rating Badge */}
@@ -206,29 +206,45 @@ export default function Services() {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-midnight-monarch cursor-pointer text-white font-semibold py-3 px-6 rounded-lg transition-colors whitespace-nowrap">
-                  Consult an expert
-                </button>
-                <button className="bg-transparent border border-zinc-500 hover:border-purplish-blue text-midnight-monarch font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
+                <motion.button
+                  className="group relative bg-midnight-monarch hover:bg-purplish-blue cursor-pointer text-white font-semibold py-3 pl-6 pr-12 rounded-lg transition-colors whitespace-nowrap flex items-center gap-3"
+                  initial="rest"
+                  animate="rest"
+                  whileHover="hover"
+                >
+                  <span>Consult an expert</span>
+                  <div className="absolute right-2 w-8 h-8 rounded-full flex items-center justify-center">
+                    <motion.div
+                      variants={{
+                        rest: { 
+                          x: 0, 
+                          y: 0,
+                        },
+                        hover: { 
+                          x: [0, 3, -3, 0],
+                          y: [0, -3, 3, 0],
+                          transition: { 
+                            duration: 0.8,
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            ease: "easeInOut"
+                          }
+                        },
+                      }}
+                    >
+                      <MdArrowOutward className="text-white" size={18} />
+                    </motion.div>
+                  </div>
+                </motion.button>
+                <button className="bg-transparent cursor-pointer border border-zinc-500 hover:border-purplish-blue text-midnight-monarch font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
                   View work
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle cx="10" cy="10" r="2" fill="#FFB800" />
-                    <circle cx="4" cy="10" r="2" fill="#10B981" />
-                    <circle cx="16" cy="10" r="2" fill="#3B82F6" />
-                    <circle cx="10" cy="4" r="2" fill="#EF4444" />
-                  </svg>
+                
                 </button>
               </div>
             </div>
 
-            {/* Right Side - Screen Image */}
-            <div className="hidden md:flex flex-1 w-full lg:w-auto justify-center lg:justify-end lg:items-center">
+            {/* Right Side - Screen Image (top on mobile, right on desktop) */}
+            <div className="flex flex-1 w-full lg:w-auto justify-center lg:justify-end lg:items-start">
               <div className="relative w-full max-w-lg lg:max-w-2xl">
                 <Image
                   src="/screen_img.webp"
@@ -401,28 +417,39 @@ export default function Services() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-tight mb-2">
               Industry expertise
             </h2>
-            <p className="text-lg md:text-xltext-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-2 text-gray-400">
+            <p className="text-lg md:text-xltext-3xl sm:text-4xl md:text-5xl text-midnight-monarch lg:text-6xl font-bold leading-tight mb-2">
               across globally
             </p>
           </div>
-          <button className="bg-midnight-monarch cursor-pointer text-white font-semibold py-3 px-8 rounded-full transition-colors flex items-center gap-2 whitespace-nowrap">
+          <motion.button
+            className="bg-midnight-monarch hover:bg-purplish-blue cursor-pointer text-white font-semibold py-3 px-8 rounded-full transition-colors flex items-center gap-2 whitespace-nowrap"
+            initial="rest"
+            animate="rest"
+            whileHover="hover"
+          >
             Consult an expert
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+            <motion.span
+              variants={{
+                rest: { 
+                  x: 0, 
+                  y: 0,
+                },
+                hover: { 
+                  x: [0, 3, -3, 0],
+                  y: [0, -3, 3, 0],
+                  transition: { 
+                    duration: 0.8,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    ease: "easeInOut"
+                  }
+                },
+              }}
+              className="flex items-center"
             >
-              <path
-                d="M5 15L15 5M15 5H5M15 5V15"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
+              <MdArrowOutward className="text-white" size={18} />
+            </motion.span>
+          </motion.button>
         </div>
 
         {/* Six Images Grid - 3 per row */}
@@ -602,28 +629,53 @@ export default function Services() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-tight mb-2">
               Who we design for and how
             </h2>
-            <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-500">
+            <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-midnight-monarch">
               we support them
             </p>
           </div>
-          <button className="bg-midnight-monarch cursor-pointer text-white font-semibold py-3 px-6 rounded-lg flex items-center gap-2 whitespace-nowrap">
+          <motion.button
+            className="bg-midnight-monarch hover:bg-purplish-blue cursor-pointer text-white font-semibold py-3 px-6 rounded-lg flex items-center gap-2 whitespace-nowrap"
+            initial="rest"
+            animate="rest"
+            whileHover="hover"
+          >
             Start your project
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+            <motion.span
+              variants={{
+                rest: { 
+                  x: 0, 
+                  y: 0,
+                },
+                hover: { 
+                  x: [0, 3, -3, 0],
+                  y: [0, -3, 3, 0],
+                  transition: { 
+                    duration: 0.8,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    ease: "easeInOut"
+                  }
+                },
+              }}
+              className="flex items-center"
             >
-              <path
-                d="M5 15L15 5M15 5H5M15 5V15"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 15L15 5M15 5H5M15 5V15"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </motion.span>
+          </motion.button>
         </div>
 
         {/* Three Cards Grid */}
