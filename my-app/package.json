@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "lottie-react": "^2.4.1",
     "mongoose": "^9.1.5",
     "motion": "^12.23.26",
     "next": "16.1.1",

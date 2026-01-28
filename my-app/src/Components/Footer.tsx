@@ -134,29 +134,38 @@ const Footer = () => {
           {/* Social Media Links */}
           <div className="flex items-center gap-4 lg:gap-6">
             {["Instagram", "Facebook", "LinkedIn", "Twitter"].map((social, index) => (
-              <motion.div
-                key={index}
-                className="relative inline-block"
-              >
-                <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors relative inline-block">
-                  {social}
+              <div key={index} className="relative">
+                <Link href="#">
+                  <motion.div
+                    className="text-gray-400 hover:text-white text-sm cursor-pointer relative inline-block transition-colors"
+                    initial="rest"
+                    whileHover="hover"
+                    variants={{
+                      rest: {},
+                      hover: {},
+                    }}
+                  >
+                    {social}
+                    <motion.div
+                      className="absolute bottom-0 h-0.5 origin-left"
+                      style={{ 
+                        backgroundColor: '#ffffff',
+                        left: '-4px',
+                        right: '-4px',
+                      }}
+                      variants={{
+                        rest: { scaleX: 0 },
+                        hover: { scaleX: 1 },
+                      }}
+                      transition={{
+                        type: "spring" as const,
+                        damping: 20,
+                        stiffness: 300,
+                      }}
+                    />
+                  </motion.div>
                 </Link>
-                <motion.div
-                  className="absolute bottom-0 h-0.5 origin-left"
-                  style={{ 
-                    backgroundColor: '#ffffff',
-                    left: '-4px',
-                    right: '-4px',
-                  }}
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{
-                    type: "spring" as const,
-                    damping: 20,
-                    stiffness: 300,
-                  }}
-                />
-              </motion.div>
+              </div>
             ))}
           </div>
           

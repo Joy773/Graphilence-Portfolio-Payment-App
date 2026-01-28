@@ -9,6 +9,7 @@ import { FaStar } from "react-icons/fa";
 import { motion } from "motion/react";
 import RevealOnScroll from "@/Components/RevealOnScroll";
 import LoadingProgressBar from "@/Components/LoadingProgressBar";
+import Lottie from "lottie-react";
 
 interface WorkItem {
   _id: string;
@@ -89,6 +90,9 @@ const testimonials = [
 export default function Services() {
   const [works, setWorks] = useState<WorkItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [rocketAnimation, setRocketAnimation] = useState<any>(null);
+  const [webDesignAnimation, setWebDesignAnimation] = useState<any>(null);
+  const [orderPackedAnimation, setOrderPackedAnimation] = useState<any>(null);
 
   useEffect(() => {
     const fetchWorks = async () => {
@@ -112,6 +116,26 @@ export default function Services() {
     };
 
     fetchWorks();
+  }, []);
+
+  useEffect(() => {
+    // Load Lottie animations
+    const loadAnimations = async () => {
+      try {
+        const [rocket, webDesign, orderPacked] = await Promise.all([
+          fetch('/animated logo/Rocket.json').then(res => res.json()),
+          fetch('/animated logo/web design.json').then(res => res.json()),
+          fetch('/animated logo/Order packed.json').then(res => res.json()),
+        ]);
+        setRocketAnimation(rocket);
+        setWebDesignAnimation(webDesign);
+        setOrderPackedAnimation(orderPacked);
+      } catch (err) {
+        console.error('Error loading animations:', err);
+      }
+    };
+
+    loadAnimations();
   }, []);
 
   // Get description from first section's content, or use a default
@@ -606,21 +630,14 @@ export default function Services() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {/* Card 1: For startups */}
           <div className="bg-white rounded-xl p-6 shadow-sm">
-            <div className="mb-20">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Rocket body - red */}
-                <path d="M24 32L20 20L24 8L28 20L24 32Z" fill="#FF6B6B" />
-                {/* Rocket tip - blue */}
-                <path d="M24 8L22 14L24 16L26 14L24 8Z" fill="#3B82F6" />
-                {/* Rocket window - blue */}
-                <circle cx="24" cy="20" r="3" fill="#3B82F6" />
-                {/* Rocket fins - yellow */}
-                <path d="M20 20L16 24L20 28L20 20Z" fill="#FFB800" />
-                <path d="M28 20L32 24L28 28L28 20Z" fill="#FFB800" />
-                {/* Flame - yellow/orange */}
-                <path d="M24 32L22 36L24 38L26 36L24 32Z" fill="#FFB800" />
-                <path d="M24 32L21 35L24 37L27 35L24 32Z" fill="#FF6B6B" />
-              </svg>
+            <div className="mb-20 h-20 flex items-start">
+              {rocketAnimation ? (
+                <div className="w-20 h-20">
+                  <Lottie animationData={rocketAnimation} loop={true} autoplay={true} style={{ width: '100%', height: '100%' }} />
+                </div>
+              ) : (
+                <div className="w-20 h-20 bg-gray-200 rounded animate-pulse" />
+              )}
             </div>
             <h3 className="text-xl md:text-2xl font-bold text-midnight-monarch mb-3">
               For startups
@@ -646,11 +663,14 @@ export default function Services() {
 
           {/* Card 2: For Product Teams */}
           <div className="bg-white rounded-xl p-6 shadow-sm">
-            <div className="mb-20">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="10" y="8" width="28" height="32" rx="2" fill="#3B82F6" />
-                <text x="24" y="28" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold" fontFamily="monospace">&lt;/&gt;</text>
-              </svg>
+            <div className="mb-20 h-20 flex items-start">
+              {webDesignAnimation ? (
+                <div className="w-20 h-20">
+                  <Lottie animationData={webDesignAnimation} loop={true} autoplay={true} style={{ width: '100%', height: '100%' }} />
+                </div>
+              ) : (
+                <div className="w-20 h-20 bg-gray-200 rounded animate-pulse" />
+              )}
             </div>
             <h3 className="text-xl md:text-2xl font-bold text-midnight-monarch mb-3">
               For Product Teams
@@ -676,18 +696,14 @@ export default function Services() {
 
           {/* Card 3: For Founders */}
           <div className="bg-white rounded-xl p-6 shadow-sm">
-            <div className="mb-20">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Monitor screen - blue */}
-                <rect x="8" y="10" width="32" height="24" rx="2" fill="#3B82F6" />
-                {/* Screen content - darker blue */}
-                <rect x="12" y="14" width="24" height="16" rx="1" fill="#1E40AF" />
-                {/* UX text - white */}
-                <text x="24" y="26" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">UX</text>
-                {/* Monitor stand */}
-                <rect x="20" y="34" width="8" height="2" rx="1" fill="#3B82F6" />
-                <rect x="18" y="36" width="12" height="2" rx="1" fill="#3B82F6" />
-              </svg>
+            <div className="mb-20 h-20 flex items-start">
+              {orderPackedAnimation ? (
+                <div className="w-24 h-24">
+                  <Lottie animationData={orderPackedAnimation} loop={true} autoplay={true} style={{ width: '100%', height: '100%' }} />
+                </div>
+              ) : (
+                <div className="w-24 h-24 bg-gray-200 rounded animate-pulse" />
+              )}
             </div>
             <h3 className="text-xl md:text-2xl font-bold text-midnight-monarch mb-3">
               For Founders
