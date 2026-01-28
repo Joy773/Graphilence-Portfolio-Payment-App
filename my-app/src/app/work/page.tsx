@@ -62,7 +62,7 @@ export default function Work() {
       <Navbar />
       
       {/* Work Grid Section */}
-      <div className="mt-20 lg:mt-18 mb-20">
+      <div className="mt-20 lg:mt-18">
         {/* Heading */}
         <RevealOnScroll>
           <div className="lg:w-1/2 mb-12 lg:mb-16 text-center lg:text-left">

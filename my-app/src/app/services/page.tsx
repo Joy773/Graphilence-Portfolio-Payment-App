@@ -160,15 +160,14 @@ export default function Services() {
       <Navbar />
       {/* Hero Banner Section */}
       <RevealOnScroll>
-        <div className="mb-8 mt-1 md:mt-15">
-        <div className="bg-white rounded-2xl overflow-hidden">
-          <div className="flex flex-row items-start gap-8 lg:gap-12">
+        <div className="mt-0 md:mt-0 mb-12 -mx-10 lg:-mx-20 bg-midnight-monarch px-10 lg:px-20 py-12 md:py-16">
+          <div className="flex flex-col lg:flex-row items-center lg:items-center gap-10 lg:gap-16">
             {/* Left Side - Text Content */}
             <div className="flex-1 w-full lg:max-w-2xl">
               {/* Clutch Rating Badge */}
-              <div className="mt-10 md:mt-0 mb-4 md:mb-6">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg ">
-                  <span className="text-midnight-monarch font-medium">Clutch</span>
+              <div className="mt-2 md:mt-0 mb-4 md:mb-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 rounded-lg ">
+                  <span className="text-white font-medium">Clutch</span>
                   <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
                       <svg
@@ -183,37 +182,37 @@ export default function Services() {
                       </svg>
                     ))}
                   </div>
-                  <span className="text-midnight-monarch font-medium">5.0</span>
+                  <span className="text-white font-medium">5.0</span>
                 </div>
               </div>
 
               {/* Main Heading */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-tight mb-4 md:mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 md:mb-6">
                 Digital product &<br />
                 UI UX design<br />
                 services
               </h1>
 
               {/* Description */}
-              <p className="text-base md:text-lg text-gray-600 mb-4 md:mb-6 leading-relaxed">
+              <p className="text-base md:text-lg text-gray-200 mb-4 md:mb-6 leading-relaxed">
                 Are you struggling to turn your ideas into something users love? Wavespace designs digital products for the US, UK, Europe, and Central Asia that are clean, fast, and ready to develop, built with smart UX and clean UI.
               </p>
 
               {/* Quote */}
-              <p className="text-base md:text-lg text-gray-500 italic mb-6 md:mb-8">
+              <p className="text-base md:text-lg text-gray-300 italic mb-6 md:mb-8">
                 &ldquo;Design is the bridge between user intent and product impact..&rdquo;
               </p>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <motion.button
-                  className="group relative bg-midnight-monarch hover:bg-purplish-blue cursor-pointer text-white font-semibold py-3 pl-6 pr-12 rounded-lg transition-colors whitespace-nowrap flex items-center gap-3"
+                  className="group relative bg-purplish-blue cursor-pointer text-white font-semibold py-3 pl-6 pr-10 rounded-full transition-colors whitespace-nowrap flex items-center gap-2"
                   initial="rest"
                   animate="rest"
                   whileHover="hover"
                 >
                   <span>Consult an expert</span>
-                  <div className="absolute right-2 w-8 h-8 rounded-full flex items-center justify-center">
+                  <div className="absolute right-2 w-6 h-6 flex items-center justify-center">
                     <motion.div
                       variants={{
                         rest: { 
@@ -236,16 +235,15 @@ export default function Services() {
                     </motion.div>
                   </div>
                 </motion.button>
-                <button className="bg-transparent cursor-pointer border border-zinc-500 hover:border-purplish-blue text-midnight-monarch font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
+                <button className="bg-transparent cursor-pointer border border-white/40 hover:border-white text-white font-semibold py-3 px-6 rounded-full transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
                   View work
-                
                 </button>
               </div>
             </div>
 
             {/* Right Side - Screen Image (top on mobile, right on desktop) */}
-            <div className="flex flex-1 w-full lg:w-auto justify-center lg:justify-end lg:items-start">
-              <div className="relative w-full max-w-lg lg:max-w-2xl">
+            <div className="flex flex-1 w-full lg:w-auto justify-center lg:justify-end lg:items-center">
+              <div className="relative w-full max-w-lg lg:max-w-2xl lg:-mt-4">
                 <Image
                   src="/screen_img.webp"
                   alt="Digital product design screens"
@@ -258,7 +256,6 @@ export default function Services() {
             </div>
           </div>
         </div>
-      </div>
       </RevealOnScroll>
 
       {/* Company Logos Section */}

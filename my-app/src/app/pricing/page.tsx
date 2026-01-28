@@ -5,6 +5,8 @@ import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import Image from "next/image";
 import RevealOnScroll from "@/Components/RevealOnScroll";
+import { FaArrowRight } from "react-icons/fa";
+import { motion } from "motion/react";
 
 export default function Pricing() {
   const [billingPeriod, setBillingPeriod] = useState<
@@ -350,9 +352,33 @@ export default function Pricing() {
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-midnight-monarch text-center md:text-left">
                 What Do You Get<br />By Choosing Graphilence?
               </h2>
-              <button className="bg-midnight-monarch text-white font-semibold py-3 px-6 rounded-lg cursor-pointer whitespace-nowrap self-center md:self-auto">
-                Book an Intro Call →
-              </button>
+              <motion.button
+                className="bg-midnight-monarch hover:bg-purplish-blue text-white font-semibold py-3 px-6 rounded-lg cursor-pointer whitespace-nowrap self-center md:self-auto flex items-center gap-2"
+                initial="rest"
+                animate="rest"
+                whileHover="hover"
+              >
+                <span>Book an Intro Call</span>
+                <motion.span
+                  variants={{
+                    rest: {
+                      x: 0,
+                    },
+                    hover: {
+                      x: [0, 6, 0],
+                      transition: {
+                        duration: 0.6,
+                        repeat: Infinity,
+                        repeatType: "loop",
+                        ease: "easeInOut",
+                      },
+                    },
+                  }}
+                  className="flex items-center"
+                >
+                  <FaArrowRight className="text-white" size={14} />
+                </motion.span>
+              </motion.button>
             </div>
           </div>
 
