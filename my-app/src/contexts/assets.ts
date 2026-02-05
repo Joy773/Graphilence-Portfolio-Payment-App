@@ -127,3 +127,37 @@ export const workListDummyCards = [
   { src: servicesImages.screenImg, alt: "Work 5", title: "Education & E-Learning", description: "Transforming learning experiences with engaging and accessible educational platforms", bullets: ["E-Learning Platform", "Web Design", "Branding"] },
   { src: servicesImages.screenImg, alt: "Work 6", title: "Travel & Hospitality", description: "Crafting memorable travel experiences through beautiful and functional booking platforms", bullets: ["Travel App", "Web Design", "UI/UX Design"] },
 ] as const;
+
+// --- Pricing page ---
+export const faqItems = [
+  { q: "Who will be designing my projects?", a: "Your projects will be handled by our senior design team with expertise in UI/UX, brand design, and product design. You'll have a dedicated account manager and direct access to your designers." },
+  { q: "How do I know your designs will match my brand and goals?", a: "We start with a discovery call to understand your brand, audience, and goals. Our team creates designs aligned with your vision and iterates based on your feedback until you're satisfied." },
+  { q: "What happens after I subscribe?", a: "After you subscribe, we'll onboard you within days: kickoff call, access to our project hub, and you can start submitting requests. Your dedicated team will be assigned and ready to deliver." },
+  { q: "Do you offer meetings?", a: "Yes. We offer regular syncs via video call, Slack, and Loom. You can book calls with your account manager and designers as needed." },
+  { q: "Can I pause or cancel my subscription?", a: "Yes. You can cancel anytime. Unused hours don't roll over after cancellation. We also offer the option to pause your plan for a limited period in certain cases." },
+  { q: "What if I need more hours?", a: "You can upgrade your plan at any time for more hours. We also offer add-on hours for one-off spikes in demand." },
+  { q: "How fast can I get started?", a: "Most clients are onboarded and have their first request in progress within 3–5 business days after signing." },
+  { q: "Do you work with startups and enterprises?", a: "Yes. We work with early-stage startups, scale-ups, and enterprises. Our plans are flexible to fit different team sizes and needs." },
+  { q: "What design tools do you use?", a: "We use Figma, Adobe Creative Suite, and other industry-standard tools. Deliverables are shared in your preferred format and can be handed off to your dev team." },
+  { q: "Is there a minimum commitment?", a: "Our monthly plan has no long-term commitment. Quarterly and yearly plans offer better rates with a minimum commitment period." },
+  { q: "Do you offer a free trial?", a: "We offer a 3-day free trial on selected plans so you can experience our process and quality before committing." },
+  { q: "How do I submit and track requests?", a: "You'll use our project hub (WaveHub) to submit briefs, attach files, and track progress. You can also communicate via Slack and get updates in real time." },
+] as const;
+
+export const pricingCompanies = [
+  { name: "Y Combinator", logo: null as string | null },
+  { name: "Kodezi", logo: null as string | null },
+  { name: "Delve", logo: null as string | null },
+  { name: "Hey Gen", logo: null as string | null },
+  { name: "ZeroEssay", logo: null as string | null },
+] as const;
+
+// --- FAQ component (Have questions? section) ---
+export const faqQuestions = [
+  { question: "What are your focus areas as a UI/UX agency?" },
+  { question: "What sets Musemind apart from other top UI/UX design agencies?" },
+  { question: "What services do you offer for start-ups, and how can they add value to my business?" },
+  { question: "Can you help us redesign our app, website, or enterprise/B2B software?" },
+  { question: "How do you estimate the time for the UI/UX project?" },
+  { question: "How much does a UI/UX design project cost?" },
+] as const;

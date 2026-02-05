@@ -2,30 +2,10 @@
 
 import React, { useState } from 'react';
 import RevealOnScroll from './RevealOnScroll';
+import { faqQuestions } from '@/contexts/assets';
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const faqs = [
-    {
-      question: "What are your focus areas as a UI/UX agency?"
-    },
-    {
-      question: "What sets Musemind apart from other top UI/UX design agencies?"
-    },
-    {
-      question: "What services do you offer for start-ups, and how can they add value to my business?"
-    },
-    {
-      question: "Can you help us redesign our app, website, or enterprise/B2B software?"
-    },
-    {
-      question: "How do you estimate the time for the UI/UX project?"
-    },
-    {
-      question: "How much does a UI/UX design project cost?"
-    },
-  ];
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -71,7 +51,7 @@ const FAQ = () => {
         {/* Right Side - FAQ List */}
         <RevealOnScroll delay={0.1} direction="right">
           <div className="flex flex-col">
-          {faqs.map((faq, index) => (
+          {faqQuestions.map((faq, index) => (
             <div
               key={index}
               className="border-b border-gray-200 py-4 lg:py-6"

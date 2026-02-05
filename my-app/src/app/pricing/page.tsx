@@ -7,37 +7,13 @@ import Image from "next/image";
 import RevealOnScroll from "@/Components/RevealOnScroll";
 import { FaArrowRight, FaStar, FaChevronRight } from "react-icons/fa";
 import { motion } from "motion/react";
+import { faqItems, pricingCompanies } from "@/contexts/assets";
 
 export default function Pricing() {
   const [billingPeriod, setBillingPeriod] = useState<
     "monthly" | "quarterly" | "yearly"
   >("monthly");
   const [faqOpenIndex, setFaqOpenIndex] = useState<number | null>(null);
-
-  // FAQ data for accordion
-  const faqItems = [
-    { q: "Who will be designing my projects?", a: "Your projects will be handled by our senior design team with expertise in UI/UX, brand design, and product design. You'll have a dedicated account manager and direct access to your designers." },
-    { q: "How do I know your designs will match my brand and goals?", a: "We start with a discovery call to understand your brand, audience, and goals. Our team creates designs aligned with your vision and iterates based on your feedback until you're satisfied." },
-    { q: "What happens after I subscribe?", a: "After you subscribe, we'll onboard you within days: kickoff call, access to our project hub, and you can start submitting requests. Your dedicated team will be assigned and ready to deliver." },
-    { q: "Do you offer meetings?", a: "Yes. We offer regular syncs via video call, Slack, and Loom. You can book calls with your account manager and designers as needed." },
-    { q: "Can I pause or cancel my subscription?", a: "Yes. You can cancel anytime. Unused hours don't roll over after cancellation. We also offer the option to pause your plan for a limited period in certain cases." },
-    { q: "What if I need more hours?", a: "You can upgrade your plan at any time for more hours. We also offer add-on hours for one-off spikes in demand." },
-    { q: "How fast can I get started?", a: "Most clients are onboarded and have their first request in progress within 3–5 business days after signing." },
-    { q: "Do you work with startups and enterprises?", a: "Yes. We work with early-stage startups, scale-ups, and enterprises. Our plans are flexible to fit different team sizes and needs." },
-    { q: "What design tools do you use?", a: "We use Figma, Adobe Creative Suite, and other industry-standard tools. Deliverables are shared in your preferred format and can be handed off to your dev team." },
-    { q: "Is there a minimum commitment?", a: "Our monthly plan has no long-term commitment. Quarterly and yearly plans offer better rates with a minimum commitment period." },
-    { q: "Do you offer a free trial?", a: "We offer a 3-day free trial on selected plans so you can experience our process and quality before committing." },
-    { q: "How do I submit and track requests?", a: "You'll use our project hub (WaveHub) to submit briefs, attach files, and track progress. You can also communicate via Slack and get updates in real time." },
-  ];
-
-  // Company logos - using text-based logos for the mentioned companies
-  const companies = [
-    { name: "Y Combinator", logo: null },
-    { name: "Kodezi", logo: null },
-    { name: "Delve", logo: null },
-    { name: "Hey Gen", logo: null },
-    { name: "ZeroEssay", logo: null },
-  ];
 
   return (
     <div className="px-10 lg:px-20">
@@ -90,7 +66,7 @@ export default function Pricing() {
                 </h2>
                 {/* Companies in one row */}
                 <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 md:gap-4">
-                  {companies.map((company, index) => (
+                  {pricingCompanies.map((company, index) => (
                     <div
                       key={index}
                       className="text-gray-300 text-sm md:text-base font-medium"
