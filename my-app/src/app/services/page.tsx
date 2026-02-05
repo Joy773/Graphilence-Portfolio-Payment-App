@@ -11,7 +11,7 @@ import { motion, useMotionValue, animate } from "motion/react";
 import RevealOnScroll from "@/Components/RevealOnScroll";
 import Lottie from "lottie-react";
 import { useApi, type WorkItem } from "@/contexts/ApiContext";
-import { animatedLogos, servicesImages, testimonials, workListDummyCards } from "@/contexts/assets";
+import { animatedLogos, servicesImages, testimonials } from "@/contexts/assets";
 
 const Campany = dynamic(() => import("@/Components/campany").then((m) => m.default), {
   ssr: false,
@@ -378,9 +378,15 @@ export default function Services() {
         </div>
 
         {/* Six Images Grid - 3 per row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-12">
-          {works.length > 0 ? (
-            works.map((work, index) => (
+        {loading && (
+          <div className="flex justify-center items-center py-16">
+            <div className="loader" aria-label="Loading works" />
+          </div>
+        )}
+
+        {!loading && works.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-12">
+            {works.map((work, index) => (
               <div
                 key={work._id}
                 className="flex flex-col"
@@ -429,50 +435,9 @@ export default function Services() {
                   </p>
                 </div>
               </div>
-            ))
-          ) : (
-            workListDummyCards.map((image, index) => (
-              <div
-                key={index}
-                className="flex flex-col"
-              >
-                <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden group cursor-pointer mb-4">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    className="object-cover rounded-lg transition-transform duration-300 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 z-10">
-                    <div className="text-center text-white">
-                      <p className="text-sm md:text-base text-gray-200 leading-relaxed">
-                        {image.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* Project Name and Bullets */}
-                <div>
-                  <h3 className="text-xl md:text-2xl font-bold text-midnight-monarch mb-3">
-                    {image.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-gray-600 flex flex-wrap items-center gap-1">
-                    {image.bullets.map((bullet, bulletIndex) => (
-                      <span key={bulletIndex} className="flex items-center">
-                        <span>{bullet}</span>
-                        {bulletIndex < image.bullets.length - 1 && (
-                          <span className="mx-2 text-midnight-monarch">•</span>
-                        )}
-                      </span>
-                    ))}
-                  </p>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
       </RevealOnScroll>
 
