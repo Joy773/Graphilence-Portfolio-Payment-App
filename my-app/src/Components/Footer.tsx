@@ -76,54 +76,56 @@ const Footer = () => {
 
           </div>
 
-          {/* Middle Section - Navigation Links */}
-          <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {/* Services Column */}
-            <div className="flex flex-col">
-              <h3 className="text-white font-bold text-[18px] mb-4">
-                Services
-              </h3>
-              <ul className="flex flex-col gap-2">
-                {servicesLeft.map((service, index) => (
-                  <li key={index}>
-                    <Link href="#" className="text-gray-400 hover:text-white text-[18px] transition-colors">
-                      {service}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Middle Section - Navigation Links (aligned to the right on large screens) */}
+          <div className="lg:col-span-8 flex lg:justify-end">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-x-16 lg:gap-x-28 lg:gap-y-4">
+              {/* Services Column */}
+              <div className="flex flex-col">
+                <h3 className="text-white font-bold text-[18px] mb-4">
+                  Services
+                </h3>
+                <ul className="flex flex-col gap-2">
+                  {servicesLeft.map((service, index) => (
+                    <li key={index}>
+                      <Link href="#" className="text-gray-400 hover:text-white text-[18px] transition-colors">
+                        {service}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            {/* Case studies Column */}
-            <div className="flex flex-col">
-              <h3 className="text-white font-bold text-[18px] mb-4">
-                Case studies
-              </h3>
-              <ul className="flex flex-col gap-2">
-                {caseStudies.map((study, index) => (
-                  <li key={index}>
-                    <Link href="#" className="text-gray-400 hover:text-white text-[18px] transition-colors">
-                      {study}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+              {/* Case studies Column */}
+              <div className="flex flex-col">
+                <h3 className="text-white font-bold text-[18px] mb-4">
+                  Case studies
+                </h3>
+                <ul className="flex flex-col gap-2">
+                  {caseStudies.map((study, index) => (
+                    <li key={index}>
+                      <Link href="#" className="text-gray-400 hover:text-white text-[18px] transition-colors">
+                        {study}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            {/* Contact Column */}
-            <div className="flex flex-col">
-              <h3 className="text-white font-bold text-[18px] mb-4">
-                Contact
-              </h3>
-              <ul className="flex flex-col gap-2">
-                {contact.map((item, index) => (
-                  <li key={index}>
-                    <Link href="#" className="text-gray-400 hover:text-white text-[18px] transition-colors">
-                      {item}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              {/* Contact Column */}
+              <div className="flex flex-col">
+                <h3 className="text-white font-bold text-[18px] mb-4">
+                  Contact
+                </h3>
+                <ul className="flex flex-col gap-2">
+                  {contact.map((item, index) => (
+                    <li key={index}>
+                      <Link href="#" className="text-gray-400 hover:text-white text-[18px] transition-colors">
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
 
@@ -170,12 +172,12 @@ const Footer = () => {
           </div>
           
           {/* CTA Section */}
-          <div className="flex flex-col items-start lg:items-end">
-            <h3 className="text-white font-medium text-base mb-3">
+          <div className="flex flex-col items-start">
+            <h3 className="text-white font-medium text-base mb-0 leading-tight">
               Let's work together
             </h3>
             <motion.div 
-              className="flex items-center gap-3 group cursor-pointer"
+              className="flex items-center gap-3 group cursor-pointer -mt-1"
               initial="rest"
               whileHover="hover"
             >

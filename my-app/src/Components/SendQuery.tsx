@@ -104,12 +104,14 @@ const SendQuery = () => {
             {/* Profile Section - bottom of left column, aligned like reference image */}
             <div className="mt-auto flex flex-col items-center lg:items-start pt-4">
               <div className="w-32 h-32 md:w-40 md:h-40 rounded-lg overflow-hidden mb-4 bg-teal-200 shrink-0">
-                <div className="w-full h-full bg-teal-200 flex items-center justify-center">
-                  <span className="text-teal-600 text-4xl font-bold">RA</span>
-                </div>
+                <img
+                  src="/CEO.jpeg"
+                  alt="Founder & CEO"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-1 text-center lg:text-left">Zihan Ahmed Joy</h3>
-              <p className="text-gray-600 mb-0 text-center lg:text-left">Founder & CEO of Graphilence</p>
+              <p className="text-gray-600 text-sm mb-0 text-center lg:text-left">Founder & CEO of Graphilence</p>
             </div>
           </div>
           </RevealOnScroll>
