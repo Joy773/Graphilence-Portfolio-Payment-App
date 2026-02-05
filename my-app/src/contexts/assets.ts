@@ -97,10 +97,11 @@ export const blogIcons = {
 } as const;
 
 // --- Services page images ---
+// Graphics Design and Web dev from founder & employee folder
 export const servicesImages = {
   screenImg: "/screen_img.webp",
-  uiUx: "/UI-UX.webp",
-  webDev: "/web-dev.webp",
+  uiUx: "/founder & employee/Graphics Design.webp",
+  webDev: "/founder & employee/Web dev.webp",
 } as const;
 
 // --- Work list placeholders (services fallback when no works) ---
