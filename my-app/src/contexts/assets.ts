@@ -104,18 +104,6 @@ export const servicesImages = {
   webDev: "/founder-and-employee/web-dev.webp",
 } as const;
 
-// --- Work list placeholders (services fallback when no works) ---
-export const workListPlaceholders = [
-  "/work-list/first.avif",
-  "/work-list/second.avif",
-  "/work-list/third.avif",
-  "/work-list/fourth.avif",
-  "/work-list/fifth.avif",
-  "/work-list/sixth.avif",
-] as const;
-
-export const workListPlaceholderFallback = workListPlaceholders[0];
-
 // --- Services page testimonials ---
 export const testimonials = [
   { company: "TechCorp", comment: "Outstanding design work that completely transformed our digital presence and user engagement. The team's attention to detail and innovative approach resulted in a significant increase in user satisfaction. Highly recommend their services!", name: "John Smith", position: "CEO" },
@@ -132,10 +120,10 @@ export const testimonials = [
 
 /** Dummy work cards used when no works are loaded (services page). */
 export const workListDummyCards = [
-  { src: workListPlaceholders[0], alt: "Work 1", title: "E-Commerce & DTC", description: "Our approach of making things simpler and more effective helps users go from browsing to checkout in simple steps", bullets: ["E-commerce", "Branding", "Web Design"] },
-  { src: workListPlaceholders[1], alt: "Work 2", title: "Finance & Fintech", description: "Building secure and user-friendly financial solutions that empower users to manage their finances effortlessly", bullets: ["UI/UX Design", "Product Design", "Mobile App"] },
-  { src: workListPlaceholders[2], alt: "Work 3", title: "SaaS & B2B Platforms", description: "Creating powerful business solutions that streamline operations and enhance productivity for teams worldwide", bullets: ["SaaS Design", "Web Design", "UI/UX Consulting"] },
-  { src: workListPlaceholders[3], alt: "Work 4", title: "Healthcare & Wellness", description: "Designing intuitive health platforms that connect patients with care providers seamlessly", bullets: ["Healthcare Design", "Mobile App", "UI/UX Design"] },
-  { src: workListPlaceholders[4], alt: "Work 5", title: "Education & E-Learning", description: "Transforming learning experiences with engaging and accessible educational platforms", bullets: ["E-Learning Platform", "Web Design", "Branding"] },
-  { src: workListPlaceholders[5], alt: "Work 6", title: "Travel & Hospitality", description: "Crafting memorable travel experiences through beautiful and functional booking platforms", bullets: ["Travel App", "Web Design", "UI/UX Design"] },
+  { src: servicesImages.screenImg, alt: "Work 1", title: "E-Commerce & DTC", description: "Our approach of making things simpler and more effective helps users go from browsing to checkout in simple steps", bullets: ["E-commerce", "Branding", "Web Design"] },
+  { src: servicesImages.screenImg, alt: "Work 2", title: "Finance & Fintech", description: "Building secure and user-friendly financial solutions that empower users to manage their finances effortlessly", bullets: ["UI/UX Design", "Product Design", "Mobile App"] },
+  { src: servicesImages.screenImg, alt: "Work 3", title: "SaaS & B2B Platforms", description: "Creating powerful business solutions that streamline operations and enhance productivity for teams worldwide", bullets: ["SaaS Design", "Web Design", "UI/UX Consulting"] },
+  { src: servicesImages.screenImg, alt: "Work 4", title: "Healthcare & Wellness", description: "Designing intuitive health platforms that connect patients with care providers seamlessly", bullets: ["Healthcare Design", "Mobile App", "UI/UX Design"] },
+  { src: servicesImages.screenImg, alt: "Work 5", title: "Education & E-Learning", description: "Transforming learning experiences with engaging and accessible educational platforms", bullets: ["E-Learning Platform", "Web Design", "Branding"] },
+  { src: servicesImages.screenImg, alt: "Work 6", title: "Travel & Hospitality", description: "Crafting memorable travel experiences through beautiful and functional booking platforms", bullets: ["Travel App", "Web Design", "UI/UX Design"] },
 ] as const;

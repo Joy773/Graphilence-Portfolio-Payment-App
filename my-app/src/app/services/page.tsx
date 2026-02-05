@@ -11,7 +11,7 @@ import { motion, useMotionValue, animate } from "motion/react";
 import RevealOnScroll from "@/Components/RevealOnScroll";
 import Lottie from "lottie-react";
 import { useApi, type WorkItem } from "@/contexts/ApiContext";
-import { animatedLogos, servicesImages, testimonials, workListPlaceholderFallback, workListDummyCards } from "@/contexts/assets";
+import { animatedLogos, servicesImages, testimonials, workListDummyCards } from "@/contexts/assets";
 
 const Campany = dynamic(() => import("@/Components/campany").then((m) => m.default), {
   ssr: false,
@@ -88,7 +88,7 @@ export default function Services() {
     if (work.images && work.images.length > 0) {
       return work.images[0];
     }
-    return workListPlaceholderFallback;
+    return servicesImages.screenImg;
   };
 
   return (
