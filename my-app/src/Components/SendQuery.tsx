@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import RevealOnScroll from "./RevealOnScroll";
+import { useApi } from "@/contexts/ApiContext";
 
 const SendQuery = () => {
+  const { submitInquiry } = useApi();
   const [formData, setFormData] = useState({
     fullName: "",
     companyName: "",
@@ -14,17 +16,14 @@ const SendQuery = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
+  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-    // Clear message when user starts typing
-    if (message) {
-      setMessage(null);
-    }
+    if (message) setMessage(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,52 +32,36 @@ const SendQuery = () => {
     setMessage(null);
 
     try {
-      // Build subject from service
-      const subject = formData.service 
-        ? `Inquiry for ${formData.service.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}`
+      const subject = formData.service
+        ? `Inquiry for ${formData.service.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())}`
         : "Project Inquiry";
 
-      // Build message with all details
       let messageContent = formData.projectDetails;
-      
       if (formData.companyName) {
         messageContent = `Company: ${formData.companyName}\n\n${messageContent}`;
       }
-      
       if (formData.budget) {
         const budgetText = formData.budget
-          .replace(/-/g, ' - $')
-          .replace(/k/g, ',000')
-          .replace(/\+/g, '+');
+          .replace(/-/g, " - $")
+          .replace(/k/g, ",000")
+          .replace(/\+/g, "+");
         messageContent = `${messageContent}\n\nBudget: $${budgetText}`;
       }
 
-      // Prepare inquiry data
       const inquiryData = {
         name: formData.fullName.trim(),
         email: formData.email.trim(),
-        subject: subject,
+        subject,
         message: messageContent.trim(),
       };
 
-      // Send to API
-      const response = await fetch('/api/inquiries', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(inquiryData),
-      });
-
-      const result = await response.json();
+      const result = await submitInquiry(inquiryData);
 
       if (result.success) {
-        setMessage({ 
-          type: 'success', 
-          text: 'Thank you! Your inquiry has been submitted successfully. We\'ll get back to you soon.' 
+        setMessage({
+          type: "success",
+          text: "Thank you! Your inquiry has been submitted successfully. We'll get back to you soon.",
         });
-        
-        // Clear the form
         setFormData({
           fullName: "",
           companyName: "",
@@ -87,20 +70,18 @@ const SendQuery = () => {
           budget: "",
           projectDetails: "",
         });
-
-        // Clear success message after 5 seconds
         setTimeout(() => setMessage(null), 5000);
       } else {
-        setMessage({ 
-          type: 'error', 
-          text: result.message || 'Failed to submit inquiry. Please try again.' 
+        setMessage({
+          type: "error",
+          text: result.message ?? "Failed to submit inquiry. Please try again.",
         });
       }
     } catch (error) {
-      console.error('Error submitting inquiry:', error);
-      setMessage({ 
-        type: 'error', 
-        text: 'An error occurred while submitting. Please try again.' 
+      console.error("Error submitting inquiry:", error);
+      setMessage({
+        type: "error",
+        text: "An error occurred while submitting. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -110,27 +91,25 @@ const SendQuery = () => {
   return (
     <div className="mt-20 bg-gray-50 -mx-10 lg:-mx-20 px-10 pt-16 pb-0">
       <div className="max-w-7xl mx-auto pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Left Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
+          {/* Left Section - heading, paragraph, profile at bottom (like reference image) */}
           <RevealOnScroll delay={0.1} direction="left">
-            <div className="flex flex-col">
+            <div className="flex flex-col h-full">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight text-center lg:text-left">
               Have a project idea in mind? Let&apos;s get started
             </h1>
             <p className="text-gray-600 text-lg mb-8 leading-relaxed text-center lg:text-left">
               We&apos;ll schedule a call to discuss your idea. After discovery sessions, we&apos;ll send a proposal, and upon approval, we&apos;ll get started.
             </p>
-            
-            {/* Profile Section */}
-            <div className="mt-auto flex flex-col items-center lg:items-start">
-              <div className="w-32 h-32 md:w-40 md:h-40 rounded-lg overflow-hidden mb-4 bg-teal-200">
-                {/* Placeholder for profile image - replace with actual image */}
+            {/* Profile Section - bottom of left column, aligned like reference image */}
+            <div className="mt-auto flex flex-col items-center lg:items-start pt-4">
+              <div className="w-32 h-32 md:w-40 md:h-40 rounded-lg overflow-hidden mb-4 bg-teal-200 shrink-0">
                 <div className="w-full h-full bg-teal-200 flex items-center justify-center">
                   <span className="text-teal-600 text-4xl font-bold">RA</span>
                 </div>
               </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-1 text-center lg:text-left">Zihan Ahmed Joy</h3>
-              <p className="text-gray-600 mb-6 text-center lg:text-left">Founder & CEO of Graphilence</p>
+              <p className="text-gray-600 mb-0 text-center lg:text-left">Founder & CEO of Graphilence</p>
             </div>
           </div>
           </RevealOnScroll>
@@ -174,81 +153,81 @@ const SendQuery = () => {
                 />
               </div>
 
-              {/* Company Name */}
-              <div>
-                <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-2">
-                  Company name
-                </label>
-                <input
-                  type="text"
-                  id="companyName"
-                  name="companyName"
-                  placeholder="Ex. Tesla Inc"
-                  value={formData.companyName}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purplish-blue focus:border-transparent"
-                />
+              {/* Company Name & Email - side by side */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-2">
+                    Company name
+                  </label>
+                  <input
+                    type="text"
+                    id="companyName"
+                    name="companyName"
+                    placeholder="Ex. Tesla Inc"
+                    value={formData.companyName}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purplish-blue focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    Email <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="You@Example.Com"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purplish-blue focus:border-transparent"
+                  />
+                </div>
               </div>
 
-              {/* Email */}
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Email <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="You@Example.Com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purplish-blue focus:border-transparent"
-                />
-              </div>
-
-              {/* Service Required */}
-              <div>
-                <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
-                  Service required <span className="text-red-500">*</span>
-                </label>
-                <select
-                  id="service"
-                  name="service"
-                  value={formData.service}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purplish-blue focus:border-transparent bg-white"
-                >
-                  <option value="">Select Your Service</option>
-                  <option value="web-design">Web Design</option>
-                  <option value="web-development">Web Development</option>
-                  <option value="mobile-app">Mobile App Development</option>
-                  <option value="ui-ux">UI/UX Design</option>
-                  <option value="consulting">Consulting</option>
-                </select>
-              </div>
-
-              {/* Project Budget */}
-              <div>
-                <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">
-                  Project budget <span className="text-red-500">*</span>
-                </label>
-                <select
-                  id="budget"
-                  name="budget"
-                  value={formData.budget}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purplish-blue focus:border-transparent bg-white"
-                >
-                  <option value="">Select Your Range</option>
-                  <option value="5k-10k">$5,000 - $10,000</option>
-                  <option value="10k-25k">$10,000 - $25,000</option>
-                  <option value="25k-50k">$25,000 - $50,000</option>
-                  <option value="50k-100k">$50,000 - $100,000</option>
-                  <option value="100k+">$100,000+</option>
-                </select>
+              {/* Service Required & Project Budget - side by side */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
+                    Service required <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="service"
+                    name="service"
+                    value={formData.service}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purplish-blue focus:border-transparent bg-white"
+                  >
+                    <option value="">Select Your Service</option>
+                    <option value="web-design">Web Design</option>
+                    <option value="web-development">Web Development</option>
+                    <option value="mobile-app">Mobile App Development</option>
+                    <option value="ui-ux">UI/UX Design</option>
+                    <option value="consulting">Consulting</option>
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">
+                    Project budget <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="budget"
+                    name="budget"
+                    value={formData.budget}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purplish-blue focus:border-transparent bg-white"
+                  >
+                    <option value="">Select Your Range</option>
+                    <option value="5k-10k">$5,000 - $10,000</option>
+                    <option value="10k-25k">$10,000 - $25,000</option>
+                    <option value="25k-50k">$25,000 - $50,000</option>
+                    <option value="50k-100k">$50,000 - $100,000</option>
+                    <option value="100k+">$100,000+</option>
+                  </select>
+                </div>
               </div>
 
               {/* Project Details */}

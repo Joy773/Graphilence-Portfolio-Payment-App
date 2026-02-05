@@ -1,29 +1,17 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import RevealOnScroll from './RevealOnScroll';
-import LoadingProgressBar from './LoadingProgressBar';
-
-interface WorkItem {
-  _id: string;
-  title: string;
-  clientName?: string;
-  projectUrl?: string;
-  keywords: string[];
-  images: string[];
-  sections: Array<{ heading?: string; content?: string }>;
-  featured?: boolean;
-  createdAt: string;
-}
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import RevealOnScroll from "./RevealOnScroll";
+import { useApi, type WorkItem } from "@/contexts/ApiContext";
 
 const WorkList = () => {
+  const { fetchWorks } = useApi();
   const [workItems, setWorkItems] = useState<WorkItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Gradient colors for cards
   const gradients = [
     "from-purple-500 to-pink-500",
     "from-purple-300 to-purple-600",
@@ -34,31 +22,27 @@ const WorkList = () => {
   ];
 
   useEffect(() => {
-    const fetchWorks = async () => {
+    const load = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/works');
-        const result = await response.json();
-
-        if (result.success) {
-          // Filter and show only featured works, limit to 6
+        const result = await fetchWorks();
+        if (result.success && result.data) {
           const featuredWorks = result.data
-            .filter((work: WorkItem) => work.featured === true)
+            .filter((work) => work.featured === true)
             .slice(0, 6);
           setWorkItems(featuredWorks);
         } else {
-          setError('Failed to load works');
+          setError(result.message ?? "Failed to load works");
         }
       } catch (err) {
-        console.error('Error fetching works:', err);
-        setError('An error occurred while loading works');
+        console.error("Error fetching works:", err);
+        setError("An error occurred while loading works");
       } finally {
         setLoading(false);
       }
     };
-
-    fetchWorks();
-  }, []);
+    load();
+  }, [fetchWorks]);
 
   // Get description from first section's content
   const getDescription = (work: WorkItem) => {
@@ -76,7 +60,6 @@ const WorkList = () => {
 
   return (
     <div className="mt-20 lg:mt-32 mb-16">
-      <LoadingProgressBar isLoading={loading} />
       {/* Heading */}
       <RevealOnScroll>
         <div className='w-full flex justify-center'>

@@ -1,15 +1,40 @@
 "use client";
 
 import React from "react";
+import dynamic from "next/dynamic";
 import Navbar from "@/Components/Navbar";
 import LandingPage from "@/Components/LandingPage";
-import Campany from "@/Components/campany";
-import WorkList from "@/Components/WorkList";
-import Founders from "@/Components/Founders";
-import FAQ from "@/Components/FAQ";
 import Footer from "@/Components/Footer";
-import SendQuery from "@/Components/SendQuery";
 import RevealOnScroll from "@/Components/RevealOnScroll";
+
+const SectionSkeleton = () => (
+  <div className="min-h-[180px] w-full animate-pulse rounded-xl bg-gray-100/60" />
+);
+
+const Campany = dynamic(() => import("@/Components/campany").then((m) => m.default), {
+  ssr: false,
+  loading: SectionSkeleton,
+});
+
+const WorkList = dynamic(() => import("@/Components/WorkList").then((m) => m.default), {
+  ssr: false,
+  loading: SectionSkeleton,
+});
+
+const Founders = dynamic(() => import("@/Components/Founders").then((m) => m.default), {
+  ssr: false,
+  loading: SectionSkeleton,
+});
+
+const FAQ = dynamic(() => import("@/Components/FAQ").then((m) => m.default), {
+  ssr: false,
+  loading: SectionSkeleton,
+});
+
+const SendQuery = dynamic(() => import("@/Components/SendQuery").then((m) => m.default), {
+  ssr: false,
+  loading: SectionSkeleton,
+});
 
 export default function Home() {
   return (
@@ -19,7 +44,7 @@ export default function Home() {
         <LandingPage />
       </RevealOnScroll>
       <RevealOnScroll delay={0.2}>
-        <Campany /> 
+        <Campany />
       </RevealOnScroll>
       <RevealOnScroll delay={0.1}>
         <WorkList />

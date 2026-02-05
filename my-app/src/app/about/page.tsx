@@ -14,55 +14,7 @@ import { FaLightbulb } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import Footer from "@/Components/Footer";
 import RevealOnScroll from "@/Components/RevealOnScroll";
-const aboutUsImages = {
-  offices: [
-    "/about-us/office_1.avif",
-    "/about-us/office_2.avif",
-    "/about-us/office_3.avif",
-    "/about-us/office_4.avif",
-    "/about-us/office_5.avif",
-    "/about-us/office_6.avif",
-    "/about-us/office_7.avif",
-    "/about-us/office_8.avif",
-    "/about-us/office_9.avif",
-    "/about-us/team.avif",
-  ],
-};
-
-const teamMembers = {
-  team: [
-    {
-      image: "/founder & employee/emp-1.webp",
-      name: "Alexandra Chen",
-      designation: "Founder & CEO"
-    },
-    {
-      image: "/founder & employee/emp-2.webp",
-      name: "Marcus Rodriguez",
-      designation: "Co-Founder & CTO"
-    },
-    {
-      image: "/founder & employee/emp-3.webp",
-      name: "Sarah Johnson",
-      designation: "VP of Design"
-    },
-    {
-      image: "/founder & employee/emp-4.webp",
-      name: "David Kim",
-      designation: "Head of Product"
-    },
-    {
-      image: "/founder & employee/emp-5.webp",
-      name: "Emma Williams",
-      designation: "Lead UX Designer"
-    },
-    {
-      image: "/founder & employee/emp-6.webp",
-      name: "James Anderson",
-      designation: "Creative Director"
-    },
-  ]
-}
+import { aboutUs, teamMembers } from "@/contexts/assets";
 
 const Page = () => {
   return (
@@ -76,7 +28,7 @@ const Page = () => {
       <RevealOnScroll delay={0.1}>
         <div className="w-full mt-10">
         <Image
-          src="/about-us/Everyone.avif"
+          src={aboutUs.everyone}
           alt="Everyone"
           width={1200}
           height={800}
@@ -122,7 +74,7 @@ const Page = () => {
             },
           }}
         >
-          {[...aboutUsImages.offices, ...aboutUsImages.offices].map(
+          {[...aboutUs.offices, ...aboutUs.offices].map(
             (src, idx) => (
               <div
                 key={idx}
@@ -130,7 +82,7 @@ const Page = () => {
               >
                 <Image
                   src={src}
-                  alt={`Office ${(idx % aboutUsImages.offices.length) + 1}`}
+                  alt={`Office ${(idx % aboutUs.offices.length) + 1}`}
                   width={400}
                   height={300}
                   className="w-full h-full object-cover"
@@ -159,7 +111,7 @@ const Page = () => {
           {/* Left: Team Image */}
           <div className="w-full lg:max-w-[637px] h-[300px] sm:h-[400px] lg:h-[560px] overflow-hidden">
             <Image
-              src="/about-us/team.avif"
+              src={aboutUs.team}
               alt="Team"
               width={637}
               height={560}
@@ -397,7 +349,7 @@ const Page = () => {
         <div className="mt-20 mb-20">
           <h1 className="text-2xl font-bold text-midnight-monarch mb-8">Founder & Executive</h1>
           <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 lg:gap-8">
-            {teamMembers.team.map((member, index) => (
+            {teamMembers.map((member, index) => (
               <RevealOnScroll key={index} delay={index * 0.1}>
                 <div className="flex flex-col">
               <div className="relative w-full aspect-square overflow-hidden rounded-lg mb-4">

@@ -23,23 +23,12 @@ export function proxy(request: NextRequest) {
     }
 
     const currentTime = Math.floor(Date.now() / 1000);
+    // Session TTL: 2 hours (7200 seconds) by default; override with SESSION_DURATION env (in seconds)
+    const TWO_HOURS_SECONDS = 2 * 60 * 60;
     const sessionDurationStr = process.env.SESSION_DURATION;
-    
-    // Validate session duration from environment variable
-    if (!sessionDurationStr) {
-      // If SESSION_DURATION is not set, redirect to login for security
-      const response = NextResponse.redirect(new URL("/login", request.url));
-      response.cookies.delete("auth");
-      return response;
-    }
-
-    const sessionDuration = parseInt(sessionDurationStr);
-    if (isNaN(sessionDuration)) {
-      // Invalid session duration, redirect to login
-      const response = NextResponse.redirect(new URL("/login", request.url));
-      response.cookies.delete("auth");
-      return response;
-    }
+    const sessionDuration = sessionDurationStr && !isNaN(parseInt(sessionDurationStr))
+      ? parseInt(sessionDurationStr)
+      : TWO_HOURS_SECONDS;
 
     if ((currentTime - loginTime) > sessionDuration) {
       // Session expired, clear cookie and redirect

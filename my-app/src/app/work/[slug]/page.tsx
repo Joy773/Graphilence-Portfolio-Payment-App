@@ -7,17 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import HTMLFlipBook from "react-pageflip";
-
-interface WorkItem {
-  _id: string;
-  title: string;
-  clientName?: string;
-  projectUrl?: string;
-  keywords: string[];
-  images: string[];
-  sections: Array<{ heading?: string; content?: string }>;
-  createdAt: string;
-}
+import { useApi, type WorkItem } from "@/contexts/ApiContext";
 
 // Page component with forwardRef for react-pageflip
 const FlipPage = React.forwardRef<
@@ -82,44 +72,39 @@ BlankPage.displayName = "BlankPage";
 export default function WorkDetail() {
   const params = useParams();
   const workId = params?.slug as string;
+  const { fetchWorkById } = useApi();
   const [project, setProject] = useState<WorkItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentUrl, setCurrentUrl] = useState<string>('');
+  const [currentUrl, setCurrentUrl] = useState<string>("");
 
   useEffect(() => {
-    const fetchWork = async () => {
+    if (!workId) {
+      setError("Work ID is missing");
+      setLoading(false);
+      return;
+    }
+    const load = async () => {
       try {
         setLoading(true);
-        if (!workId) {
-          setError('Work ID is missing');
-          return;
-        }
-
-        const response = await fetch(`/api/works/${workId}`);
-        const result = await response.json();
-
-        if (result.success) {
+        const result = await fetchWorkById(workId);
+        if (result.success && result.data) {
           setProject(result.data);
         } else {
-          setError(result.message || 'Failed to load work');
+          setError(result.message ?? "Failed to load work");
         }
       } catch (err) {
-        console.error('Error fetching work:', err);
-        setError('An error occurred while loading the work');
+        console.error("Error fetching work:", err);
+        setError("An error occurred while loading the work");
       } finally {
         setLoading(false);
       }
     };
-
-    if (workId) {
-      fetchWork();
-      // Set current URL for sharing
-      if (typeof window !== 'undefined') {
-        setCurrentUrl(window.location.href);
-      }
+    load();
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
     }
-  }, [workId]);
+  }, [workId, fetchWorkById]);
 
   if (loading) {
     return (

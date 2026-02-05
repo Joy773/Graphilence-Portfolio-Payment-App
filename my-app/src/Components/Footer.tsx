@@ -45,7 +45,7 @@ const Footer = () => {
             </h2>
 
             {/* Company Description */}
-            <p className="text-gray-400 text-sm lg:text-base leading-relaxed mb-6 lg:mb-8 max-w-md">
+            <p className="text-gray-400 text-[18px] leading-relaxed mb-6 lg:mb-8 max-w-md">
               Wavespace is a global UI/UX design agency that boosts brand value with user-friendly, effective designs for web, mobile, and SaaS platforms.
             </p>
 
@@ -80,13 +80,13 @@ const Footer = () => {
           <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {/* Services Column */}
             <div className="flex flex-col">
-              <h3 className="text-white font-bold text-base mb-4">
+              <h3 className="text-white font-bold text-[18px] mb-4">
                 Services
               </h3>
               <ul className="flex flex-col gap-2">
                 {servicesLeft.map((service, index) => (
                   <li key={index}>
-                    <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+                    <Link href="#" className="text-gray-400 hover:text-white text-[18px] transition-colors">
                       {service}
                     </Link>
                   </li>
@@ -96,13 +96,13 @@ const Footer = () => {
 
             {/* Case studies Column */}
             <div className="flex flex-col">
-              <h3 className="text-white font-bold text-base mb-4">
+              <h3 className="text-white font-bold text-[18px] mb-4">
                 Case studies
               </h3>
               <ul className="flex flex-col gap-2">
                 {caseStudies.map((study, index) => (
                   <li key={index}>
-                    <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+                    <Link href="#" className="text-gray-400 hover:text-white text-[18px] transition-colors">
                       {study}
                     </Link>
                   </li>
@@ -112,13 +112,13 @@ const Footer = () => {
 
             {/* Contact Column */}
             <div className="flex flex-col">
-              <h3 className="text-white font-bold text-base mb-4">
+              <h3 className="text-white font-bold text-[18px] mb-4">
                 Contact
               </h3>
               <ul className="flex flex-col gap-2">
                 {contact.map((item, index) => (
                   <li key={index}>
-                    <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+                    <Link href="#" className="text-gray-400 hover:text-white text-[18px] transition-colors">
                       {item}
                     </Link>
                   </li>

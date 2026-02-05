@@ -1,131 +1,68 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import dynamic from "next/dynamic";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
-import Campany from "@/Components/campany";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import { MdArrowOutward } from "react-icons/md";
-import { motion } from "motion/react";
+import { motion, useMotionValue, animate } from "motion/react";
 import RevealOnScroll from "@/Components/RevealOnScroll";
-import LoadingProgressBar from "@/Components/LoadingProgressBar";
 import Lottie from "lottie-react";
-interface WorkItem {
-  _id: string;
-  title: string;
-  clientName?: string;
-  projectUrl?: string;
-  keywords: string[];
-  images: string[];
-  sections: Array<{ heading?: string; content?: string }>;
-  featured?: boolean;
-  createdAt: string;
-}
+import { useApi, type WorkItem } from "@/contexts/ApiContext";
+import { animatedLogos, servicesImages, testimonials, workListPlaceholderFallback, workListDummyCards } from "@/contexts/assets";
 
-// Testimonials data
-const testimonials = [
-  {
-    company: "TechCorp",
-    comment: "Outstanding design work that completely transformed our digital presence and user engagement. The team's attention to detail and innovative approach resulted in a significant increase in user satisfaction. Highly recommend their services!",
-    name: "John Smith",
-    position: "CEO"
-  },
-  {
-    company: "InnovateLabs",
-    comment: "The team delivered exceptional UX/UI designs that far exceeded our expectations. Their user-centered approach helped us create products that our customers truly love. The collaboration was smooth and the results speak for themselves.",
-    name: "Sarah Johnson",
-    position: "Product Manager"
-  },
-  {
-    company: "StartupHub",
-    comment: "Professional service and innovative solutions that helped us scale quickly and effectively. Their expertise in design systems and user experience made a tremendous difference in our product development journey. Truly exceptional work!",
-    name: "Michael Chen",
-    position: "Founder"
-  },
-  {
-    company: "DesignCo",
-    comment: "Their attention to detail and user-centered approach made all the difference in our project. The designs are not only beautiful but also highly functional, resulting in improved user engagement and business metrics. Exceptional work from start to finish.",
-    name: "Emily Davis",
-    position: "Design Director"
-  },
-  {
-    company: "Digital Solutions",
-    comment: "Fast, efficient, and incredibly creative. They understood our vision perfectly and brought it to life in ways we hadn't even imagined. The design quality and user experience improvements have been remarkable, and our users have taken notice.",
-    name: "David Wilson",
-    position: "CTO"
-  },
-  {
-    company: "Creative Agency",
-    comment: "Best investment we made this year. The design quality is top-notch, and the team's professionalism is unmatched. They helped us create a digital experience that truly represents our brand and connects with our audience on a deeper level.",
-    name: "Lisa Anderson",
-    position: "Marketing Head"
-  },
-  {
-    company: "TechVentures",
-    comment: "Excellent collaboration and outstanding results. Our users absolutely love the new interface, and we've seen a significant improvement in key metrics. The team's expertise in UX design and their ability to understand our business needs is truly impressive.",
-    name: "Robert Taylor",
-    position: "VP of Product"
-  },
-  {
-    company: "Innovation Labs",
-    comment: "They transformed our complex product into an intuitive and user-friendly experience. The design process was smooth, and the final result exceeded all our expectations. Our user feedback has been overwhelmingly positive, and engagement has increased substantially.",
-    name: "Jennifer Martinez",
-    position: "Product Lead"
-  },
-  {
-    company: "FutureTech",
-    comment: "Outstanding work from start to finish. The team is highly professional, responsive, and truly understands how to create designs that drive business results. The attention to detail and commitment to excellence is evident in every aspect of their work.",
-    name: "James Brown",
-    position: "Operations Manager"
-  },
-  {
-    company: "NextGen Solutions",
-    comment: "The designs are beautiful, functional, and exactly what we needed to elevate our brand. The team's creative approach combined with their technical expertise resulted in an excellent digital experience.",
-    name: "Amanda White",
-    position: "Founder & CEO"
-  }
-];
+const Campany = dynamic(() => import("@/Components/campany").then((m) => m.default), {
+  ssr: false,
+  loading: () => (
+    <div className="min-h-[100px] w-full animate-pulse rounded-xl bg-gray-100/60" />
+  ),
+});
 
 export default function Services() {
+  const { fetchWorks } = useApi();
   const [works, setWorks] = useState<WorkItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [rocketAnimation, setRocketAnimation] = useState<any>(null);
   const [webDesignAnimation, setWebDesignAnimation] = useState<any>(null);
   const [orderPackedAnimation, setOrderPackedAnimation] = useState<any>(null);
 
+  const CARD_WIDTH = 400;
+  const GAP = 24;
+  const SLIDE_STEP = CARD_WIDTH + GAP;
+  const totalSlides = 1 + testimonials.length;
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const carouselX = useMotionValue(0);
+
   useEffect(() => {
-    const fetchWorks = async () => {
+    const load = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/works');
-        const result = await response.json();
-
-        if (result.success) {
-          // Filter and show only featured works, limit to 6
+        const result = await fetchWorks();
+        if (result.success && result.data) {
           const featuredWorks = result.data
-            .filter((work: WorkItem) => work.featured === true)
+            .filter((work) => work.featured === true)
             .slice(0, 6);
           setWorks(featuredWorks);
         }
       } catch (err) {
-        console.error('Error fetching works:', err);
+        console.error("Error fetching works:", err);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchWorks();
-  }, []);
+    load();
+  }, [fetchWorks]);
 
   useEffect(() => {
     // Load Lottie animations
     const loadAnimations = async () => {
       try {
         const [rocket, webDesign, orderPacked] = await Promise.all([
-          fetch('/animated logo/Rocket.json').then(res => res.json()),
-          fetch('/animated logo/web design.json').then(res => res.json()),
-          fetch('/animated logo/Order packed.json').then(res => res.json()),
+          fetch(animatedLogos.rocket).then((res) => res.json()),
+          fetch(animatedLogos.webDesign).then((res) => res.json()),
+          fetch(animatedLogos.orderPacked).then((res) => res.json()),
         ]);
         setRocketAnimation(rocket);
         setWebDesignAnimation(webDesign);
@@ -151,12 +88,11 @@ export default function Services() {
     if (work.images && work.images.length > 0) {
       return work.images[0];
     }
-    return "/work-list/first.avif"; // Fallback to placeholder
+    return workListPlaceholderFallback;
   };
 
   return (
     <div className="px-10 lg:px-20">
-      <LoadingProgressBar isLoading={loading} />
       <Navbar />
       {/* Hero Banner Section */}
       <RevealOnScroll>
@@ -167,22 +103,13 @@ export default function Services() {
               {/* Clutch Rating Badge */}
               <div className="mt-2 md:mt-0 mb-4 md:mb-6">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 rounded-lg ">
-                  <span className="text-white font-medium">Clutch</span>
+                  <span className="text-white font-medium">Fiverr</span>
                   <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
-                      <svg
-                        key={i}
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="#FFB800"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                      </svg>
+                      <FaStar key={i} className="w-4 h-4 text-[#FFB800] shrink-0" />
                     ))}
                   </div>
-                  <span className="text-white font-medium">5.0</span>
+                  <span className="text-white font-medium">4.8</span>
                 </div>
               </div>
 
@@ -245,7 +172,7 @@ export default function Services() {
             <div className="flex flex-1 w-full lg:w-auto justify-center lg:justify-end lg:items-center">
               <div className="relative w-full max-w-lg lg:max-w-2xl lg:-mt-4">
                 <Image
-                  src="/screen_img.webp"
+                  src={servicesImages.screenImg}
                   alt="Digital product design screens"
                   width={800}
                   height={600}
@@ -271,11 +198,12 @@ export default function Services() {
           <div className="flex-1 w-full lg:w-auto flex justify-center lg:justify-start">
             <div className="relative w-full max-w-lg lg:max-w-2xl">
               <Image
-                src="/UI-UX.webp"
+                src={servicesImages.uiUx}
                 alt="Mobile app UI/UX design"
                 width={400}
                 height={800}
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain rounded-xl"
+
               />
             </div>
           </div>
@@ -394,11 +322,11 @@ export default function Services() {
           <div className="flex-1 w-full lg:w-auto flex justify-center lg:justify-end">
             <div className="relative w-full max-w-lg lg:max-w-2xl">
               <Image
-                src="/web-dev.webp"
+                src={servicesImages.webDev}
                 alt="Web design laptop"
                 width={800}
                 height={600}
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain rounded-lg"
               />
             </div>
           </div>
@@ -503,75 +431,7 @@ export default function Services() {
               </div>
             ))
           ) : (
-            // Fallback to dummy data if no works are available
-            [
-              {
-                src: "/work-list/first.avif",
-                alt: "Work 1",
-                title: "E-Commerce & DTC",
-                description: "Our approach of making things simpler and more effective helps users go from browsing to checkout in a few simple steps",
-                bullets: [
-                  "E-commerce",
-                  "Branding",
-                  "Web Design"
-                ]
-              },
-              {
-                src: "/work-list/second.avif",
-                alt: "Work 2",
-                title: "Finance & Fintech",
-                description: "Building secure and user-friendly financial solutions that empower users to manage their finances effortlessly",
-                bullets: [
-                  "UI/UX Design",
-                  "Product Design",
-                  "Mobile App"
-                ]
-              },
-              {
-                src: "/work-list/third.avif",
-                alt: "Work 3",
-                title: "SaaS & B2B Platforms",
-                description: "Creating powerful business solutions that streamline operations and enhance productivity for teams worldwide",
-                bullets: [
-                  "SaaS Design",
-                  "Web Design",
-                  "UI/UX Consulting"
-                ]
-              },
-              {
-                src: "/work-list/fourth.avif",
-                alt: "Work 4",
-                title: "Healthcare & Wellness",
-                description: "Designing intuitive health platforms that connect patients with care providers seamlessly",
-                bullets: [
-                  "Healthcare Design",
-                  "Mobile App",
-                  "UI/UX Design"
-                ]
-              },
-              {
-                src: "/work-list/fifth.avif",
-                alt: "Work 5",
-                title: "Education & E-Learning",
-                description: "Transforming learning experiences with engaging and accessible educational platforms",
-                bullets: [
-                  "E-Learning Platform",
-                  "Web Design",
-                  "Branding"
-                ]
-              },
-              {
-                src: "/work-list/sixth.avif",
-                alt: "Work 6",
-                title: "Travel & Hospitality",
-                description: "Crafting memorable travel experiences through beautiful and functional booking platforms",
-                bullets: [
-                  "Travel App",
-                  "Web Design",
-                  "UI/UX Design"
-                ]
-              },
-            ].map((image, index) => (
+            workListDummyCards.map((image, index) => (
               <div
                 key={index}
                 className="flex flex-col"
@@ -792,7 +652,7 @@ export default function Services() {
       </RevealOnScroll>
 
       <RevealOnScroll delay={0.2}>
-        <div className="overflow-hidden w-full mb-25" style={{ position: 'relative' }}>
+        <div className="overflow-hidden w-full mb-25 select-none" style={{ position: 'relative' }}>
           {/* Left Fog */}
           <div 
             className="absolute left-0 top-0 bottom-0 w-20 lg:w-32 z-10 pointer-events-none"
@@ -808,92 +668,61 @@ export default function Services() {
             }}
           />
         <motion.div
-          className="flex gap-6"
+          className="flex gap-6 cursor-grab active:cursor-grabbing"
           style={{
             width: 'max-content',
-            willChange: 'transform'
+            willChange: 'transform',
+            x: carouselX,
           }}
-          animate={{
-            x: ['0%', '-50%'],
+          drag="x"
+          dragConstraints={{
+            left: -(totalSlides - 1) * SLIDE_STEP,
+            right: 0,
           }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 50,
-              ease: "linear",
-            },
+          dragElastic={0.1}
+          onDragEnd={(_, info) => {
+            const currentX = carouselX.get();
+            const newIndex = Math.round(-currentX / SLIDE_STEP);
+            const clamped = Math.max(0, Math.min(totalSlides - 1, newIndex));
+            setCarouselIndex(clamped);
+            animate(carouselX, -clamped * SLIDE_STEP, {
+              type: 'spring',
+              stiffness: 300,
+              damping: 30,
+            });
           }}
         >
-          {/* First set: Rating Card + Testimonials */}
-          <>
-            {/* Rating Card */}
-            <div className="border border-gray-200 rounded-lg p-6 h-[460px] w-[400px] flex flex-col items-center justify-center text-center shrink-0">
-              <h1 className="text-8xl font-bold text-midnight-monarch">4.8</h1>
-              <div className="flex gap-1 mt-2 justify-center">
-                <FaStar className="text-yellow-500" />
-                <FaStar className="text-yellow-500" />
-                <FaStar className="text-yellow-500" />
-                <FaStar className="text-yellow-500" />
-              </div>
-              <p className="text-gray-500 font-bold">200+ Reviews</p>
+          {/* Rating Card */}
+          <div className="border border-gray-200 rounded-lg p-6 h-[460px] w-[400px] flex flex-col items-center justify-center text-center shrink-0">
+            <h1 className="text-8xl font-bold text-midnight-monarch">4.8</h1>
+            <div className="flex gap-1 mt-2 justify-center">
+              <FaStar className="text-yellow-500" />
+              <FaStar className="text-yellow-500" />
+              <FaStar className="text-yellow-500" />
+              <FaStar className="text-yellow-500" />
             </div>
-            
-            {/* Testimonials */}
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="border border-gray-200 rounded-lg p-6 h-[460px] w-[400px] flex flex-col shrink-0">
-                <p className="text-gray-400 text-md font-semibold mb-4">
-                  {testimonial.company}
+            <p className="text-gray-500 font-bold">200+ Reviews</p>
+          </div>
+          
+          {/* Testimonials */}
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="border border-gray-200 rounded-lg p-6 h-[460px] w-[400px] flex flex-col shrink-0">
+              <p className="text-gray-400 text-md font-semibold mb-4">
+                {testimonial.company}
+              </p>
+              <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6 flex-1">
+                "{testimonial.comment}"
+              </p>
+              <div className="mt-auto">
+                <p className="text-midnight-monarch font-bold text-lg mb-1">
+                  {testimonial.name}
                 </p>
-                <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6 flex-1">
-                  "{testimonial.comment}"
+                <p className="text-gray-500 text-sm">
+                  {testimonial.position}
                 </p>
-                <div className="mt-auto">
-                  <p className="text-midnight-monarch font-bold text-lg mb-1">
-                    {testimonial.name}
-                  </p>
-                  <p className="text-gray-500 text-sm">
-                    {testimonial.position}
-                  </p>
-                </div>
               </div>
-            ))}
-          </>
-
-          {/* Second set: Duplicate for seamless loop */}
-          <>
-            {/* Rating Card */}
-            <div className="border border-gray-200 rounded-lg p-6 h-[460px] w-[400px] flex flex-col items-center justify-center text-center shrink-0">
-              <h1 className="text-8xl font-bold text-midnight-monarch">4.8</h1>
-              <div className="flex gap-1 mt-2 justify-center">
-                <FaStar className="text-yellow-500" />
-                <FaStar className="text-yellow-500" />
-                <FaStar className="text-yellow-500" />
-                <FaStar className="text-yellow-500" />
-              </div>
-              <p className="text-gray-500 font-bold">200+ Reviews</p>
             </div>
-            
-            {/* Testimonials */}
-            {testimonials.map((testimonial, index) => (
-              <div key={`duplicate-${index}`} className="border border-gray-200 rounded-lg p-6 h-[460px] w-[400px] flex flex-col shrink-0">
-                <p className="text-gray-400 text-md font-semibold mb-4">
-                  {testimonial.company}
-                </p>
-                <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6 flex-1">
-                  "{testimonial.comment}"
-                </p>
-                <div className="mt-auto">
-                  <p className="text-midnight-monarch font-bold text-lg mb-1">
-                    {testimonial.name}
-                  </p>
-                  <p className="text-gray-500 text-sm">
-                    {testimonial.position}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </>
+          ))}
         </motion.div>
       </div>
       </RevealOnScroll>

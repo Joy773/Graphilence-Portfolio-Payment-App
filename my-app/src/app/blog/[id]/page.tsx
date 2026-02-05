@@ -1,82 +1,56 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import Navbar from '@/Components/Navbar';
-import Footer from '@/Components/Footer';
-import Image from 'next/image';
-import Link from 'next/link';
-
-interface BlogSection {
-  heading?: string;
-  content?: string;
-}
-
-interface BlogPost {
-  _id: string;
-  title: string;
-  images: string[];
-  sections: BlogSection[];
-  fontColor?: string;
-  fontStyle?: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import React, { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import Navbar from "@/Components/Navbar";
+import Footer from "@/Components/Footer";
+import Image from "next/image";
+import Link from "next/link";
+import { useApi, type BlogPost } from "@/contexts/ApiContext";
+import { blogIcons } from "@/contexts/assets";
 
 const BlogDetailPage = () => {
   const params = useParams();
   const router = useRouter();
+  const { fetchBlogPostById } = useApi();
   const [blog, setBlog] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentUrl, setCurrentUrl] = useState<string>('');
+  const [currentUrl, setCurrentUrl] = useState<string>("");
 
   useEffect(() => {
-    const fetchBlog = async () => {
+    const id = params.id as string;
+    if (!id) {
+      setError("Blog post ID is missing");
+      setLoading(false);
+      return;
+    }
+    const load = async () => {
       try {
         setLoading(true);
-        const id = params.id as string;
-        
-        if (!id) {
-          setError('Blog post ID is missing');
-          return;
-        }
-
-        console.log('Fetching blog with ID:', id);
-        const response = await fetch(`/api/blog-posts/${id}`);
-        const result = await response.json();
-
-        console.log('API Response:', result);
-
-        if (result.success) {
+        const result = await fetchBlogPostById(id);
+        if (result.success && result.data) {
           setBlog(result.data);
         } else {
-          setError(result.message || 'Failed to load blog post');
+          setError(result.message ?? "Failed to load blog post");
         }
       } catch (err) {
-        console.error('Error fetching blog:', err);
-        setError('An error occurred while loading the blog post');
+        console.error("Error fetching blog:", err);
+        setError("An error occurred while loading the blog post");
       } finally {
         setLoading(false);
       }
     };
-
-    if (params.id) {
-      fetchBlog();
-      // Set current URL for sharing
-      if (typeof window !== 'undefined') {
-        setCurrentUrl(window.location.href);
-      }
-    } else {
-      setError('Blog post ID is missing');
-      setLoading(false);
+    load();
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
     }
-  }, [params.id]);
+  }, [params.id, fetchBlogPostById]);
 
   if (loading) {
     return (
       <div className='px-10 lg:px-20'>
-        <Navbar />
+        <Navbar variant="gradient" />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <p className="text-gray-600 text-lg">Loading blog post...</p>
@@ -90,7 +64,7 @@ const BlogDetailPage = () => {
   if (error || !blog) {
     return (
       <div className='px-10 lg:px-20'>
-        <Navbar />
+        <Navbar variant="gradient" />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <p className="text-red-600 text-lg mb-4">{error || 'Blog post not found'}</p>
@@ -116,11 +90,49 @@ const BlogDetailPage = () => {
 
   const totalContent = blog.sections?.map(s => s.content || '').join(' ') || '';
   const readingTime = calculateReadingTime(totalContent);
+  const titleUppercase = blog.title.toUpperCase();
 
   return (
-    <div className='px-10 lg:px-20'>
-      <Navbar />
-      <div className='mt-20 mb-20'>
+    <div className='px-10 lg:px-20 pt-0'>
+      <Navbar variant="gradient" />
+      <div className='mt-0 mb-20'>
+        {/* Title hero - gradient, breadcrumb, title, meta (match reference image) */}
+        <div className="bg-gradient-to-r from-[#2d2648] to-[#251870] -mx-10 lg:-mx-20 -mt-2 px-10 lg:px-20 py-10 lg:py-14 mb-10">
+          <div className="w-full max-w-6xl">
+            <nav className="text-white/70 text-sm mb-5">
+              <Link href="/" className="hover:text-white transition-colors">HOME</Link>
+              <span className="mx-2">/</span>
+              <Link href="/blog" className="hover:text-white transition-colors">BLOG</Link>
+              <span className="mx-2">/</span>
+              <span className="text-white/90 truncate max-w-full inline-block align-bottom" title={blog.title}>
+                {titleUppercase}
+              </span>
+            </nav>
+            <h1 className="text-4xl sm:text-5xl lg:text-[80px] font-bold text-white leading-tight mb-5">
+              {blog.title}
+            </h1>
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-left">
+            <span className="px-3 py-1.5 rounded-full bg-white/15 text-white text-sm font-medium">
+              Design Process
+            </span>
+            <span className="text-white/60">•</span>
+            <span className="text-white/90 text-sm">{readingTime} MIN READ</span>
+            <span className="text-white/60">•</span>
+            <div className="flex items-center gap-4">
+              <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer" className="relative w-6 h-6 flex-shrink-0 opacity-90 hover:opacity-100 transition-opacity [&_img]:brightness-0 [&_img]:invert [&_img]:opacity-90" aria-label="ChatGPT">
+                <Image src={blogIcons.chatGpt} alt="ChatGPT" width={24} height={24} className="object-contain w-6 h-6" />
+              </a>
+              <a href="https://www.perplexity.ai" target="_blank" rel="noopener noreferrer" className="relative w-6 h-6 flex-shrink-0 opacity-90 hover:opacity-100 transition-opacity [&_img]:brightness-0 [&_img]:invert [&_img]:opacity-90" aria-label="Perplexity AI">
+                <Image src={blogIcons.ai} alt="AI" width={24} height={24} className="object-contain w-6 h-6" />
+              </a>
+              <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" className="relative w-6 h-6 flex-shrink-0 opacity-90 hover:opacity-100 transition-opacity [&_img]:brightness-0 [&_img]:invert [&_img]:opacity-90" aria-label="Google">
+                <Image src={blogIcons.google} alt="Google" width={24} height={24} className="object-contain w-6 h-6" />
+              </a>
+            </div>
+          </div>
+          </div>
+        </div>
+
         {/* Two Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Left Sidebar */}
@@ -250,13 +262,6 @@ const BlogDetailPage = () => {
 
           {/* Right Content Area - Blog Content */}
           <div className="lg:col-span-3">
-            {/* Blog Title */}
-            <div className="mb-8">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-monarch mb-0 leading-tight">
-                {blog.title}
-              </h1>
-            </div>
-
             {/* Blog Hero Images */}
             {blog.images && blog.images.length > 0 && (
               <div className="relative w-full mt-8 mb-12 flex justify-center items-center">

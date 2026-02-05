@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { FaDribbble, FaStar } from "react-icons/fa";
+import { SiFiverr } from "react-icons/si";
 
 export default function LandingPage() {
   const container = [
@@ -10,6 +12,7 @@ export default function LandingPage() {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [viewWorkHover, setViewWorkHover] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,7 +28,36 @@ export default function LandingPage() {
         {/* Left Section */}
         <div className="w-full lg:w-[700px] flex flex-col items-center md:items-center lg:items-start">
           <div className="flex items-center gap-2 mb-4 justify-center md:justify-center lg:justify-start">
-            <div className="w-2 h-2 bg-green-500 rounded-full" style={{ boxShadow: '0 0 8px 2px rgba(34, 197, 94, 0.6)' }}></div>
+            <div className="relative flex items-center justify-center w-5 h-5 shrink-0">
+              {/* Circular pulse ring */}
+              <motion.div
+                className="absolute inset-0 rounded-full border-2 border-green-500"
+                animate={{
+                  scale: [1, 1.8, 1],
+                  opacity: [0.6, 0, 0.6],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              />
+              {/* Solid green dot (circle) */}
+              <motion.div
+                className="relative w-2 h-2 rounded-full bg-green-500 aspect-square"
+                animate={{
+                  boxShadow: [
+                    "0 0 0 0 rgba(34, 197, 94, 0.4)",
+                    "0 0 0 8px rgba(34, 197, 94, 0)",
+                  ],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              />
+            </div>
             <p className="text-xs text-gray-500">Available for New Projects</p>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-monarch leading-none mb-8 lg:mb-0 text-center md:text-center lg:text-left">
@@ -53,7 +85,20 @@ export default function LandingPage() {
             </button>
             
             {/* View work button - Hidden on mobile */}
-            <button className="hidden lg:flex bg-white text-midnight-monarch border border-gray-300 px-6 py-3 rounded-full font-semibold cursor-pointer transition-colors items-center gap-2">
+            <button
+              className="hidden lg:flex bg-white text-midnight-monarch border-2 border-gray-200 px-6 py-3 rounded-full font-semibold cursor-pointer transition-all duration-300 items-center gap-2  hover:shadow-md"
+              onMouseEnter={() => setViewWorkHover(true)}
+              onMouseLeave={() => setViewWorkHover(false)}
+            >
+              <motion.span
+                animate={{
+                  scale: viewWorkHover ? 1.2 : 1,
+                  rotate: viewWorkHover ? 15 : 0,
+                }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              >
+                <FaDribbble className="w-4 h-4 text-[#EA4C89] shrink-0" />
+              </motion.span>
               View Work
             </button>
           </div>
@@ -77,21 +122,22 @@ export default function LandingPage() {
               <p className="text-xs lg:text-sm text-midnight-monarch font-medium">Loved by 500+ Founders</p>
             </div>
 
-            {/* Right: Logo + Stars + Reviews */}
-            <div className="flex flex-col items-start gap-1">
-              <div className="flex items-center gap-1.5 lg:gap-2">
-                <div className="w-7 h-7 lg:w-8 lg:h-8 bg-red-500 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-xs lg:text-sm">C</span>
-                </div>
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-3.5 h-3.5 lg:w-4 lg:h-4" viewBox="0 0 24 24" fill="#EF4444" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                    </svg>
-                  ))}
-                </div>
+            {/* Right: Fiverr + Stars + Reviews */}
+            <div className="flex items-start gap-1.5 lg:gap-2">
+              <div className="w-7 h-7 lg:w-8 lg:h-8 bg-[#1DBF73] rounded-full flex items-center justify-center shrink-0 mt-0.5">
+                <SiFiverr className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
               </div>
-              <p className="text-xs text-midnight-monarch font-medium ml-8 lg:ml-10">13 REVIEWS</p>
+              <div className="flex flex-col items-start gap-0.5">
+                <div className="flex items-center gap-1">
+                  <span className="text-midnight-monarch font-semibold text-sm">4.8</span>
+                  <div className="flex gap-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <FaStar key={i} className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#E8B923] shrink-0" />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-xs text-midnight-monarch font-medium">304 REVIEWS</p>
+              </div>
             </div>
           </div>
         </div>

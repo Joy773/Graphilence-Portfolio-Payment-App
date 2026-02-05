@@ -1,13 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 
-const Navbar = () => {
+type NavbarProps = {
+  variant?: "default" | "gradient";
+};
+
+const Navbar = ({ variant = "default" }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const text = "Graphilence";
   const letters = text.split("");
+  const isGradient = variant === "gradient";
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 30);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Map item names to their routes
   const routes: { [key: string]: string } = {
@@ -52,21 +65,18 @@ const Navbar = () => {
   };
 
   return (
-    <div className="-mx-10 lg:-mx-20">
-      {/* Top Green Bar */}
-     
-      
+    <div className={`sticky top-0 z-50 -mx-10 lg:-mx-20 transition-all duration-300 ${isScrolled ? "bg-[rgba(255,255,255,0.22)] backdrop-blur-xl shadow-lg border-b border-white/15" : isGradient ? "bg-gradient-to-r from-[#2d2648] to-[#251870]" : "bg-white"}`}>
       {/* Main Navbar */}
-      <div className="bg-white pt-8 md:pt-8 pb-4 shadow-md px-4 md:px-8 lg:px-20 pb-7">
+      <div className={`pt-8 md:pt-8 pb-4 px-4 md:px-8 lg:px-20 pb-7 transition-all duration-300 ${isScrolled ? "backdrop-blur-md bg-[rgba(255,255,255,0.06)]" : isGradient ? "bg-transparent shadow-none" : "bg-white shadow-md"}`}>
         <div className="flex justify-between items-center w-full gap-6 md:gap-0">
         <div>
           {/* Mobile Heading */}
-          <h1 className="text-3xl font-bold tracking-wide cursor-pointer text-midnight-monarch md:hidden">
+          <h1 className={`text-3xl font-bold tracking-wide cursor-pointer md:hidden ${isGradient ? "text-white" : "text-midnight-monarch"}`}>
             Graphilence
           </h1>
           {/* Desktop Animated Heading */}
           <motion.h1
-            className="hidden md:block text-5xl font-bold cursor-pointer text-midnight-monarch"
+            className={`hidden md:block text-5xl font-bold cursor-pointer ${isGradient ? "text-white" : "text-midnight-monarch"}`}
             variants={container}
             initial="rest"
             whileHover="hover"
@@ -88,7 +98,7 @@ const Navbar = () => {
               <li key={index} className="relative">
                 <Link href={routes[item] || "/"}>
                   <motion.div
-                    className="text-midnight-monarch cursor-pointer relative inline-block"
+                    className={`cursor-pointer relative inline-block ${isGradient ? "text-white/90 hover:text-white" : "text-midnight-monarch"}`}
                     initial="rest"
                     whileHover="hover"
                     variants={{
@@ -100,7 +110,7 @@ const Navbar = () => {
                     <motion.div
                       className="absolute bottom-0 h-0.5 origin-left"
                       style={{ 
-                        backgroundColor: '#1A1436',
+                        backgroundColor: isGradient ? 'rgba(255,255,255,0.9)' : '#1A1436',
                         left: '-4px',
                         right: '-4px',
                       }}
@@ -122,7 +132,7 @@ const Navbar = () => {
         </div>
         <div className="hidden md:block">
           <motion.button
-            className="text-white rounded-full px-4 py-2 cursor-pointer font-semibold bg-midnight-monarch hover:bg-purplish-blue relative overflow-hidden transition-all"
+            className={`rounded-full px-4 py-2 cursor-pointer font-semibold relative overflow-hidden transition-all ${isGradient ? "text-white bg-midnight-monarch hover:bg-purplish-blue" : "text-white bg-midnight-monarch hover:bg-purplish-blue"}`}
             initial="rest"
             whileHover="hover"
             variants={{
@@ -163,7 +173,7 @@ const Navbar = () => {
             <motion.div
               className="absolute bottom-0 h-0.5 origin-left"
               style={{ 
-                backgroundColor: '#1A1436',
+                backgroundColor: isGradient ? 'rgba(255,255,255,0.9)' : '#1A1436',
                 left: '-4px',
                 right: '-4px',
               }}
@@ -230,7 +240,7 @@ const Navbar = () => {
               <li key={index} className="relative">
                 <Link href={routes[item] || "/"} onClick={() => setIsMenuOpen(false)}>
                   <motion.div
-                    className="text-midnight-monarch cursor-pointer relative inline-block text-lg"
+                    className={`cursor-pointer relative inline-block text-lg ${isGradient ? "text-white/90 hover:text-white" : "text-midnight-monarch"}`}
                     initial="rest"
                     whileHover="hover"
                     variants={{
@@ -242,7 +252,7 @@ const Navbar = () => {
                     <motion.div
                       className="absolute bottom-0 h-0.5 origin-left"
                       style={{ 
-                        backgroundColor: '#1A1436',
+                        backgroundColor: isGradient ? 'rgba(255,255,255,0.9)' : '#1A1436',
                         left: '-4px',
                         right: '-4px',
                       }}
@@ -262,7 +272,7 @@ const Navbar = () => {
             ))}
           </ul>
           <motion.button
-            className="mt-6 text-white rounded-full px-4 py-2 cursor-pointer font-semibold bg-midnight-monarch hover:bg-purplish-blue relative overflow-hidden transition-all w-full"
+            className={`mt-6 rounded-full px-4 py-2 cursor-pointer font-semibold relative overflow-hidden transition-all w-full ${isGradient ? "text-white bg-midnight-monarch hover:bg-purplish-blue" : "text-white bg-midnight-monarch hover:bg-purplish-blue"}`}
             initial="rest"
             whileHover="hover"
             variants={{
@@ -302,7 +312,7 @@ const Navbar = () => {
             <motion.div
               className="absolute bottom-0 h-0.5 origin-left"
               style={{ 
-                backgroundColor: '#1A1436',
+                backgroundColor: isGradient ? 'rgba(255,255,255,0.9)' : '#1A1436',
                 left: '-4px',
                 right: '-4px',
               }}

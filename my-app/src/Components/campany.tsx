@@ -1,46 +1,17 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'motion/react';
-import Image from 'next/image';
+import React from "react";
+import { motion } from "motion/react";
+import Image from "next/image";
+import { companyLogosByRow } from "@/contexts/assets";
 
 interface CampanyProps {
   singleRow?: boolean;
 }
 
 const campany = ({ singleRow = false }: CampanyProps) => {
-  // Company logos organized by rows - matching the design image
-  const companies = [
-    // Row 1: On Deck, Peel, Microsoft, The Motley Fool., daXtra, ARRIVE, river, grame/prameenphone
-    [
-      { name: "On Deck", logo: "/company-logos/on deck.avif" },
-      { name: "Peel", logo: "/company-logos/peel.avif" },
-      { name: "Microsoft", logo: "/company-logos/microsoft.avif" },
-      { name: "The Motley Fool.", logo: "/company-logos/motley.avif" },
-      { name: "ARRIVE", logo: "/company-logos/arrive.avif" },
-    ],
-    // Row 2: متا UMS, panther, DOCSHIPPER, On Deck, The Motley Fool., Microsoft, Packt>, CIS
-    [
-      { name: "متا UMS", logo: null },
-      { name: "panther", logo: "/company-logos/panther.avif" },
-      { name: "DOCSHIPPER", logo: "/company-logos/docshipper.avif" },
-      { name: "On Deck", logo: "/company-logos/on deck.avif" },
-      { name: "The Motley Fool.", logo: "/company-logos/motley.avif" },
-      { name: "Microsoft", logo: "/company-logos/microsoft.avif" },
-      { name: "Packt>", logo: "/company-logos/packt.avif" },
-      { name: "CIS", logo: "/company-logos/cis.avif" },
-    ],
-    // Row 3: telo.ai, pathrise, RECHARGE W, telenor, PRIME>, CYBER AUTOMOTIVE SOLUTIONS, وزارة الحج والعمرة MINISTRY OF HAJJ AND UMRAH, رقمية Raqamyah
-    [
-      { name: "pathrise", logo: "/company-logos/pathrise.avif" },
-      { name: "RECHARGE W", logo: "/company-logos/recharge.avif" },
-      { name: "telenor", logo: "/company-logos/telenor.avif" },
-      { name: "PRIME>", logo: "/company-logos/prime.avif" },
-      { name: "CYBER AUTOMOTIVE SOLUTIONS", logo: "/company-logos/cas.avif" },
-    ],
-  ];
+  const companies = companyLogosByRow;
 
-  // If singleRow is true, combine all companies into one array
   if (singleRow) {
     // Flatten all companies from all rows and filter out those without logos
     const allCompanies = companies.flat().filter(company => company.logo);

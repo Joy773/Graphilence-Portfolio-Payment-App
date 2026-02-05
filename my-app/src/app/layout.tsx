@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
+import { ApiProvider } from "@/contexts/ApiContext";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -22,10 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${archivo.variable} antialiased`}
-      >
-        {children}
+      <body className={`${archivo.variable} antialiased`}>
+        <ApiProvider>{children}</ApiProvider>
       </body>
     </html>
   );
