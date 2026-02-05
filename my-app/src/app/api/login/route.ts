@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     // Get admin credentials from environment variables
     const adminEmailStr = process.env.ADMIN_EMAIL;
     const adminPassword = process.env.ADMIN_PASSWORD;
--    // Session TTL: 2 hours (7200 seconds) by default; override with SESSION_DURATION env (in seconds)
+    // Session TTL: 2 hours (7200 seconds) by default; override with SESSION_DURATION env (in seconds)
     const TWO_HOURS_SECONDS = 2 * 60 * 60;
     const sessionDurationStr = process.env.SESSION_DURATION;
     const sessionDuration = sessionDurationStr && !isNaN(parseInt(sessionDurationStr))
