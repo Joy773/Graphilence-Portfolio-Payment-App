@@ -22,12 +22,12 @@ export const aboutUs = {
 } as const;
 
 export const founderEmployee = {
-  emp1: "/founder & employee/emp-1.webp",
-  emp2: "/founder & employee/emp-2.webp",
-  emp3: "/founder & employee/emp-3.webp",
-  emp4: "/founder & employee/emp-4.webp",
-  emp5: "/founder & employee/emp-5.webp",
-  emp6: "/founder & employee/emp-6.webp",
+  emp1: "/founder-and-employee/emp-1.webp",
+  emp2: "/founder-and-employee/emp-2.webp",
+  emp3: "/founder-and-employee/emp-3.webp",
+  emp4: "/founder-and-employee/emp-4.webp",
+  emp5: "/founder-and-employee/emp-5.webp",
+  emp6: "/founder-and-employee/emp-6.webp",
 } as const;
 
 export const teamMembers = [
@@ -97,11 +97,11 @@ export const blogIcons = {
 } as const;
 
 // --- Services page images ---
-// Graphics Design and Web dev from founder & employee folder
+// Use graphics design & web dev images from the founder-and-employee folder
 export const servicesImages = {
   screenImg: "/screen_img.webp",
-  uiUx: "/founder & employee/Graphics Design.webp",
-  webDev: "/founder & employee/Web dev.webp",
+  uiUx: "/founder-and-employee/graphics-design.webp",
+  webDev: "/founder-and-employee/web-dev.webp",
 } as const;
 
 // --- Work list placeholders (services fallback when no works) ---
