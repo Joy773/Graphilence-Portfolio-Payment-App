@@ -34,8 +34,8 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-midnight-monarch text-white w-screen relative" style={{ marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', width: '100vw', maxWidth: '100vw' }}>
-      <div className="px-10 lg:px-20 py-16 lg:py-20">
+    <footer className="bg-midnight-monarch text-white w-screen relative left-1/2 -translate-x-1/2">
+      <div className="max-w-[1400px] mx-auto px-10 lg:px-20 py-16 lg:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Left Section - Company Info */}
           <div className="lg:col-span-4 flex flex-col">
@@ -212,7 +212,8 @@ const Footer = () => {
       </div>
 
       {/* Bottom Section - Copyright and Legal */}
-      <div className="border-t border-gray-800 px-10 lg:px-20 py-6 w-full bg-midnight-monarch">
+      <div className="border-t border-gray-800 py-6 w-full bg-midnight-monarch">
+        <div className="max-w-[1400px] mx-auto px-10 lg:px-20">
         <div className="grid grid-cols-4 gap-4 items-center">
           {/* Column 1 - Copyright */}
           <div className="text-gray-400 text-sm">
@@ -248,6 +249,7 @@ const Footer = () => {
               ))}
             </div>
           </div>
+        </div>
         </div>
       </div>
     </footer>

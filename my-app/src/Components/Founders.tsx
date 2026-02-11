@@ -63,15 +63,15 @@ const Founders = () => {
               transition={{ duration: 0.3 }}
               className="flex flex-col"
             >
-              {/* Founder Image */}
-              <div className="relative w-full max-w-[360px] mx-auto mb-6 overflow-hidden rounded-lg" style={{ aspectRatio: '3/4' }}>
+              {/* Founder Image - full width of card, left-aligned with text */}
+              <div className="relative w-full mb-6 overflow-hidden rounded-lg" style={{ aspectRatio: '4/5' }}>
                 <Image
                   src={founder.image}
                   alt={founder.name}
-                  width={360}
-                  height={480}
+                  width={480}
+                  height={640}
                   className="w-full h-full object-cover grayscale"
-                  sizes="(max-width: 768px) 100vw, 360px"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
                   unoptimized
                 />
               </div>

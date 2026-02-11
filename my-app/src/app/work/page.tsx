@@ -51,7 +51,8 @@ export default function Work() {
   };
 
   return (
-    <div className="px-10 lg:px-20">
+    <div className="w-full min-w-0">
+      <div className="max-w-[1400px] mx-auto px-10 lg:px-20">
       <Navbar />
 
       {/* Work Grid Section - loader from globals.css until data is fetched */}
@@ -146,6 +147,7 @@ export default function Work() {
         </div>
       </div>
 
+      </div>
       <Footer />
     </div>
   );

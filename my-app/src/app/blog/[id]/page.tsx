@@ -49,11 +49,13 @@ const BlogDetailPage = () => {
 
   if (loading) {
     return (
-      <div className='px-10 lg:px-20'>
-        <Navbar variant="gradient" />
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <p className="text-gray-600 text-lg">Loading blog post...</p>
+      <div className="w-full min-w-0">
+        <div className="max-w-[1400px] mx-auto px-10 lg:px-20 min-h-screen bg-gradient-to-r from-[#2d2648] to-[#251870]">
+          <Navbar variant="gradient" />
+          <div className="min-h-screen flex items-center justify-center">
+            <div className="text-center">
+              <p className="text-white/80 text-lg">Loading blog post...</p>
+            </div>
           </div>
         </div>
         <Footer />
@@ -63,17 +65,19 @@ const BlogDetailPage = () => {
 
   if (error || !blog) {
     return (
-      <div className='px-10 lg:px-20'>
-        <Navbar variant="gradient" />
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <p className="text-red-600 text-lg mb-4">{error || 'Blog post not found'}</p>
-            <Link 
-              href="/blog"
-              className="text-midnight-monarch hover:text-orange-500 underline"
-            >
-              ← Back to Blog Posts
-            </Link>
+      <div className="w-full min-w-0">
+        <div className="max-w-[1400px] mx-auto px-10 lg:px-20 min-h-screen bg-gradient-to-r from-[#2d2648] to-[#251870]">
+          <Navbar variant="gradient" />
+          <div className="min-h-screen flex items-center justify-center">
+            <div className="text-center">
+              <p className="text-red-200 text-lg mb-4">{error || 'Blog post not found'}</p>
+              <Link 
+                href="/blog"
+                className="text-white/90 hover:text-white underline"
+              >
+                ← Back to Blog Posts
+              </Link>
+            </div>
           </div>
         </div>
         <Footer />
@@ -93,7 +97,8 @@ const BlogDetailPage = () => {
   const titleUppercase = blog.title.toUpperCase();
 
   return (
-    <div className='px-10 lg:px-20 pt-0'>
+    <div className="w-full min-w-0">
+      <div className="max-w-[1400px] mx-auto px-10 lg:px-20 pt-0 min-h-screen bg-gradient-to-r from-[#2d2648] to-[#251870]">
       <Navbar variant="gradient" />
       <div className='mt-0 mb-20'>
         {/* Title hero - gradient, breadcrumb, title, meta (match reference image) */}
@@ -137,11 +142,11 @@ const BlogDetailPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Left Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-50 rounded-2xl p-6 lg:sticky lg:top-24 space-y-8">
+            <div className="bg-white/10 border border-white/10 rounded-2xl p-6 lg:sticky lg:top-24 space-y-8">
               {/* Back Link */}
               <Link 
                 href="/blog"
-                className="inline-flex items-center gap-2 text-midnight-monarch hover:text-orange-500 transition-colors text-sm font-medium"
+                className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors text-sm font-medium"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
@@ -151,10 +156,10 @@ const BlogDetailPage = () => {
 
               {/* Author */}
               <div>
-                <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                <h3 className="text-xs font-semibold text-white/60 uppercase tracking-wider mb-2">
                   AUTHOR
                 </h3>
-                <p className="text-lg font-semibold text-midnight-monarch">
+                <p className="text-lg font-semibold text-white">
                   Graphilence
                 </p>
               </div>
@@ -162,10 +167,10 @@ const BlogDetailPage = () => {
               {/* Published Date */}
               {blog.createdAt && (
                 <div>
-                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                  <h3 className="text-xs font-semibold text-white/60 uppercase tracking-wider mb-2">
                     PUBLISHED
                   </h3>
-                  <p className="text-lg font-semibold text-midnight-monarch">
+                  <p className="text-lg font-semibold text-white">
                     {new Date(blog.createdAt).toLocaleDateString('en-US', {
                       month: 'short',
                       day: 'numeric',
@@ -177,17 +182,17 @@ const BlogDetailPage = () => {
 
               {/* Reading Time */}
               <div>
-                <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                <h3 className="text-xs font-semibold text-white/60 uppercase tracking-wider mb-2">
                   READING TIME
                 </h3>
-                <p className="text-lg font-semibold text-midnight-monarch">
+                <p className="text-lg font-semibold text-white">
                   {readingTime} {readingTime === 1 ? 'Minute' : 'Minutes'}
                 </p>
               </div>
 
               {/* Share this Blog Post */}
               <div>
-                <h3 className="text-sm font-semibold text-black mb-4">
+                <h3 className="text-sm font-semibold text-white mb-4">
                   Share this Blog Post:
                 </h3>
                 <div className="flex gap-3">
@@ -196,17 +201,17 @@ const BlogDetailPage = () => {
                     href={currentUrl ? `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}` : '#'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
+                    className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors text-white"
                     aria-label="Share on Facebook"
                   >
-                    <span className="text-black font-bold text-sm">f</span>
+                    <span className="text-white font-bold text-sm">f</span>
                   </a>
                   {/* Twitter/X */}
                   <a
                     href={currentUrl ? `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(blog.title)}` : '#'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
+                    className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors text-white"
                     aria-label="Share on Twitter"
                   >
                     <svg
@@ -218,7 +223,7 @@ const BlogDetailPage = () => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-black"
+                      className="text-white"
                     >
                       <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
                     </svg>
@@ -228,17 +233,17 @@ const BlogDetailPage = () => {
                     href={currentUrl ? `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}` : '#'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
+                    className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors text-white"
                     aria-label="Share on LinkedIn"
                   >
-                    <span className="text-black font-bold text-xs">in</span>
+                    <span className="text-white font-bold text-xs">in</span>
                   </a>
                   {/* WhatsApp */}
                   <a
                     href={currentUrl ? `https://wa.me/?text=${encodeURIComponent(blog.title + ' ' + currentUrl)}` : '#'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
+                    className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors text-white"
                     aria-label="Share on WhatsApp"
                   >
                     <svg
@@ -250,7 +255,7 @@ const BlogDetailPage = () => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-black"
+                      className="text-white"
                     >
                       <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
                     </svg>
@@ -298,9 +303,8 @@ const BlogDetailPage = () => {
             {/* Blog Sections */}
             {blog.sections && blog.sections.length > 0 ? (
               <div 
-                className="space-y-12"
+                className="space-y-12 text-zinc-200"
                 style={{
-                  color: blog.fontColor || '#000000',
                   fontFamily: blog.fontStyle || 'Arial, sans-serif'
                 }}
               >
@@ -308,9 +312,8 @@ const BlogDetailPage = () => {
                   <div key={index} className="max-w-4xl">
                     {section.heading && (
                       <h2 
-                        className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4"
+                        className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-white"
                         style={{
-                          color: blog.fontColor || '#1a1a2e',
                           fontFamily: blog.fontStyle || 'Arial, sans-serif'
                         }}
                       >
@@ -319,9 +322,8 @@ const BlogDetailPage = () => {
                     )}
                     {section.content && (
                       <div 
-                        className="text-lg leading-relaxed whitespace-pre-wrap"
+                        className="text-lg leading-relaxed whitespace-pre-wrap text-zinc-200"
                         style={{
-                          color: blog.fontColor || '#4b5563',
                           fontFamily: blog.fontStyle || 'Arial, sans-serif'
                         }}
                       >
@@ -339,11 +341,12 @@ const BlogDetailPage = () => {
               </div>
             ) : (
               <div className="text-center py-12">
-                <p className="text-gray-600">No content available for this blog post.</p>
+                <p className="text-white/70">No content available for this blog post.</p>
               </div>
             )}
           </div>
         </div>
+      </div>
       </div>
       <Footer />
     </div>

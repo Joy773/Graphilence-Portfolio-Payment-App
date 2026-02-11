@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import Image from "next/image";
@@ -22,15 +22,15 @@ const FlipPage = React.forwardRef<
         width: "100%",
         height: "100%",
         position: "relative",
-        backgroundColor: "#f3f4f6",
+        backgroundColor: "transparent",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "10px",
+        padding: 0,
         boxSizing: "border-box",
       }}
     >
-      <div className="relative w-full h-full rounded-lg overflow-hidden">
+      <div className="relative w-full h-full overflow-hidden">
         <Image
           src={image}
           alt={alt}
@@ -56,11 +56,11 @@ const BlankPage = React.forwardRef<HTMLDivElement>((props, ref) => {
         width: "100%",
         height: "100%",
         position: "relative",
-        backgroundColor: "#f3f4f6",
+        backgroundColor: "transparent",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "10px",
+        padding: 0,
         boxSizing: "border-box",
       }}
     />
@@ -77,6 +77,24 @@ export default function WorkDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentUrl, setCurrentUrl] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState(0);
+  const flipBookRef = useRef<{ pageFlip?: () => { flipNext: (corner?: string) => void; flipPrev: (corner?: string) => void } } | null>(null);
+
+  const totalPages = project?.images?.length ?? 0;
+
+  const goNext = useCallback(() => {
+    const flip = flipBookRef.current?.pageFlip?.();
+    if (flip?.flipNext) flip.flipNext();
+  }, []);
+
+  const goPrev = useCallback(() => {
+    const flip = flipBookRef.current?.pageFlip?.();
+    if (flip?.flipPrev) flip.flipPrev();
+  }, []);
+
+  const onFlip = useCallback((e: { data: number }) => {
+    setCurrentPage(e.data);
+  }, []);
 
   useEffect(() => {
     if (!workId) {
@@ -106,13 +124,30 @@ export default function WorkDetail() {
     }
   }, [workId, fetchWorkById]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (totalPages === 0) return;
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        if (currentPage < totalPages - 1) goNext();
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        if (currentPage > 0) goPrev();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [totalPages, currentPage, goNext, goPrev]);
+
   if (loading) {
     return (
-      <div className="px-10 lg:px-20">
-        <Navbar />
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <p className="text-gray-600 text-lg">Loading work...</p>
+      <div className="w-full min-w-0">
+        <div className="max-w-[1400px] mx-auto px-10 lg:px-20">
+          <Navbar />
+          <div className="min-h-screen flex items-center justify-center">
+            <div className="text-center">
+              <p className="text-gray-600 text-lg">Loading work...</p>
+            </div>
           </div>
         </div>
         <Footer />
@@ -122,15 +157,17 @@ export default function WorkDetail() {
 
   if (error || !project) {
     return (
-      <div className="px-10 lg:px-20">
-        <Navbar />
-        <div className="mt-20 mb-20 text-center">
-          <h1 className="text-4xl font-bold text-midnight-monarch mb-4">
-            {error || 'Project Not Found'}
-          </h1>
-          <Link href="/work" className="text-purplish-blue hover:underline">
-            Back to Work
-          </Link>
+      <div className="w-full min-w-0">
+        <div className="max-w-[1400px] mx-auto px-10 lg:px-20">
+          <Navbar />
+          <div className="mt-20 mb-20 text-center">
+            <h1 className="text-4xl font-bold text-midnight-monarch mb-4">
+              {error || 'Project Not Found'}
+            </h1>
+            <Link href="/work" className="text-purplish-blue hover:underline">
+              Back to Work
+            </Link>
+          </div>
         </div>
         <Footer />
       </div>
@@ -138,7 +175,8 @@ export default function WorkDetail() {
   }
 
   return (
-    <div className="px-10 lg:px-20">
+    <div className="w-full min-w-0">
+      <div className="max-w-[1400px] mx-auto px-10 lg:px-20">
       <Navbar />
       
       {/* Project Detail Section */}
@@ -331,31 +369,38 @@ export default function WorkDetail() {
 
             {/* Project Images - Flipbook */}
             {project.images && project.images.length > 0 && (
-              <div className="relative w-full mt-8 mb-8 flex justify-center items-center px-4">
-                <div className="w-full flex justify-center">
+              <div className="relative w-full mt-8 mb-8 flex flex-col justify-center items-center px-4">
+                <div className="w-full flex justify-center cursor-grab active:cursor-grabbing">
                   <style jsx global>{`
                     .flipbook-container {
                       margin: 0 auto;
+                      will-change: transform;
+                      border-radius: 0.5rem;
+                      box-shadow:
+                        2px 2px 4px rgba(0,0,0,0.06),
+                        6px 8px 16px rgba(0,0,0,0.08),
+                        14px 18px 32px rgba(0,0,0,0.1);
                     }
                     .flipbook-container .stf__block {
                       background: transparent;
                     }
                     .flipbook-container .stf__item {
-                      background: #f3f4f6;
-                      border-radius: 1rem;
+                      background: transparent;
+                      border-radius: 0;
                       overflow: hidden;
+                      transition: box-shadow 0.2s ease;
                     }
-                    .flipbook-container .stf__item--hard {
-                      background: #f3f4f6;
-                    }
-                    .flipbook-container .stf__item--odd {
-                      background: #f3f4f6;
-                    }
+                    .flipbook-container .stf__item--hard,
+                    .flipbook-container .stf__item--odd,
                     .flipbook-container .stf__item--even {
-                      background: #f3f4f6;
+                      background: transparent;
+                    }
+                    .flipbook-container .stf__wrapper {
+                      transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                     }
                   `}</style>
                   <HTMLFlipBook
+                    ref={flipBookRef}
                     width={500}
                     height={700}
                     minWidth={300}
@@ -363,24 +408,24 @@ export default function WorkDetail() {
                     minHeight={450}
                     maxHeight={1200}
                     size="stretch"
-                    maxShadowOpacity={0.5}
+                    maxShadowOpacity={0.4}
                     showCover={false}
                     mobileScrollSupport={true}
                     startPage={0}
                     drawShadow={true}
-                    flippingTime={1000}
+                    flippingTime={550}
                     usePortrait={true}
                     startZIndex={0}
                     autoSize={true}
                     clickEventForward={true}
                     useMouseEvents={true}
-                    swipeDistance={30}
+                    swipeDistance={20}
                     showPageCorners={true}
                     disableFlipByClick={false}
+                    onFlip={onFlip}
                     className="flipbook-container"
-                    style={{ margin: '0 auto' }}
+                    style={{ margin: "0 auto" }}
                   >
-                    {/* Image Pages - Start directly with images */}
                     {project.images.map((image, index) => (
                       <FlipPage
                         key={index}
@@ -390,6 +435,35 @@ export default function WorkDetail() {
                     ))}
                   </HTMLFlipBook>
                 </div>
+                {/* Navigation and page indicator - under the book */}
+                <div className="flex items-center justify-center gap-4 mt-6 w-full max-w-[500px]">
+                  <button
+                    type="button"
+                    onClick={goPrev}
+                    disabled={currentPage <= 0}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 hover:bg-midnight-monarch hover:text-white text-midnight-monarch disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-gray-100 disabled:hover:text-midnight-monarch transition-all duration-200 shadow-sm"
+                    aria-label="Previous page"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <span className="text-sm font-medium text-gray-600 min-w-[80px] text-center">
+                    {currentPage + 1} / {project.images.length}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={goNext}
+                    disabled={currentPage >= project.images.length - 1}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 hover:bg-midnight-monarch hover:text-white text-midnight-monarch disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-gray-100 disabled:hover:text-midnight-monarch transition-all duration-200 shadow-sm"
+                    aria-label="Next page"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+                <p className="text-xs text-gray-500 mt-3">Use arrows or swipe to flip • Keyboard: ← →</p>
               </div>
             )}
 
@@ -426,6 +500,7 @@ export default function WorkDetail() {
         </div>
       </div>
 
+      </div>
       <Footer />
     </div>
   );

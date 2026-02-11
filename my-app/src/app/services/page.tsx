@@ -92,7 +92,8 @@ export default function Services() {
   };
 
   return (
-    <div className="px-10 lg:px-20">
+    <div className="w-full min-w-0">
+      <div className="max-w-[1400px] mx-auto px-10 lg:px-20">
       <Navbar />
       {/* Hero Banner Section */}
       <RevealOnScroll>
@@ -692,6 +693,7 @@ export default function Services() {
       </div>
       </RevealOnScroll>
 
+      </div>
       <Footer />
     </div>
   );

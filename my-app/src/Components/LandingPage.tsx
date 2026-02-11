@@ -77,16 +77,16 @@ export default function LandingPage() {
             </AnimatePresence>
           </h1>
           
-          {/* Buttons Section */}
-          <div className="flex flex-row gap-4 mt-8 justify-center md:justify-center lg:justify-start">
+          {/* Buttons Section - layout matches pricing page monthly toggle */}
+          <div className="flex flex-row gap-3 mt-8 justify-center md:justify-center lg:justify-start">
             {/* Book a call button */}
-            <button className="bg-midnight-monarch hover:bg-purplish-blue text-white px-6 py-3 rounded-full font-semibold transition-colors cursor-pointer">
+            <button className="px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium text-sm md:text-base transition-all cursor-pointer bg-purplish-blue text-white border border-purplish-blue hover:bg-midnight-monarch hover:border-midnight-monarch">
               Book a call
             </button>
             
             {/* View work button - Hidden on mobile */}
             <button
-              className="hidden lg:flex bg-white text-midnight-monarch border-2 border-gray-200 px-6 py-3 rounded-full font-semibold cursor-pointer transition-all duration-300 items-center gap-2  hover:shadow-md"
+              className="hidden lg:flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium text-sm md:text-base transition-all cursor-pointer bg-white text-midnight-monarch border border-gray-200 hover:bg-gray-50 hover:shadow-md"
               onMouseEnter={() => setViewWorkHover(true)}
               onMouseLeave={() => setViewWorkHover(false)}
             >
@@ -131,7 +131,7 @@ export default function LandingPage() {
                 <div className="flex items-center gap-1">
                   <span className="text-midnight-monarch font-semibold text-sm">4.8</span>
                   <div className="flex gap-0.5">
-                    {[...Array(5)].map((_, i) => (
+                    {[...Array(4)].map((_, i) => (
                       <FaStar key={i} className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#E8B923] shrink-0" />
                     ))}
                   </div>

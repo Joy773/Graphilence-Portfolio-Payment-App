@@ -38,7 +38,8 @@ const SendQuery = dynamic(() => import("@/Components/SendQuery").then((m) => m.d
 
 export default function Home() {
   return (
-    <div className="px-10 lg:px-20">
+    <div className="w-full min-w-0">
+      <div className="max-w-[1400px] mx-auto px-10 lg:px-20">
       <Navbar />
       <RevealOnScroll>
         <LandingPage />
@@ -58,6 +59,7 @@ export default function Home() {
       <RevealOnScroll delay={0.1}>
         <SendQuery />
       </RevealOnScroll>
+      </div>
       <Footer />
     </div>
   );

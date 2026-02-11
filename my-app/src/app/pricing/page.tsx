@@ -16,7 +16,8 @@ export default function Pricing() {
   const [faqOpenIndex, setFaqOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className="px-10 lg:px-20">
+    <div className="w-full min-w-0">
+      <div className="max-w-[1400px] mx-auto px-10 lg:px-20">
       <Navbar />
 
       {/* Pricing section: midnight monarch background till end */}
@@ -632,6 +633,102 @@ export default function Pricing() {
         </div>
       </section>
 
+      {/* Book a call Section - matches reference image */}
+      <section className="py-16 lg:py-24 mb-16 lg:mb-24 bg-midnight-monarch border-t border-white/10 rounded-xl">
+        <div className="max-w-7xl mx-auto px-10 lg:px-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+            {/* Left: Dark card - Call intro & team */}
+            <div className="bg-midnight-monarch rounded-3xl p-6 lg:p-8 flex flex-col text-white">
+              <h2 className="text-3xl lg:text-4xl font-bold mb-4">Book a call</h2>
+              <p className="text-white text-base lg:text-lg leading-relaxed mb-6">
+                Have a frank chat with our Customer Success Manager and Design Director for fun. Straightforward discussion of your ideas - no overwhelming tech jargon unless you&apos;re into that!
+              </p>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-center gap-3">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-500">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="white" />
+                    </svg>
+                  </span>
+                  <span className="font-semibold">B2B Specialists</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-500">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="white" />
+                    </svg>
+                  </span>
+                  <span className="font-semibold">Results Driven</span>
+                </li>
+              </ul>
+              {/* Video call mockup - gradient yellow-green top to dark green bottom, lens shapes, controls */}
+              <div className="relative rounded-3xl overflow-hidden bg-gradient-to-b from-lime-400/30 via-emerald-600/40 to-emerald-900/60 border border-white/10 p-6 lg:p-8 mb-8 flex-1 min-h-[220px]">
+                {/* Abstract lens / screen frame shapes in background */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full border border-white/10 bg-white/5" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full border border-white/10 bg-white/5" />
+                <div className="relative z-10 flex flex-col items-center justify-center h-full">
+                  <div className="flex items-center justify-center gap-8 lg:gap-12">
+                    <div className="flex flex-col items-center">
+                      <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-gray-500 border-2 border-white/40 overflow-hidden mb-2 shadow-lg">
+                        <div className="w-full h-full bg-gray-600" />
+                      </div>
+                      <span className="text-xs lg:text-sm text-white/95 font-medium">Client Success Manager</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-gray-500 border-2 border-white/40 overflow-hidden mb-2 shadow-lg">
+                        <div className="w-full h-full bg-gray-600" />
+                      </div>
+                      <span className="text-xs lg:text-sm text-white/95 font-medium">Design Director</span>
+                    </div>
+                  </div>
+                  {/* Video call controls: timer, then mic / video / grid */}
+                  <div className="flex flex-col items-center gap-2 mt-5">
+                    <span className="text-white/80 text-xs font-medium tracking-widest">00:15:10</span>
+                    <div className="flex items-center gap-2 rounded-full bg-black/20 px-3 py-2">
+                      <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center" title="Microphone">
+                        <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" /><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" /></svg>
+                      </span>
+                      <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center" title="Video">
+                        <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18 10.48V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v4.48c0 1.56.78 2.95 2 3.78V20h4v-6.74c1.22-.83 2-2.22 2-3.78zm-4 3.52V20h6V9.02L14 12.5v1.52c0 .83-.67 1.5-1.5 1.5v.5H20V6H8v12h2v-.5c.83 0 1.5-.67 1.5-1.5V12.5L14 9.02V14z" /></svg>
+                      </span>
+                      <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center" title="Layout">
+                        <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h6v6H4V4zm0 10h6v6H4v-6zM14 4h6v6h-6V4zm0 10h6v6h-6v-6z" /></svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Fiverr rating badge - dark rounded rectangle, white text, yellow stars */}
+              <div className="flex flex-wrap gap-3">
+                <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-black/30 border border-white/10">
+                  <span className="text-white font-semibold">Fiverr</span>
+                  <div className="flex items-center gap-0.5">
+                    {[...Array(4)].map((_, i) => (
+                      <FaStar key={i} className="w-4 h-4 text-[#FFB800] shrink-0" />
+                    ))}
+                  </div>
+                  <span className="text-white font-semibold">4.8</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Calendly embed - overlay hides Calendly's top branding */}
+            <div className="relative bg-white rounded-3xl border border-gray-200 overflow-hidden flex flex-col min-h-[400px] shadow-sm">
+              <div className="absolute top-0 left-0 right-0 z-10 h-28 rounded-t-3xl bg-white" aria-hidden />
+              <div className="flex-1 min-h-[400px]">
+                <iframe
+                  title="Book a call with Calendly"
+                  src="https://calendly.com/musemind/30min?embed_domain=localhost&amp;embed_type=Inline"
+                  className="w-full h-full min-h-[400px] border-0"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      </div>
       <Footer />
     </div>
   );

@@ -2,23 +2,21 @@
 import React from "react";
 import Navbar from "@/Components/Navbar";
 import Image from "next/image";
-import { motion } from "motion/react";
-import { GrServices } from "react-icons/gr";
-import { GrUserExpert } from "react-icons/gr";
-import { FaLaptopCode } from "react-icons/fa";
-import { SiMicrostrategy } from "react-icons/si";
-import { AiFillDatabase } from "react-icons/ai";
+import { motion } from "motion/react";  
+
 import { IoManSharp } from "react-icons/io5";
 import { MdManageAccounts } from "react-icons/md";
 import { FaLightbulb } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import Footer from "@/Components/Footer";
 import RevealOnScroll from "@/Components/RevealOnScroll";
+import SendQuery from "@/Components/SendQuery";
 import { aboutUs, teamMembers } from "@/contexts/assets";
 
 const Page = () => {
   return (
-    <div className="px-10 lg:px-20">
+    <div className="w-full min-w-0">
+      <div className="max-w-[1400px] mx-auto px-10 lg:px-20">
       <Navbar />
       <RevealOnScroll>
         <h1 className="mt-20 text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight-monarch text-center">
@@ -38,7 +36,7 @@ const Page = () => {
         </div>
       </RevealOnScroll>
       <RevealOnScroll delay={0.1}>
-        <div className="bg-black lg:grid lg:grid-cols-2 sm:grid-cols-1 pt-20 -mx-10 lg:-mx-20 px-10 lg:px-20 lg:items-center">
+        <div className="bg-midnight-monarch lg:grid lg:grid-cols-2 sm:grid-cols-1 pt-20 -mx-10 lg:-mx-20 px-10 lg:px-20 lg:items-center">
         <div className="lg:w-[800px] text-center lg:text-left">
           <h1 className="text-white lg:text-6xl text-4xl font-bold">
             Musemind Excellence Through Innovation.
@@ -52,14 +50,14 @@ const Page = () => {
             With years of experience in the field, we have honed our skills to
             become At our agency
           </p>
-          <button className="bg-purplish-blue text-white px-4 py-2 cursor-pointer  mt-10 mx-auto lg:mx-0 inline-block rounded-full">
+          <button className="bg-purplish-blue hover:opacity-90 text-white px-4 py-2 cursor-pointer mt-10 mx-auto lg:mx-0 inline-block rounded-full">
             Discover Our Work
           </button>
         </div>
       </div>
       </RevealOnScroll>
       <RevealOnScroll delay={0.2}>
-        <div className="bg-black -mx-10 lg:-mx-20 py-16 overflow-hidden">
+        <div className="bg-midnight-monarch -mx-10 lg:-mx-20 py-16 overflow-hidden">
         <motion.div
           className="flex w-fit"
           animate={{
@@ -170,6 +168,197 @@ const Page = () => {
         </div>
       </div>
       </RevealOnScroll>
+
+      {/* CEO / Founder Quote Section */}
+      <RevealOnScroll delay={0.1}>
+        <div className="bg-midnight-monarch -mx-10 lg:-mx-20 mt-20 px-10 lg:px-20 py-16 lg:py-24">
+          <div className="max-w-[1400px] mx-auto grid lg:grid-cols-[minmax(280px,400px)_1fr] gap-10 lg:gap-8 items-stretch">
+            {/* Left: CEO Image + Name - narrower column so text has more space */}
+            <div className="flex flex-col items-center lg:items-start justify-center">
+              <div className="relative w-[182px] h-[190px] overflow-hidden rounded-lg">
+                <Image
+                  src="/CEO.jpeg"
+                  alt="Founder & CEO"
+                  fill
+                  className="object-cover grayscale"
+                  sizes="182px"
+                  priority
+                />
+              </div>
+              <h3 className="text-white text-[16px] font-bold mt-6">
+                Zihan Ahmed Joy
+              </h3>
+              <p className="text-zinc-400 text-[12px] mt-1">
+                2019, When I got my vision
+              </p>
+            </div>
+
+            {/* Right: Quote / Narrative - quote at beginning of first line */}
+            <div className="relative flex items-baseline gap-2 lg:gap-3 min-h-0">
+              <span className="text-white text-[18px] lg:text-[28px] font-serif leading-none select-none shrink-0 align-baseline" aria-hidden>
+                &ldquo;
+              </span>
+              <p className="text-white text-[18px] lg:text-[28px] leading-relaxed w-full min-w-0 pt-0">
+                Back in 2014, I had just finished high school. No time to celebrate, I was already thinking, how do I help my family? Like most kids from a middle-class home, I aimed for engineering. Design? Never crossed my mind. But when my uncle nudged me toward graphic arts, I followed, not out of passion, but because it was something. Somewhere in that journey, I stumbled into UI/UX. No mentor, no roadmap. Just late nights, curiosity, and a deep urge to make things make sense. I kept wondering, how can design solve real problems?
+              </p>
+            </div>
+          </div>
+        </div>
+      </RevealOnScroll>
+
+      {/* Three-column story + full-width quote section */}
+      <RevealOnScroll delay={0.1}>
+        <div className="bg-midnight-monarch -mx-10 lg:-mx-20 px-10 lg:px-20 py-16 lg:py-24">
+          <div className="max-w-[1400px] mx-auto">
+            {/* Top: Three columns - left text, middle text, right profile */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12 items-start">
+              {/* Left text block */}
+              <div className="space-y-6">
+                <p className="text-white text-base lg:text-lg leading-relaxed">
+                  That question lit a fire in me. One project led to another & before long, I was designing for bigger companies, across borders, and I finally wanted to work abroad by going. By then, the dream had changed. It wasn&apos;t just about earning or designing for clients anymore.
+                </p>
+                <p className="text-white text-base lg:text-lg leading-relaxed">
+                  I wanted to understand, Why do great founders fail, and why do strong products disappear? That one question led me across projects, borders, and eventually, toward something bigger.
+                </p>
+              </div>
+
+              {/* Middle text block */}
+              <div className="space-y-6">
+                <p className="text-white text-base lg:text-lg leading-relaxed">
+                  In 2019, I paused and dug deeper, not into tools, but into why products fail. And from that, Wavespace was born. I never planned to build an agency. I just wanted to solve problems. That mission hasn&apos;t changed. We don&apos;t show up to impress.
+                </p>
+                <p className="text-white text-base lg:text-lg leading-relaxed">
+                  We show up to help founders who were once like me, full of vision, short on clarity. We design for outcomes. Because future Unicorns aren&apos;t found. they&apos;re designed. Now I&apos;m here, ready to team up with venture capital, building what&apos;s next, with clarity, speed, and heart
+                </p>
+              </div>
+
+              {/* Right profile: name, tagline, image */}
+              <div className="flex flex-col items-center lg:items-start">
+                <h3 className="text-white text-xl lg:text-2xl font-bold mb-1">
+                  Zihan Ahmed Joy
+                </h3>
+                <p className="text-zinc-400 text-sm lg:text-base mb-6">
+                  2026, we growing fast with unicorn energy
+                </p>
+                <div className="relative w-full max-w-[320px] aspect-[3/4] overflow-hidden rounded-lg">
+                  <Image
+                    src="/CEO.jpeg"
+                    alt="Zihan Ahmed Joy"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 320px"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom: Centered quote directly below the three-column section */}
+            <div className="mt-12 lg:mt-16 flex flex-col items-center text-center">
+              <div className="w-full max-w-4xl border-t border-white/20" />
+              <span
+                className="mt-6 text-white text-4xl lg:text-5xl font-serif leading-none select-none"
+                aria-hidden
+              >
+                &ldquo;
+              </span>
+              <p className="mt-4 text-white text-[18px] lg:text-[32px] leading-relaxed max-w-4xl">
+                Wavespace started with design, now we&apos;re building future unicorns. With VC partners and early-stage founders, we combine clarity, code, and capital to launch what&apos;s next.
+              </p>
+            </div>
+          </div>
+        </div>
+      </RevealOnScroll>
+
+      {/* Process behind our design section */}
+      <RevealOnScroll delay={0.1}>
+        <section className="-mx-10 lg:-mx-20 bg-gray-100 py-16 lg:py-40">
+          <div className="max-w-[1400px] mx-auto px-10 lg:px-20">
+            <h2 className="text-left text-[48px] font-bold text-black">
+              The process behind our
+            </h2>
+            <p className="mt-0 text-left text-[48px] font-bold text-black">
+              design of your product
+            </p>
+
+            <div className="mt-12 overflow-x-auto">
+              <div className="flex gap-6 lg:gap-8 min-w-max">
+                {/* Step 01 */}
+                <div className="bg-white rounded-xl shadow-sm p-8 flex flex-col w-[396px] h-[496px] flex-shrink-0">
+                  <span className="text-sm font-semibold text-gray-400">01</span>
+                  <h3 className="mt-4 text-[26px] font-semibold text-midnight-monarch">
+                    Discovery &amp; strategy
+                  </h3>
+                  <p className="mt-3 text-[18px] text-[#7e7e81] leading-relaxed font-semibold">
+                    We align on business goals, audience needs, and product vision, setting a clear
+                    foundation for what we&apos;re building and why.
+                  </p>
+                  <ul className="mt-auto pt-4 space-y-2 text-[18px] text-gray-700 list-disc list-inside font-semibold">
+                    <li>Business goals &amp; product vision</li>
+                    <li>Mission &amp; market positioning</li>
+                    <li>Target users &amp; core audience</li>
+                    <li>Unique value proposition</li>
+                  </ul>
+                </div>
+
+                {/* Step 02 */}
+                <div className="bg-white rounded-xl shadow-sm p-8 flex flex-col w-[396px] h-[496px] flex-shrink-0">
+                <span className="text-sm font-semibold text-gray-400">02</span>
+                <h3 className="mt-4 text-[26px] font-semibold text-midnight-monarch">
+                  Structure the Experience
+                </h3>
+                <p className="mt-3 text-[18px] text-[#7e7e81] leading-relaxed font-semibold">
+                  We map out the user journey, define key screens, and shape the overall flow so
+                  every step feels natural and intuitive.
+                </p>
+                <ul className="mt-auto pt-4 space-y-2 text-[18px] text-gray-700 list-disc list-inside font-semibold">
+                  <li>User flows &amp; journey mapping</li>
+                  <li>Low-fidelity wireframes</li>
+                  <li>Information architecture</li>
+                  <li>Core feature layout &amp; screen logic</li>
+                </ul>
+                </div>
+
+                {/* Step 03 */}
+                <div className="bg-white rounded-xl shadow-sm p-8 flex flex-col w-[396px] h-[496px] flex-shrink-0">
+                <span className="text-sm font-semibold text-gray-400">03</span>
+                <h3 className="mt-4 text-[26px] font-semibold text-midnight-monarch">
+                  Design the Interface
+                </h3>
+                <p className="mt-3 text-[18px] text-[#7e7e81] leading-relaxed font-semibold">
+                  We bring the product to life with a visual language that&apos;s clean, consistent,
+                  and aligned with your brand and users.
+                </p>
+                <ul className="mt-auto pt-4 space-y-2 text-[18px] text-gray-700 list-disc list-inside font-semibold">
+                  <li>UI design &amp; layout</li>
+                  <li>Visual style &amp; color system</li>
+                  <li>Typography &amp; iconography</li>
+                  <li>Interaction states &amp; micro-details</li>
+                </ul>
+                </div>
+
+                {/* Step 04 */}
+                <div className="bg-white rounded-xl shadow-sm p-8 flex flex-col w-[396px] h-[496px] flex-shrink-0">
+                <span className="text-sm font-semibold text-gray-400">04</span>
+                <h3 className="mt-4 text-[26px] font-semibold text-midnight-monarch">
+                  Build for Scale
+                </h3>
+                <p className="mt-3 text-[18px] text-gray-600 leading-relaxed">
+                  We create scalable design systems and handoff-ready files, built for speed,
+                  growth, and smooth collaboration with your dev team.
+                </p>
+                <ul className="mt-auto pt-4 space-y-2 text-[18px] text-gray-700 list-disc list-inside font-semibold">
+                  <li>Design systems &amp; components</li>
+                  <li>Dev-ready Figma files</li>
+                  <li>Handoff documentation</li>
+                  <li>Scalable structure for future updates</li>
+                </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </RevealOnScroll>
+
       <RevealOnScroll delay={0.1}>
         <div className="w-full mt-20">
           <h1 className="text-4xl sm:text-4xl lg:text-6xl font-bold text-midnight-monarch text-center">Value that sets us apart</h1>
@@ -194,157 +383,9 @@ const Page = () => {
           );
         })}
       </div>
-      <RevealOnScroll delay={0.1}>
-        <div className="bg-black -mx-10 lg:-mx-20 px-10 lg:px-20 py-16 mt-25">
-          <h1 className="text-white text-4xl sm:text-4xl lg:text-6xl font-bold text-center py-10">what makes us different from others</h1>
-          <div className="grid lg:grid-cols-2 grid-cols-1 mt-10 gap-10">
-            {[
-              { icon: GrServices, title: "User-centric Core", description: "Our approach starts with understanding your users. We uncover their needs, pain points, and behaviors to create meaningful solutions that resonate." },
-              { icon: GrUserExpert, title: "Expert Team", description: "Our team is made up of experts in their fields. We have a team of experts who are experts in their fields." },
-              { icon: GrUserExpert, title: "Transparent Process", description: "We keep you updated every step of the way. From the initial strategy to the final delivery, you'll always know what's happening and how we're progressing." },
-              { icon: FaLaptopCode, title: "Responsive Agility", description: "We adapt quickly to changing needs and market dynamics. Our flexible approach ensures we're always ready to pivot and deliver the best results." },
-              { icon: SiMicrostrategy, title: "Strategic Innovation", description: "We combine creativity with strategy to deliver impactful solutions. Our innovative ideas drive results and keep us ahead of the competition." },
-              { icon: AiFillDatabase, title: "Data-Driven Insights", description: "We use data to inform our decisions and drive results. We analyze market trends, user behavior, and performance metrics to make informed choices and optimize outcomes." },
-            ].map((item, index) => {
-              const IconComponent = item.icon;
-              return (
-                <RevealOnScroll key={index} delay={index * 0.1}>
-                  <div className="bg-gray-900 border border-gray-800 p-8 rounded-lg">
-                    <IconComponent className="text-purplish-blue text-4xl mb-5" />
-                    <h1 className="text-white text-4xl font-bold">{item.title}</h1>
-                    <p className="text-zinc-300 text-base mt-5">{item.description}</p>
-                  </div>
-                </RevealOnScroll>
-              );
-            })}
-          </div>
-        </div>
-      </RevealOnScroll>
 
       {/* Achieved/Awards Section with Animated Background */}
-      <RevealOnScroll delay={0.1}>
-        <div className="relative -mx-10 lg:-mx-20 px-10 lg:px-20 py-20 lg:py-32 overflow-hidden bg-gray-100">
-        {/* Animated Gradient Background */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* First animated blob */}
-          <motion.div
-            className="absolute -top-1/4 -left-1/4 w-[800px] h-[800px] rounded-full blur-[120px] opacity-60"
-            style={{
-              background: 'radial-gradient(circle, rgba(147, 51, 234, 0.4), rgba(59, 130, 246, 0.4), rgba(236, 72, 153, 0.3), transparent)',
-            }}
-            animate={{
-              x: [0, 100, -50, 0],
-              y: [0, 80, 120, 0],
-              scale: [1, 1.2, 0.9, 1],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-
-          {/* Second animated blob */}
-          <motion.div
-            className="absolute -bottom-1/4 -right-1/4 w-[900px] h-[900px] rounded-full blur-[140px] opacity-50"
-            style={{
-              background: 'radial-gradient(circle, rgba(99, 102, 241, 0.4), rgba(14, 165, 233, 0.4), rgba(168, 85, 247, 0.3), transparent)',
-            }}
-            animate={{
-              x: [0, -120, 0],
-              y: [0, -80, 0],
-              scale: [1, 1.3, 1],
-            }}
-            transition={{
-              duration: 18,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-
-          {/* Third animated blob */}
-          <motion.div
-            className="absolute w-[600px] h-[600px] rounded-full blur-[100px] opacity-40"
-            style={{
-              background: 'radial-gradient(ellipse, rgba(251, 191, 36, 0.3), rgba(251, 146, 60, 0.2), transparent)',
-              top: '50%',
-              left: '50%',
-            }}
-            animate={{
-              rotate: [0, 360],
-              scale: [1, 1.2, 1],
-              x: ['-50%', '-40%', '-50%'],
-              y: ['-50%', '-40%', '-50%'],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        </div>
-
-        {/* Large "Achieved" title - Desktop only */}
-        <div className="relative z-10 mb-16 hidden lg:block">
-          <h1 className="text-7xl lg:text-[12rem] font-bold text-white">
-            Achieved
-          </h1>
-        </div>
-
-        {/* Combined "Achieved Awards" title - Mobile/Tablet only */}
-        <div className="relative z-10 mb-16 lg:hidden text-center">
-          <h1 className="text-6xl md:text-7xl font-bold text-white">
-            Achieved Awards
-          </h1>
-        </div>
-
-        {/* Awards Cards */}
-        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {/* Behance Card */}
-          <div className="group bg-white hover:bg-black rounded-lg p-6 lg:p-8 shadow-lg transition-colors duration-300">
-            <div className="text-4xl lg:text-5xl font-bold text-midnight-monarch group-hover:text-white mb-4 transition-colors duration-300">Bē</div>
-            <h3 className="text-xl lg:text-2xl font-bold text-midnight-monarch group-hover:text-white mb-2 transition-colors duration-300">Behance</h3>
-            <p className="text-gray-600 group-hover:text-gray-300 text-sm lg:text-base transition-colors duration-300">2x Interaction Design awards</p>
-          </div>
-
-          {/* Clutch Card */}
-          <div className="group bg-white hover:bg-black rounded-lg p-6 lg:p-8 shadow-lg transition-colors duration-300 ">
-            <div className="text-4xl lg:text-5xl font-bold text-midnight-monarch group-hover:text-white mb-4 transition-colors duration-300">
-              <span className="inline-block w-16 h-16 rounded-full border-4 border-midnight-monarch group-hover:border-white flex items-center justify-center transition-colors duration-300">C</span>
-            </div>
-            <h3 className="text-xl lg:text-2xl font-bold text-midnight-monarch group-hover:text-white mb-2 transition-colors duration-300">Clutch</h3>
-            <p className="text-gray-600 group-hover:text-gray-300 text-sm lg:text-base transition-colors duration-300">Top B2B Service Provider and UX Design Agency</p>
-          </div>
-
-          {/* Dribbble Card */}
-          <div className="group bg-white hover:bg-black rounded-lg p-6 lg:p-8 shadow-lg transition-colors duration-300 ">
-            <div className="text-4xl lg:text-5xl font-bold text-midnight-monarch group-hover:text-white mb-4 transition-colors duration-300">
-              <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:text-white">
-                <circle cx="32" cy="32" r="28" stroke="currentColor" strokeWidth="3" fill="none" />
-                <path d="M32 10 L42 32 L32 54 L22 32 Z" stroke="currentColor" strokeWidth="3" fill="none" />
-                <circle cx="32" cy="32" r="8" fill="currentColor" />
-              </svg>
-            </div>
-            <h3 className="text-xl lg:text-2xl font-bold text-midnight-monarch group-hover:text-white mb-2 transition-colors duration-300">Dribbble</h3>
-            <p className="text-gray-600 group-hover:text-gray-300 text-sm lg:text-base transition-colors duration-300">One of the best Design Agency</p>
-          </div>
-
-          {/* Upwork Card */}
-          <div className="group bg-white hover:bg-black rounded-lg p-6 lg:p-8 shadow-lg transition-colors duration-300 ">
-            <div className="text-4xl lg:text-5xl font-bold text-midnight-monarch group-hover:text-white mb-4 transition-colors duration-300" style={{ fontFamily: 'sans-serif', letterSpacing: '-2px' }}>up</div>
-            <h3 className="text-xl lg:text-2xl font-bold text-midnight-monarch group-hover:text-white mb-2 transition-colors duration-300">Upwork</h3>
-            <p className="text-gray-600 group-hover:text-gray-300 text-sm lg:text-base transition-colors duration-300">Top Rated Design Agency</p>
-          </div>
-        </div>
-
-        {/* Large "Awards" title at bottom - Desktop only */}
-        <div className="relative z-10 mt-16 text-right hidden lg:block">
-          <h1 className="text-7xl lg:text-[12rem] font-bold text-white">
-            Awards
-          </h1>
-        </div>
-      </div>
-      </RevealOnScroll>
+  
       <RevealOnScroll delay={0.1}>
         <div className="mt-20 mb-20">
           <h1 className="text-2xl font-bold text-midnight-monarch mb-8">Founder & Executive</h1>
@@ -380,6 +421,8 @@ const Page = () => {
           <button className="bg-midnight-monarch hover:bg-purplish-blue text-white px-4 py-2 rounded-full">Join us</button>
         </div>
       </div> */}
+      <SendQuery />
+      </div>
       <Footer />
     </div>
   );

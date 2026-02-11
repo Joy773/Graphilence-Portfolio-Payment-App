@@ -50,7 +50,8 @@ export default function BlogPageContent() {
   const headingLabel = topicLinks.find((t) => t.slug === topicParam)?.label ?? "All Topics";
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[#2d2648] to-[#251870] px-10 lg:px-20">
+    <div className="w-full min-w-0 overflow-x-hidden bg-gradient-to-r from-[#2d2648] to-[#251870]">
+      <div className="w-full max-w-[1400px] mx-auto px-10 lg:px-20 min-h-screen box-border">
       <Navbar variant="gradient" />
       <div className="mt-20 mb-20 flex flex-col lg:flex-row gap-10 lg:gap-12">
         <aside className="w-full lg:w-64 shrink-0 bg-[#2d2648] rounded-xl p-6 lg:p-8 h-fit border border-white/10">
@@ -177,6 +178,7 @@ export default function BlogPageContent() {
             </div>
           )}
         </div>
+      </div>
       </div>
       <Footer />
     </div>

@@ -132,15 +132,12 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
         </div>
         <div className="hidden md:block">
           <motion.button
-            className={`rounded-full px-4 py-2 cursor-pointer font-semibold relative overflow-hidden transition-all ${isGradient ? "text-white bg-midnight-monarch hover:bg-purplish-blue" : "text-white bg-midnight-monarch hover:bg-purplish-blue"}`}
+            className="px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium text-sm md:text-base transition-all cursor-pointer bg-purplish-blue text-white border border-purplish-blue hover:bg-midnight-monarch hover:border-midnight-monarch flex items-center gap-2"
             initial="rest"
             whileHover="hover"
-            variants={{
-              rest: {},
-              hover: {},
-            }}
+            variants={{ rest: {}, hover: {} }}
           >
-            <span className="relative z-10 flex items-center gap-2">
+            <span className="flex items-center gap-2">
               Contact Us
               <motion.svg
                 width="16"
@@ -148,7 +145,6 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
                 viewBox="0 0 16 16"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="relative z-10"
                 variants={{
                   rest: { x: 0 },
                   hover: {
@@ -170,21 +166,6 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
                 />
               </motion.svg>
             </span>
-            <motion.div
-              className="absolute bottom-0 h-0.5 origin-left"
-              style={{ 
-                backgroundColor: isGradient ? 'rgba(255,255,255,0.9)' : '#1A1436',
-                left: '-4px',
-                right: '-4px',
-              }}
-              initial={{ scaleX: 0 }}
-              whileHover={{ scaleX: 1 }}
-              transition={{
-                type: "spring" as const,
-                damping: 20,
-                stiffness: 300,
-              }}
-            />
           </motion.button>
         </div>
 
@@ -272,16 +253,13 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
             ))}
           </ul>
           <motion.button
-            className={`mt-6 rounded-full px-4 py-2 cursor-pointer font-semibold relative overflow-hidden transition-all w-full ${isGradient ? "text-white bg-midnight-monarch hover:bg-purplish-blue" : "text-white bg-midnight-monarch hover:bg-purplish-blue"}`}
+            className="mt-6 w-full px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium text-sm md:text-base transition-all cursor-pointer bg-purplish-blue text-white border border-purplish-blue hover:bg-midnight-monarch hover:border-midnight-monarch flex items-center justify-center gap-2"
             initial="rest"
             whileHover="hover"
-            variants={{
-              rest: {},
-              hover: {},
-            }}
+            variants={{ rest: {}, hover: {} }}
             onClick={() => setIsMenuOpen(false)}
           >
-            <span className="relative z-10 flex items-center justify-center gap-2">
+            <span className="flex items-center gap-2">
               Contact Us
               <motion.svg
                 width="16"
@@ -289,14 +267,15 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
                 viewBox="0 0 16 16"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="relative z-10"
-                initial={{ x: 0 }}
-                whileHover={{
-                  x: [0, 4, 0],
-                  transition: {
-                    duration: 0.6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
+                variants={{
+                  rest: { x: 0 },
+                  hover: {
+                    x: [0, 4, 0],
+                    transition: {
+                      duration: 0.6,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    },
                   },
                 }}
               >
@@ -309,21 +288,6 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
                 />
               </motion.svg>
             </span>
-            <motion.div
-              className="absolute bottom-0 h-0.5 origin-left"
-              style={{ 
-                backgroundColor: isGradient ? 'rgba(255,255,255,0.9)' : '#1A1436',
-                left: '-4px',
-                right: '-4px',
-              }}
-              initial={{ scaleX: 0 }}
-              whileHover={{ scaleX: 1 }}
-              transition={{
-                type: "spring" as const,
-                damping: 20,
-                stiffness: 300,
-              }}
-            />
           </motion.button>
           </motion.div>
         )}
